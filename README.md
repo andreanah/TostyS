@@ -21,7 +21,7 @@ Creación de Tablas [User][Format][Genre][Artist][Product][ProductFormat][Shoppi
 Fecha de creación: 2021-02-01
 
 Instrucciones: 
-Descargue el script de la base de datos, despues importe el script dentro del sql managment. Una vez adentro con el script abierto proceda a correr el código.
+Descargue el script de la base de datos, después importe el script dentro del programa SQL Managment. Una vez dentro con el script abierto proceda a correr el código para generar la base de datos y las tablas requeridas para el correcto funcionamiento de la aplicación.
 
 
 
