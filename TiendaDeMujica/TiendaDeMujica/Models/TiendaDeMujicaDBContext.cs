@@ -8,7 +8,9 @@ namespace TiendaDeMujica.Models
 {
     public class TiendaDeMujicaDBContext : DbContext
     {
-        //public DbSet<> { get; set; }
+        public DbSet<CreditCard> CreditCard{ get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet <Address> Address { get; set; }
 
         public TiendaDeMujicaDBContext()
         {
@@ -19,10 +21,76 @@ namespace TiendaDeMujica.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<>(entity =>
-            //{
+            modelBuilder.Entity<CreditCard>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.CreditCardNumber)
+                .HasMaxLength(16)
+                .IsRequired()
+                .IsUnicode(false);
+                entity.Property(e => e.DateBirth)
+                .HasColumnType("DateTime")
+                .IsRequired();
 
-            //});
+                entity.HasOne(e => e.Username)
+                .WithMany(y => y.CreditCard)
+                .HasForeignKey("FK_CreditCardUser");
+
+            });
+
+            modelBuilder.Entity<Address>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Street)
+                .HasMaxLength(20)
+                .IsRequired()
+                .IsUnicode(false);
+                entity.Property(e => e.CP)
+                .HasMaxLength(10)
+                .IsRequired()
+                .IsUnicode(false);
+                entity.Property(e => e.City)
+                .HasMaxLength(20)
+                .IsRequired()
+                .IsUnicode(false);
+                entity.Property(e => e.Country)
+                .HasMaxLength(20)
+                .IsRequired()
+                .IsUnicode(false);
+                entity.Property(e => e.Suburb)
+                .HasMaxLength(20)
+                .IsRequired()
+                .IsUnicode(false);
+               
+
+                entity.HasOne(e => e.Username)
+                .WithOne(y => y.Address)
+                .HasForeignKey("FK_AddressUser");
+
+            });
+
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Status)
+                .HasMaxLength(30)
+                .IsRequired()
+                .IsUnicode(false);
+                entity.Property(e => e.Total)
+                .HasColumnType("decimal")
+                .IsRequired();
+                
+
+                entity.HasOne(e => e.Username)
+                .WithOne(y => y.Order)
+                .HasForeignKey("FK_OrderUser");
+
+                object p = entity.HasOne(e => e.Order)
+                .WithMany(y => y.IdAddress)
+                .HasForeignKey("FK_OrderAddress");
+
+
+            });
         }
     }
 }
