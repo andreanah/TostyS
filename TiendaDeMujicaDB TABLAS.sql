@@ -200,7 +200,6 @@ CREATE TABLE [Order](
 	
 	IdAddress INT NOT NULL,
 	Username VARCHAR(15) NOT NULL,
-	IdProduct INT NOT NULL,
 	
 	CONSTRAINT FK_OrderUser
 	FOREIGN KEY (Username) REFERENCES [User](Username),
