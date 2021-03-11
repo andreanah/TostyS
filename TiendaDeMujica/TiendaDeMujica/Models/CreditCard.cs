@@ -7,6 +7,7 @@ namespace TiendaDeMujica.Models
 {
     public class CreditCard
     {
+        //credit
         public int Id { get; set; }
 
         public DateTime DateBirth { get; set; }

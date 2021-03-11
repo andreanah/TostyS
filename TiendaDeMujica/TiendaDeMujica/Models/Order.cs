@@ -17,6 +17,6 @@ namespace TiendaDeMujica.Models
 
         public virtual User Username { get; set; }
 
-       
+       //order
     }
 }
