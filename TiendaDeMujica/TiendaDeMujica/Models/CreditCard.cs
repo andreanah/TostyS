@@ -11,6 +11,8 @@ namespace TiendaDeMujica.Models
         public DateTime DateBirth { get; set; }
         public string CreditCardNumber { get; set; }
 
+        public string Username { get; set; }
+
         public virtual User User { get; set; }
     }
 }

@@ -8,6 +8,7 @@ namespace TiendaDeMujica.Models
     public class ProductFormat
     {
         public int Id { get; set; }
+
         public int IdProduct { get; set; }
         public int IdFormat { get; set; }
 

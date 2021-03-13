@@ -11,6 +11,9 @@ namespace TiendaDeMujica.Models
         public decimal Total { get; set; }
         public string Status { get; set; }
 
+        public int IdAddress { get; set; }
+        public string Username { get; set; }
+
         public virtual Address Address { get; set; }
         public virtual User User { get; set; }
 
