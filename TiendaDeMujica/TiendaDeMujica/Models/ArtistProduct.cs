@@ -11,7 +11,8 @@ namespace TiendaDeMujica.Models
         public int IdArtist { get; set; }
         public int IdProduct { get; set; }
 
-        public virtual ICollection<Artist> Artist { get; set; }
-        public virtual ICollection<Product> Product { get; set; }
+
+        public virtual Artist Artist { get; set; }
+        public virtual Product Product { get; set; }
     }
 }
