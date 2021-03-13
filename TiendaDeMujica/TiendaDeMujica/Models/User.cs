@@ -13,6 +13,7 @@ namespace TiendaDeMujica.Models
         public string Email { get; set; }
         public string? PhoneNumber { get; set; }
         public bool Active { get; set; }
+
         public virtual ICollection<Address> Address { get; set; }
         public virtual ICollection<Order> Order { get; set; }
         public virtual ICollection<ShoppingCart> ShoppingCart { get; set; }

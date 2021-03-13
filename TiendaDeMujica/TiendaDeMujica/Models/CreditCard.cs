@@ -7,13 +7,10 @@ namespace TiendaDeMujica.Models
 {
     public class CreditCard
     {
-        //credit
         public int Id { get; set; }
-
         public DateTime DateBirth { get; set; }
-
         public string CreditCardNumber { get; set; }
 
-        public virtual User Username { get; set; }
+        public virtual User User { get; set; }
     }
 }

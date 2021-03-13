@@ -13,6 +13,7 @@ namespace TiendaDeMujica.Models
         public string Description { get; set; }
         public bool Active { get; set; }
 
+        public virtual ICollection<ArtistProduct> ArtistProduct { get; set; }
     }
 }
 
