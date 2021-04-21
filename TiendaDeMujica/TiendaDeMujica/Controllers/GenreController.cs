@@ -20,12 +20,12 @@ namespace TiendaDeMujica.Controllers
             this.dbContext = dbContext;
         }
 
-        // GET: api/genre/get
+        // GET: api/genre/getall
         [HttpGet]
         public IEnumerable<Genre> GetAll()
         {
             List<Genre> genres = dbContext.Genre.ToList();
-
+            
             //LINQ
             //List<Genre> genres = dbContext.Genre.Where(Genre => Genre.Active == true).ToList();
 
