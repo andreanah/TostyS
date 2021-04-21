@@ -181,6 +181,9 @@ namespace TiendaDeMujica.Models
             {
                 entity.HasKey(e => e.Id);
 
+                entity.Property(e => e.Quantity)
+                    .IsRequired();
+
                 entity.Property(e => e.IdProduct)
                     .IsRequired();
                 entity.Property(e => e.IdOrder)

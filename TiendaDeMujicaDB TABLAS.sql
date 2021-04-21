@@ -409,6 +409,7 @@ GO
 CREATE TABLE OrderProduct(
 	Id INT NOT NULL,
 	
+	Quantity INT NOT NULL,
 	IdProduct INT NOT NULL,
 	IdOrder INT NOT NULL,
 	
