@@ -12,7 +12,7 @@ namespace TiendaDeMujica.Models
         public string Status { get; set; }
 
         public int IdAddress { get; set; }
-        public string Username { get; set; }
+        public string IdUser { get; set; }
 
         public virtual Address Address { get; set; }
         public virtual User User { get; set; }

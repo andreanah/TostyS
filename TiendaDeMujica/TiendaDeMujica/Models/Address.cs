@@ -14,7 +14,7 @@ namespace TiendaDeMujica.Models
         public string Country { get; set; }
         public string Suburb { get; set; }
 
-        public string Username{ get; set; }
+        public string IdUser{ get; set; }
 
         public virtual ICollection<Order> Order { get; set; }
 
