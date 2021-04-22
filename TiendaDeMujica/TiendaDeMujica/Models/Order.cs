@@ -10,6 +10,7 @@ namespace TiendaDeMujica.Models
         public int Id { get; set; }
         public decimal Total { get; set; }
         public string Status { get; set; }
+        public bool Active { get; set; }
 
         public int IdAddress { get; set; }
         public string IdUser { get; set; }

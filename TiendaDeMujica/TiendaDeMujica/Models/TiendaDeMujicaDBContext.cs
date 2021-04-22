@@ -57,6 +57,11 @@ namespace TiendaDeMujica.Models
                     .HasMaxLength(20)
                     .IsRequired()
                     .IsUnicode(false);
+                entity.Property(e => e.Active)
+                    .HasColumnType("bit")
+                    .IsRequired()
+                    .HasDefaultValue(1);
+
                 entity.Property(e => e.IdUser)
                     .HasMaxLength(450)
                     .IsRequired()
@@ -139,6 +144,10 @@ namespace TiendaDeMujica.Models
                     .HasMaxLength(15)
                     .IsUnicode(false)
                     .IsRequired();
+                entity.Property(e => e.Active)
+                    .HasColumnType("bit")
+                    .IsRequired()
+                    .HasDefaultValue(1);
             });
             modelBuilder.Entity<Genre>(entity =>
             {
@@ -164,6 +173,10 @@ namespace TiendaDeMujica.Models
                 entity.Property(e => e.Total)
                     .HasColumnType("decimal")
                     .IsRequired();
+                entity.Property(e => e.Active)
+                    .HasColumnType("bit")
+                    .IsRequired()
+                    .HasDefaultValue(1);
 
                 entity.Property(e => e.IdAddress)
                     .IsRequired();

@@ -10,7 +10,7 @@ namespace TiendaDeMujica.Models
         public int Id { get; set; }
         public string TypeCode { get; set; }
         public string Type { get; set; }
-
+        public bool Active { get; set; }
         public virtual ICollection<ProductFormat> ProductFormat { get; set; }
     }
 }
