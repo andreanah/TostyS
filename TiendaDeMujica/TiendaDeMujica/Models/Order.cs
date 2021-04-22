@@ -8,7 +8,7 @@ namespace TiendaDeMujica.Models
     public class Order
     {
         public int Id { get; set; }
-        public decimal Total { get; set; }
+        public float Total { get; set; }
         public string Status { get; set; }
         public bool Active { get; set; }
 

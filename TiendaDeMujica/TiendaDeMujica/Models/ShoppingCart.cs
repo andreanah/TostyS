@@ -9,6 +9,8 @@ namespace TiendaDeMujica.Models
     {
         public int Id { get; set; }
 
+        public int Quantity { get; set; }
+
         public int IdProduct { get; set; }
         public string IdUser { get; set; }
 
