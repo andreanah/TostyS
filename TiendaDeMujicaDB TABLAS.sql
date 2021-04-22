@@ -164,7 +164,7 @@ CREATE TABLE [dbo].[AspNetUsers](
 	[LockoutEnabled] [bit] NOT NULL,
 	[AccessFailedCount] [int] NOT NULL,
 	[Name] VARCHAR(50) NOT NULL,
-	[Active] BIT NOT NULL,
+	[Active] BIT NOT NULL DEFAULT(1),
  CONSTRAINT [PK_AspNetUsers] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -251,6 +251,7 @@ GO
 CREATE TABLE Genre(
 	Id INT NOT NULL IDENTITY(1,1),
 	GenreName VARCHAR(30) NOT NULL,
+	Active BIT NOT NULL DEFAULT(1),
 	
 	PRIMARY KEY(Id),
 );
@@ -264,7 +265,7 @@ CREATE TABLE Artist (
 	StageName VARCHAR(50) NOT NULL,
 	RealName VARCHAR(50) NOT NULL,
 	[Description] VARCHAR(50) NOT NULL,
-	Active BIT NOT NULL,
+	Active BIT NOT NULL DEFAULT(1),
 
 	PRIMARY KEY(Id),
 );
@@ -278,7 +279,7 @@ CREATE TABLE Product(
 	[Name] VARCHAR(50) NOT NULL,
 	Price DECIMAL NOT NULL,
 	[Description] VARCHAR(MAX) NULL,
-	Active BIT NOT NULL,
+	Active BIT NOT NULL DEFAULT(1),
 
 	IdGenre INT NOT NULL,
 

@@ -85,7 +85,8 @@ namespace TiendaDeMujica.Models
                     .IsRequired();
                 entity.Property(e => e.Active)
                     .HasColumnType("bit")
-                    .IsRequired();
+                    .IsRequired()
+                    .HasDefaultValue(1);
             });
             modelBuilder.Entity<ArtistProduct>(entity =>
             {
@@ -147,6 +148,10 @@ namespace TiendaDeMujica.Models
                     .HasMaxLength(30)
                     .IsUnicode(false)
                     .IsRequired();
+                entity.Property(e => e.Active)
+                    .HasColumnType("bit")
+                    .IsRequired()
+                    .HasDefaultValue(1);
             });
             modelBuilder.Entity<Order>(entity =>
             {
@@ -227,7 +232,8 @@ namespace TiendaDeMujica.Models
                     .IsRequired(false);
                 entity.Property(e => e.Active)
                     .HasColumnType("bit")
-                    .IsRequired();
+                    .IsRequired()
+                    .HasDefaultValue(1);
 
                 entity.Property(e => e.IdGenre)
                     .IsRequired();
@@ -286,7 +292,8 @@ namespace TiendaDeMujica.Models
                     .IsRequired();
                 user.Property(e => e.Active)
                     .HasColumnType("bit")
-                    .IsRequired();
+                    .IsRequired()
+                    .HasDefaultValue(1);
             });
             
             modelBuilder.Entity<IdentityRole<string>>(entity =>

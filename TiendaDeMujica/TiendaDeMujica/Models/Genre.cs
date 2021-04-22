@@ -9,6 +9,7 @@ namespace TiendaDeMujica.Models
     {
         public int Id { get; set; }
         public string GenreName { get; set; }
+        public bool Active { get; set; }
 
         public virtual ICollection<Product> Product { get; set; }
     }

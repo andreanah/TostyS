@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using TiendaDeMujica.Classes.Core;
 using TiendaDeMujica.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,42 +22,84 @@ namespace TiendaDeMujica.Controllers
             this.dbContext = dbContext;
         }
 
-        // GET: api/genre/getall
         [HttpGet]
-        public IEnumerable<Genre> GetAll()
+        public IActionResult GetAll()
         {
-            List<Genre> genres = dbContext.Genre.ToList();
-            
-            //LINQ
-            //List<Genre> genres = dbContext.Genre.Where(Genre => Genre.Active == true).ToList();
-
-            return genres;
+            try
+            {
+                GenreCore genreCore = new GenreCore(dbContext);
+                return Ok(genreCore.GetAll());
+            }
+            catch(Exception e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+            }
         }
 
-        // GET api/<GenreController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get([FromRoute] int id)
         {
-            return "value";
+            try
+            {
+                GenreCore genreCore = new GenreCore(dbContext);
+                return Ok(genreCore.Get(id));
+            }
+            catch (Exception e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+            }
         }
-/*
-        // POST api/<GenreController>
+
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Create([FromBody] Genre genre)
         {
+            try
+            {
+                GenreCore genreCore = new GenreCore(dbContext);
+                /*Genre genre = new Genre
+                {
+                    GenreName = "Acid Jazz"
+                };*/
+
+                genreCore.Create(genre);
+                return Ok("Added new genre successfully!");
+            }
+            catch(Exception e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+            }
         }
 
-        // PUT api/<GenreController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Update([FromBody] Genre genre, [FromRoute] int id)
         {
+            try
+            {
+                GenreCore genreCore = new GenreCore(dbContext);
+
+                genreCore.Update(genre, id);
+                return Ok("Genre successfully edited!");
+            }
+            catch (Exception e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+            }
         }
 
-        // DELETE api/<GenreController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Disable([FromRoute] int id)
         {
+            try
+            {
+                GenreCore genreCore = new GenreCore(dbContext);
+
+                genreCore.Disable(id);
+                return Ok("Genre successfully disabled!");
+            }
+            catch (Exception e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+            }
         }
-*/
     }
 }
