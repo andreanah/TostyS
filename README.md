@@ -3,13 +3,13 @@
 
 ### **Integrantes** :
 
-*1803204 Andrea Nahomi Rosas Sanchez
+*1803204 Andrea Nahomi Rosas Sanchez*
 
-*1800066 Edgar Alejandro Niño Sanchez
+*1800066 Edgar Alejandro Niño Sanchez*
 
-*1662578 Ligia Samara Diaz Hirashi 
+*1662578 Ligia Samara Diaz Hirashi*
 
-*1803707 Abraham Reyes Muñiz
+*1803707 Abraham Reyes Muñiz*
 
 
 ### **Descripción** :
