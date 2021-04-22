@@ -28,7 +28,7 @@ namespace TiendaDeMujica.Controllers
             try
             {
                 GenreCore genreCore = new GenreCore(dbContext);
-                return Ok(genreCore.GetAll());
+                return Ok(genreCore.Get());
             }
             catch(Exception e)
             {

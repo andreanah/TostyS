@@ -14,7 +14,7 @@ namespace TiendaDeMujica.Classes.Core
             this.dBContext = dBContext;
         }
 
-        public List<Genre> GetAll()
+        public List<Genre> Get()
         {
             try
             {
