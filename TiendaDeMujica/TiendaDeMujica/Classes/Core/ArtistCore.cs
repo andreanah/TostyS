@@ -88,6 +88,7 @@ namespace TiendaDeMujica.Classes.Core
                     if (existingArtist)
                     {
                         artist.Id = id;
+                        artist.Active = true;
 
                         dBContext.Update(artist);
                         dBContext.SaveChanges();
