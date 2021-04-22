@@ -87,6 +87,7 @@ namespace TiendaDeMujica.Classes.Core
                     {
                         genre.Id = id;
                         genre.Active = true;
+
                         //Genre genredb = dBContext.Genre.First(genre => genre.Id == id);
                         //genredb.GenreName = genre.GenreName;
 
