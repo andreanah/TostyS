@@ -103,11 +103,13 @@ namespace TiendaDeMujica.Models
 
                 entity.HasOne(e => e.Artist)
                     .WithMany(y => y.ArtistProduct)
-                    .HasForeignKey("FK_ArtistProductArtist");
+                    .HasForeignKey(p => p.IdArtist)
+                    .HasConstraintName("FK_ArtistProductArtist");
 
                 entity.HasOne(e => e.Product)
                     .WithMany(y => y.ArtistProduct)
-                    .HasForeignKey("FK_ArtistProductProduct");
+                    .HasForeignKey(p => p.IdProduct)
+                    .HasConstraintName("FK_ArtistProductProduct");
             });
             modelBuilder.Entity<CreditCard>(entity =>
             {
@@ -128,7 +130,8 @@ namespace TiendaDeMujica.Models
 
                 entity.HasOne(e => e.User)
                     .WithMany(y => y.CreditCard)
-                    .HasForeignKey("FK_CreditCardUser");
+                    .HasForeignKey(p => p.IdUser)
+                    .HasConstraintName("FK_CreditCardUser");
 
             });
             modelBuilder.Entity<Format>(entity =>
@@ -234,7 +237,8 @@ namespace TiendaDeMujica.Models
 
                 entity.HasOne(e => e.Product)
                     .WithMany(y => y.Photos)
-                    .HasForeignKey("FK_PhotosProduct");
+                    .HasForeignKey(p => p.IdProduct)
+                    .HasConstraintName("FK_PhotosProduct");
             });
             modelBuilder.Entity<Product>(entity =>
             {
@@ -258,9 +262,9 @@ namespace TiendaDeMujica.Models
                     .IsRequired();
 
                 entity.HasOne(e => e.Genre)
-                .WithMany(y => y.Product)
-                .HasForeignKey(p => p.IdGenre)
-                .HasConstraintName("FK_ProductGenre");
+                    .WithMany(y => y.Product)
+                    .HasForeignKey(p => p.IdGenre)
+                    .HasConstraintName("FK_ProductGenre");
             });
             modelBuilder.Entity<ProductFormat>(entity =>
             {
@@ -273,11 +277,13 @@ namespace TiendaDeMujica.Models
 
                 entity.HasOne(e => e.Product)
                     .WithMany(y => y.ProductFormat)
-                    .HasForeignKey("FK_ProductFormatProduct");
+                    .HasForeignKey(p => p.IdProduct)
+                    .HasConstraintName("FK_ProductFormatProduct");
 
                 entity.HasOne(e => e.Format)
                     .WithMany(y => y.ProductFormat)
-                    .HasForeignKey("FK_ProductFormatFormat");
+                    .HasForeignKey(p => p.IdFormat)
+                    .HasConstraintName("FK_ProductFormatFormat");
             });
             modelBuilder.Entity<ShoppingCart>(entity =>
             {
@@ -292,16 +298,15 @@ namespace TiendaDeMujica.Models
                     .IsRequired()
                     .IsUnicode(false);
 
-
                 entity.HasOne(e => e.Product)
-                .WithMany(y => y.ShoppingCart)
-                .HasForeignKey(p => p.IdProduct)
-                .HasConstraintName("FK_ShoppingCartProduct");
+                    .WithMany(y => y.ShoppingCart)
+                    .HasForeignKey(p => p.IdProduct)
+                    .HasConstraintName("FK_ShoppingCartProduct");
 
                 entity.HasOne(e => e.User)
-                .WithMany(y => y.ShoppingCart)
-                .HasForeignKey(p => p.IdUser)
-                .HasConstraintName("FK_ShoppingCartUser");
+                    .WithMany(y => y.ShoppingCart)
+                    .HasForeignKey(p => p.IdUser)
+                    .HasConstraintName("FK_ShoppingCartUser");
             });
 
             modelBuilder.Entity<User>(user =>
