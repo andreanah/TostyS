@@ -197,6 +197,12 @@ namespace TiendaDeMujica.Models
 
                 entity.Property(e => e.Quantity)
                     .IsRequired();
+                entity.Property(e => e.UnitPrice)
+                    .HasColumnType("decimal")
+                    .IsRequired();
+                entity.Property(e => e.TotalPrice)
+                    .HasColumnType("decimal")
+                    .IsRequired();
 
                 entity.Property(e => e.IdProduct)
                     .IsRequired();
