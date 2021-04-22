@@ -11,7 +11,7 @@ using TiendaDeMujica.Models;
 
 namespace TiendaDeMujica.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ProductFormatController : ControllerBase
     {
@@ -75,6 +75,22 @@ namespace TiendaDeMujica.Controllers
 
                 productFormatCore.Update(productFormat, id);
                 return Ok("Product-format successfully edited!");
+            }
+            catch (Exception e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            try
+            {
+                ProductFormatCore productFormatCore = new ProductFormatCore(dbContext);
+
+                productFormatCore.Delete(id);
+                return Ok("Product-format successfully deleted!");
             }
             catch (Exception e)
             {

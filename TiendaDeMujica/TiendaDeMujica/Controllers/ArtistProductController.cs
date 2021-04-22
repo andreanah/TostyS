@@ -11,7 +11,7 @@ using TiendaDeMujica.Models;
 
 namespace TiendaDeMujica.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ArtistProductController : ControllerBase
     {
@@ -75,6 +75,22 @@ namespace TiendaDeMujica.Controllers
 
                 artistProductCore.Update(artistProduct, id);
                 return Ok("Artist-product successfully edited!");
+            }
+            catch (Exception e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            try
+            {
+                ArtistProductCore artistProductCore = new ArtistProductCore(dbContext);
+
+                artistProductCore.Delete(id);
+                return Ok("Artist-product successfully deleted!");
             }
             catch (Exception e)
             {

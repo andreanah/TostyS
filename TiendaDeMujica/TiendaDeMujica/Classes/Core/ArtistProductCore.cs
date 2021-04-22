@@ -97,5 +97,22 @@ namespace TiendaDeMujica.Classes.Core
                 throw e;
             }
         }
+
+        public void Delete(int id)
+        {
+            try
+            {
+                ArtistProduct artistProduct = dBContext.ArtistProduct.FirstOrDefault(x => x.Id == id);
+                if (artistProduct != null)
+                {
+                    dBContext.ArtistProduct.Remove(artistProduct);
+                    dBContext.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }
