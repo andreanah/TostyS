@@ -9,15 +9,9 @@ Integrantes:
 1800066 Edgar Alejandro Niño Sanchez
 1803204 Andrea Nahomi Rosas Sanchez
 
-QUERY #1
+QUERY #2
 
 Descripción:
-
-Creación de la base de datos [TiendaDeMujicaDB]
-
-Creación de Tablas [User][Format][Genre][Artist][Product][ProductFormat][ShoppingCart][ArtistProduct][Photos][Orders][Adress][CreditCards][OrderProducts]
-
-Fecha de creación: 2021-02-01
 
 -Se borro la tabla User por ASPNetUsers
 
@@ -25,20 +19,21 @@ Fecha de creación: 2021-02-01
 
 -Foreign Keys corregidos en [ShoppingCart][Address][Order][CreditCard] se cambio User a ASPNetUsers y el nombre de las variables Username por IdUser
 
+-Se agregaron las columnas Quantity, TotalPrice y UnitPrice
+
+-Se agregaron las columnas Active a Format, Order y Genre
+
+-Se le agrego el constraint default al campo Active de Product y Artist
+
 Fecha de actualización: 2021-04-21
 */
 
-CREATE DATABASE TiendaDeMujicaDB;
+USE [TiendaDeMujicaDB]
 GO
 
 /***************************
 TABLAS ASPNET
 ****************************/
-
-
-USE [TiendaDeMujicaDB]
-GO
-
 
 /****** Object:  Table [dbo].[AspNetRoleClaims]    Script Date: 27/03/2021 11:05:23 a. m. ******/
 
@@ -233,80 +228,41 @@ GO
 TABLAS Base de Datos
 ****************************/
 
-IF OBJECT_ID('dbo.[Format]', 'U') IS NOT NULL
-	DROP TABLE dbo.[Format];
-GO
-CREATE TABLE [Format](
-	Id INT NOT NULL IDENTITY(1,1),
-	TypeCode VARCHAR(3) NOT NULL,
-	[Type] VARCHAR(15) NOT NULL,
-	
-	PRIMARY KEY(Id),
-);
+ALTER TABLE ShoppingCart 
+DROP CONSTRAINT FK_ShoppingCartUser;   
 GO
 
-IF OBJECT_ID('dbo.Genre', 'U') IS NOT NULL
-	DROP TABLE dbo.Genre;
-GO
-CREATE TABLE Genre(
-	Id INT NOT NULL IDENTITY(1,1),
-	GenreName VARCHAR(30) NOT NULL,
-	Active BIT NOT NULL DEFAULT(1),
-	
-	PRIMARY KEY(Id),
-);
+ALTER TABLE ShoppingCart 
+DROP CONSTRAINT FK_ShoppingCartProduct;   
 GO
 
-IF OBJECT_ID('dbo.Artist', 'U') IS NOT NULL
-	DROP TABLE dbo.Artist;
-GO
-CREATE TABLE Artist (
-	Id INT NOT NULL IDENTITY(1,1),
-	StageName VARCHAR(50) NOT NULL,
-	RealName VARCHAR(50) NOT NULL,
-	[Description] VARCHAR(50) NOT NULL,
-	Active BIT NOT NULL DEFAULT(1),
-
-	PRIMARY KEY(Id),
-);
+ALTER TABLE [Address] 
+DROP CONSTRAINT FK_AddressUser;   
 GO
 
-IF OBJECT_ID('dbo.Product', 'U') IS NOT NULL
-	DROP TABLE dbo.Product;
-GO
-CREATE TABLE Product(
-	Id INT NOT NULL IDENTITY(1,1),
-	[Name] VARCHAR(50) NOT NULL,
-	Price DECIMAL NOT NULL,
-	[Description] VARCHAR(MAX) NULL,
-	Active BIT NOT NULL DEFAULT(1),
-
-	IdGenre INT NOT NULL,
-
-	CONSTRAINT FK_ProductGenre
-	FOREIGN KEY (IdGenre) REFERENCES Genre(Id),
-
-	PRIMARY KEY(Id),
-);
+ALTER TABLE CreditCard 
+DROP CONSTRAINT FK_CreditCardUser;   
 GO
 
-IF OBJECT_ID('dbo.ProductFormat', 'U') IS NOT NULL
-	DROP TABLE dbo.ProductFormat;
+ALTER TABLE [Order] 
+DROP CONSTRAINT FK_OrderUser;   
 GO
-CREATE TABLE ProductFormat(
-	Id INT NOT NULL IDENTITY(1,1),
 
-	IdProduct INT NOT NULL,
-	IdFormat INT NOT NULL,
+ALTER TABLE [Order] 
+DROP CONSTRAINT FK_OrderAddress;   
+GO
 
-	CONSTRAINT FK_ProductFormatProduct
-	FOREIGN KEY(IdProduct) REFERENCES Product,
+ALTER TABLE OrderProduct
+DROP CONSTRAINT FK_OrderProductOrder;   
+GO
 
-	CONSTRAINT FK_ProductFormatFormat
-	FOREIGN KEY(IdFormat) REFERENCES [Format],
+DROP TABLE [User];
 
-	PRIMARY KEY(Id),
-);
+DROP TABLE ShoppingCart;
+DROP TABLE [Address];
+DROP TABLE CreditCard;
+DROP TABLE [Order];
+
 GO
 
 IF OBJECT_ID('dbo.ShoppingCart', 'U') IS NOT NULL
@@ -323,41 +279,6 @@ CREATE TABLE ShoppingCart(
 
 	CONSTRAINT FK_ShoppingCartUser
 	FOREIGN KEY (IdUser) REFERENCES [AspNetUsers](Id),
-
-	PRIMARY KEY(Id),
-);
-GO
-
-IF OBJECT_ID('dbo.ArtistProduct', 'U') IS NOT NULL
-	DROP TABLE dbo.ArtistProduct;
-GO
-CREATE TABLE ArtistProduct (
-	Id INT NOT NULL IDENTITY(1,1),
-
-	IdArtist INT NOT NULL,
-	IdProduct INT NOT NULL,
-	
-	CONSTRAINT FK_ArtistProductArtist
-	FOREIGN KEY(IdArtist) REFERENCES Artist(Id),
-
-	CONSTRAINT FK_ArtistProductProduct
-	FOREIGN KEY(IdProduct) REFERENCES Product(Id),
-
-	PRIMARY KEY(Id)
-);
-GO
-
-IF OBJECT_ID('dbo.Photos', 'U') IS NOT NULL
-	DROP TABLE dbo.Photos;
-GO
-CREATE TABLE Photos(
-	Id INT NOT NULL IDENTITY(1,1),
-	[Image] IMAGE NOT NULL,
-
-	IdProduct INT NOT NULL,
-
-	CONSTRAINT FK_PhotosProduct
-	FOREIGN KEY(IdProduct) REFERENCES Product(Id),
 
 	PRIMARY KEY(Id),
 );
@@ -390,7 +311,8 @@ CREATE TABLE [Order](
 	Id INT NOT NULL,
 	Total DECIMAL NOT NULL,
 	[Status] VARCHAR(30)NOT NULL,
-	
+	Active BIT NOT NULL DEFAULT(1),
+
 	IdAddress INT NOT NULL,
 	[IdUser] [nvarchar](450) NOT NULL,
 	
@@ -399,26 +321,6 @@ CREATE TABLE [Order](
 	
 	CONSTRAINT FK_OrderAddress
 	FOREIGN KEY (IdAddress) REFERENCES [Address](Id),
-	
-	PRIMARY KEY (Id),
-); 
-GO
-
-IF OBJECT_ID('dbo.OrderProduct', 'U') IS NOT NULL
-	DROP TABLE dbo.OrderProduct;
-GO
-CREATE TABLE OrderProduct(
-	Id INT NOT NULL,
-	
-	Quantity INT NOT NULL,
-	IdProduct INT NOT NULL,
-	IdOrder INT NOT NULL,
-	
-	CONSTRAINT FK_OrderProductProduct
-	FOREIGN KEY (IdProduct) REFERENCES Product(Id),
-	
-	CONSTRAINT FK_OrderProductOrder
-	FOREIGN KEY (IdOrder) REFERENCES [Order](Id),
 	
 	PRIMARY KEY (Id),
 ); 
@@ -440,3 +342,29 @@ CREATE TABLE CreditCard(
 	PRIMARY KEY (Id)
 ); 
 GO
+
+ALTER TABLE [Format]
+ADD Active BIT NOT NULL DEFAULT(1)
+
+ALTER TABLE Genre
+ADD Active BIT NOT NULL DEFAULT(1)
+
+ALTER TABLE Artist 
+ADD DEFAULT(1) FOR Active;
+
+ALTER TABLE Product 
+ADD DEFAULT(1) FOR Active;
+
+ALTER TABLE [OrderProduct]
+ADD CONSTRAINT FK_OrderProductOrder
+FOREIGN KEY (IdOrder) REFERENCES [Order](Id)
+GO
+
+ALTER TABLE [OrderProduct]
+ADD Quantity INT NOT NULL
+
+ALTER TABLE [OrderProduct]
+ADD UnitPrice DECIMAL NOT NULL
+
+ALTER TABLE [OrderProduct]
+ADD TotalPrice DECIMAL NOT NULL
