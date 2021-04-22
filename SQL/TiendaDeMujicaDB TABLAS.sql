@@ -165,7 +165,7 @@ IF OBJECT_ID('dbo.[Address]', 'U') IS NOT NULL
 	DROP TABLE dbo.[Address];
 GO
 CREATE TABLE [Address](
-	Id INT NOT NULL,
+	Id INT NOT NULL IDENTITY(1,1),
 	Street VARCHAR(20) NOT NULL,
 	CP VARCHAR(10) NOT NULL,
 	City VARCHAR(20) NOT NULL,
@@ -185,7 +185,7 @@ IF OBJECT_ID('dbo.[Order]', 'U') IS NOT NULL
 	DROP TABLE dbo.[Order];
 GO
 CREATE TABLE [Order](
-	Id INT NOT NULL,
+	Id INT NOT NULL IDENTITY(1,1),
 	Total DECIMAL NOT NULL,
 	[Status] VARCHAR(30)NOT NULL,
 	
@@ -206,7 +206,7 @@ IF OBJECT_ID('dbo.OrderProduct', 'U') IS NOT NULL
 	DROP TABLE dbo.OrderProduct;
 GO
 CREATE TABLE OrderProduct(
-	Id INT NOT NULL,
+	Id INT NOT NULL IDENTITY(1,1),
 	
 	IdProduct INT NOT NULL,
 	IdOrder INT NOT NULL,
@@ -225,7 +225,7 @@ IF OBJECT_ID('dbo.CreditCard', 'U') IS NOT NULL
 	DROP TABLE dbo.CreditCard;
 GO
 CREATE TABLE CreditCard(
-	Id INT NOT NULL,
+	Id INT NOT NULL IDENTITY(1,1),
 	DateBirth DATE NOT NULL,
 	CreditCardNumber VARCHAR(16) NOT NULL,
 
