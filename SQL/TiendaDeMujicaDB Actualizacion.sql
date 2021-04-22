@@ -25,6 +25,8 @@ Descripción:
 
 -Se le agrego el constraint default al campo Active de Product y Artist
 
+-Se agrego cantidad a ShoppingCart
+
 Fecha de actualización: 2021-04-21
 */
 
@@ -368,3 +370,6 @@ ADD UnitPrice DECIMAL(10,2) NOT NULL
 
 ALTER TABLE [OrderProduct]
 ADD TotalPrice DECIMAL(10,2) NOT NULL
+
+ALTER TABLE ShoppingCart
+ADD Quantity INT NOT NULL
