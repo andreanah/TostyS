@@ -26,7 +26,7 @@ namespace TiendaDeMujica.Models
         public DbSet<User> User { get; set; }
 
         public TiendaDeMujicaDBContext()
-        { 
+        {
         }
 
         public TiendaDeMujicaDBContext(DbContextOptions<TiendaDeMujicaDBContext> options) : base(options) { }
@@ -61,11 +61,13 @@ namespace TiendaDeMujica.Models
                 entity.Property(e => e.IdUser)
                     .HasMaxLength(450)
                     .IsRequired()
+                    .HasColumnType("nvchar")
                     .IsUnicode(false);
 
                 entity.HasOne(e => e.User)
                 .WithMany(y => y.Address)
-                .HasForeignKey("FK_AddressUser");
+                .HasForeignKey(p => p.IdUser)
+                .HasConstraintName("FK_AddressUser");
 
             });
             modelBuilder.Entity<Artist>(entity =>
@@ -182,14 +184,14 @@ namespace TiendaDeMujica.Models
                     .IsUnicode(false);
 
                 entity.HasOne(e => e.User)
-                    .WithMany(y => y.Order)
-                    .HasForeignKey("FK_OrderUser");
+                .WithMany(y => y.Order)
+                .HasForeignKey(p => p.IdUser)
+                .HasConstraintName("FK_OrderUser");
 
                 entity.HasOne(e => e.Address)
-                    .WithMany(y => y.Order)
-                    .HasForeignKey("FK_OrderAddress");
-
-
+                .WithMany(y => y.Order)
+                .HasForeignKey(p => p.IdAddress)
+                .HasConstraintName("FK_OrderAddress");
             });
             modelBuilder.Entity<OrderProduct>(entity =>
             {
@@ -210,12 +212,14 @@ namespace TiendaDeMujica.Models
                     .IsRequired();
 
                 entity.HasOne(e => e.Product)
-                   .WithMany(y => y.OrderProduct)
-                   .HasForeignKey("FK_OrderProductProduct");
+                .WithMany(y => y.OrderProduct)
+                .HasForeignKey(p => p.IdProduct)
+                .HasConstraintName("FK_OrderProductProduct");
 
                 entity.HasOne(e => e.Order)
-                   .WithMany(y => y.OrderProduct)
-                   .HasForeignKey("FK_OrderProductOrder");
+                .WithMany(y => y.OrderProduct)
+                .HasForeignKey(p => p.IdOrder)
+                .HasConstraintName("FK_OrderProductOrder");
             });
             modelBuilder.Entity<Photos>(entity =>
             {
@@ -254,8 +258,9 @@ namespace TiendaDeMujica.Models
                     .IsRequired();
 
                 entity.HasOne(e => e.Genre)
-                   .WithMany(y => y.Product)
-                   .HasForeignKey("FK_ProductGenre");
+                .WithMany(y => y.Product)
+                .HasForeignKey(p => p.IdGenre)
+                .HasConstraintName("FK_ProductGenre");
             });
             modelBuilder.Entity<ProductFormat>(entity =>
             {
@@ -278,22 +283,25 @@ namespace TiendaDeMujica.Models
             {
                 entity.HasKey(e => e.Id);
 
+                entity.Property(e => e.Quantity)
+                    .IsRequired();
                 entity.Property(e => e.IdProduct)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
                     .IsRequired();
                 entity.Property(e => e.IdUser)
                     .HasMaxLength(450)
                     .IsRequired()
                     .IsUnicode(false);
 
+
                 entity.HasOne(e => e.Product)
-                   .WithMany(y => y.ShoppingCart)
-                   .HasForeignKey("FK_ShoppingCartProduct");
+                .WithMany(y => y.ShoppingCart)
+                .HasForeignKey(p => p.IdProduct)
+                .HasConstraintName("FK_ShoppingCartProduct");
 
                 entity.HasOne(e => e.User)
-                   .WithMany(y => y.ShoppingCart)
-                   .HasForeignKey("FK_ShoppingCartUser");
+                .WithMany(y => y.ShoppingCart)
+                .HasForeignKey(p => p.IdUser)
+                .HasConstraintName("FK_ShoppingCartUser");
             });
 
             modelBuilder.Entity<User>(user =>
@@ -310,7 +318,7 @@ namespace TiendaDeMujica.Models
                     .IsRequired()
                     .HasDefaultValue(1);
             });
-            
+
             modelBuilder.Entity<IdentityRole<string>>(entity =>
             {
                 entity.ToTable("AspNetRoles");
