@@ -10,7 +10,7 @@ import Login from './components/Login'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Login/>
+   
     <App/>
     
   </React.StrictMode>,

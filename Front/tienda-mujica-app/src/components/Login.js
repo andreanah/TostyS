@@ -16,7 +16,11 @@ import PersonPinIcon from '@material-ui/icons/PersonPin';
 
 import SignUp from '../components/SignUp';
 import CustomizedDialogs from '../components/dialogSignUp';
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -53,6 +57,7 @@ const Login = (props) => {
   const classes = useStyles();
 
   return (
+    <Router>
     <Grid container component='main' className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -95,20 +100,23 @@ const Login = (props) => {
               control={<Checkbox value='remember' color='primary' />}
               label='Recordar contraseña'
             />
-
+            
             <Button
               type='submit'
               fullWidth
               variant='contained'
               color='primary'
               className={classes.submit}
+              
             >
               Ingresar
+              <Link href='/Header'></Link>
             </Button>
+            
 
             <Grid container>
               <Grid item xs>
-                <Link href='#' variant='body2'>
+                <Link href='Header' variant='body2'>
                   ¿Olvidaste tu contraseña?
                 </Link>
               </Grid>
@@ -122,6 +130,7 @@ const Login = (props) => {
         </div>
       </Grid>
     </Grid>
+    </Router>
   );
 };
 
