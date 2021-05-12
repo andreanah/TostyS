@@ -11,10 +11,7 @@ import List from './components/List'
 
 ReactDOM.render(
   <React.StrictMode>
-
- 
     <App/>
-    
   </React.StrictMode>,
   document.getElementById('root')
 );
