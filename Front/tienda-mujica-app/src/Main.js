@@ -7,16 +7,13 @@ import reportWebVitals from './reportWebVitals';
 import Grid from './components/Grid'
 import Footer from './components/Footer'
 import Login from './components/Login'
-import List from './components/List'
 
 ReactDOM.render(
   <React.StrictMode>
-
- 
-    <App/>
+    <Header/>
     
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('rootMain')
 );
 
 // If you want to start measuring performance in your app, pass a function

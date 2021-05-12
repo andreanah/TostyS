@@ -23,6 +23,7 @@ import MediaCard from './components/List';
 
 function App() {
   return (
+
     <BrowserRouter>
     <div className = 'container'>
       <Switch>
@@ -36,6 +37,7 @@ function App() {
           <Login/>
         </Router>
       </Switch>
+
     </div>
     </BrowserRouter>
   );
