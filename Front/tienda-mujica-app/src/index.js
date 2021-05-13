@@ -5,12 +5,13 @@ import App from './App';
 import Header from './components/Header';
 import reportWebVitals from './reportWebVitals';
 import Grid from './components/Grid'
-import Footer from './components/Footer'
 import Login from './components/Login'
 import List from './components/List'
+import styled from '@emotion/styled'
 
 ReactDOM.render(
   <React.StrictMode>
+    
     <App/>
   </React.StrictMode>,
   document.getElementById('root')
