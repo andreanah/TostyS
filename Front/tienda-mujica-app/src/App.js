@@ -22,7 +22,8 @@ import {
   BrowserRouter
 } from "react-router-dom";
 import { List } from '@material-ui/core';
-
+import MediaCard from './components/List';
+import Checkout from './components/Checkout/Checkout';
 
 
 function App() {
@@ -31,6 +32,9 @@ function App() {
     <BrowserRouter>
     <div className = 'container'>
       <Switch>
+      <Router path='/Checkout/Checkout'component={Checkout}>
+          <Checkout/>
+        </Router> 
         <Router path='/Header'component={Login}>
           <Header/>
         </Router> 

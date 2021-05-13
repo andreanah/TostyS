@@ -12,7 +12,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import PersonPinIcon from '@material-ui/icons/PersonPin';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import SignUp from '../components/SignUp';
 import CustomizedDialogs from '../components/dialogSignUp';
@@ -28,20 +28,22 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   }, 
   image: {
-    backgroundImage: 'url(./BgLogin.png)',
+    backgroundImage: 'url(./BgLogin2.png)',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
   paper: {
     margin: theme.spacing(8, 4),
+    marginTop: "20%",
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.dark,
+    fontSize: 70 ,
+    backgroundColor: theme.palette.secondary,
   },
   form: {
     width: '100%', 
@@ -55,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
 const Login = (props) => {
 
   
- 
   const classes = useStyles();
 
   return (
@@ -66,11 +67,11 @@ const Login = (props) => {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <PersonPinIcon />
+          <LockOutlinedIcon />
           </Avatar>
 
-          <Typography component='h1' variant='h5'>
-            <strong>Inicia Sesión</strong>
+          <Typography component='h1' variant='h5' style={{ marginTop: "5%"}}>
+            <strong >Inicia Sesión</strong>
           </Typography>
 
           <form className={classes.form} noValidate>
@@ -107,12 +108,12 @@ const Login = (props) => {
               type='submit'
               fullWidth
               variant='contained'
-              color='primary'
+              color='secondary'
               className={classes.submit}
-              
+             href='/Header'
             >
               Ingresar
-              <Link href='/Header'></Link>
+             
             </Button>
             
 
