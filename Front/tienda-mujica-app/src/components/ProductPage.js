@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     width:'80%',
    height:'80%',
+   overflow:'auto',
   },
   image: {
     width: '100%',
@@ -31,7 +32,7 @@ export default function ComplexGrid() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root}  >
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
           <Grid item >

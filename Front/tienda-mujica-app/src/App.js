@@ -13,6 +13,7 @@ import MediaCard from './components/List';
 import MediaControlCard from './components/SongDisplay';
 import FloatingActionButtonZoom from './components/BottomNav';
 import ComplexGrid from './components/ProductPage'
+import Pricing from './components/MyOrders'
 
 import {
   BrowserRouter as Router,
@@ -22,7 +23,6 @@ import {
   BrowserRouter
 } from "react-router-dom";
 import { List } from '@material-ui/core';
-import MediaCard from './components/List';
 import Checkout from './components/Checkout/Checkout';
 
 
@@ -49,11 +49,16 @@ function App() {
           <MediaCard/>
           <FloatingActionButtonZoom/>
         </Router> 
-        <Router path='/ProductPage'>
+        <Router path='/ProductPage' >
           <Header/>
           <ComplexGrid/>
-          <img alt="SummerSale" src="./recommended.png" width='100%' height='50%'/>
+          <img alt="SummerSale" src="./recommended.png" width='100%' />
           <MediaCard/>
+          <FloatingActionButtonZoom/>
+        </Router>
+        <Router path='/MyOrders'>
+          <Header/>
+          <Pricing/>
           <FloatingActionButtonZoom/>
         </Router>
         <Router path='/'>
