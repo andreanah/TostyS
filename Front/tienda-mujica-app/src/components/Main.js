@@ -58,6 +58,7 @@ export default function MainPageElements() {
    
     <Header/>
 
+        <img alt="HeaderImage" src="./banner.png" width='100%'/>
         <img alt="HeaderImage" src="./HEADER.png" width='100%'/>
         <img alt="Image" src="./title.png" width='100%'/>
 

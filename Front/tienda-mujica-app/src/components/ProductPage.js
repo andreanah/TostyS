@@ -46,6 +46,7 @@ export default function ProductShowcase() {
   return (
     <div className={classes.root}  >
        <Header />
+       <img alt="HeaderImage" src="./banner.png" width='100%'/>
             <Paper className={classes.paper}>
               <Grid container spacing={2}>
             

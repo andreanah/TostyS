@@ -88,7 +88,7 @@ export default function ProductsDisplay() {
     
     <div className={classes.root2} >
       <Header/>
-
+      <img alt="HeaderImage" src="./banner.png" width='100%'/>
       <div className={classes.root3}>
       <AppBar position="static" color= 'transparent'>
         <Toolbar>

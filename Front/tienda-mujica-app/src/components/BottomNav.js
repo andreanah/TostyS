@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: green[600],
     },
   },
+  
 }));
 
 export default function Footer() {
@@ -87,19 +88,21 @@ export default function Footer() {
   
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={{ background: '#1f1f1f' }}>
       <AppBar position="static" color="default">
         <Tabs
           value={value}
           onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
+          indicatorColor="inherit"
+          textColor='#ffffff'
           variant="fullWidth"
           aria-label="action tabs example"
         >
-          <Tab label="Sobre Nosotros" {...a11yProps(0)} />
-          <Tab label="Servicio al Cliente" {...a11yProps(1)} />
-          <Tab label="Contáctanos" {...a11yProps(2)} />
+          
+          <Tab label ="Sobre Nosotros" {...a11yProps(0)} style={{ background: '#1f1f1f' }}> 
+          </Tab>
+          <Tab label="Servicio al Cliente" {...a11yProps(1)} style={{ background: '#1f1f1f' }}/>
+          <Tab label="Contáctanos" {...a11yProps(2)} style={{ background: '#1f1f1f' }}/>
         </Tabs>
       </AppBar>
       <SwipeableViews
