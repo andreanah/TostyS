@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TiendaDeMujica.Lib;
 using TiendaDeMujica.Models;
+using TiendaDeMujica.Models.ViewModels;
 
 namespace TiendaDeMujica.Classes.Core
 {
@@ -44,6 +45,42 @@ namespace TiendaDeMujica.Classes.Core
             }
         }
 
+        public GetShoppingCartModel GetShoppingCartUser(string id)
+        {
+            try
+            {
+                var query = (from u in dBContext.User
+                             join sc in dBContext.ShoppingCart on u.Id equals sc.IdUser
+                             join p in dBContext.Product on sc.IdProduct equals p.Id
+                             where u.Id == id && u.Active == true
+                             select new
+                             {
+                                 IdUser = u.Id,
+                                 UserName = u.UserName,
+                                 IdShoppingCart = sc.Id,
+                                 Quantity = sc.Quantity,
+                                 Product = p,
+                             }).ToList();
+
+                GetShoppingCartModel shoppingCartModel = query.GroupBy(x => (x.IdUser,x.UserName)).Select(x => new GetShoppingCartModel
+                {
+                    IdUser = x.Key.IdUser,
+                    UserName = x.Key.UserName,
+                    ShoppingCart = x.Select(y => new ProductCartModel
+                    {
+                        IdShoppingCart = y.IdShoppingCart,
+                        Quantity = y.Quantity,
+                        Product = y.Product
+                    }).ToList()
+                }).First();
+                return shoppingCartModel;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public void Update(User user, string id)
         {
             try
@@ -59,7 +96,7 @@ namespace TiendaDeMujica.Classes.Core
 
                         dBContext.Attach(user);
 
-                        if (user.Email!=null)
+                        if (user.Email != null)
                         {
                             user.NormalizedEmail = user.Email.ToUpper();
                             dBContext.Entry(user).Property("Email").IsModified = true;
@@ -76,7 +113,7 @@ namespace TiendaDeMujica.Classes.Core
                             user.NormalizedUserName = user.UserName.ToUpper();
                             dBContext.Entry(user).Property("UserName").IsModified = true;
                             dBContext.Entry(user).Property("NormalizedUserName").IsModified = true;
-                        }                        
+                        }
 
                         dBContext.SaveChanges();
                     }
@@ -130,7 +167,7 @@ namespace TiendaDeMujica.Classes.Core
                         return false;
 
                     Validate validator = new Validate();
-                    if(!validator.IsValidEmail(user.Email))
+                    if (!validator.IsValidEmail(user.Email))
                     {
                         return false;
                     }

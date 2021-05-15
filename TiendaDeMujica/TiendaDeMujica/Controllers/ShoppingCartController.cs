@@ -7,6 +7,7 @@ using System.Net;
 using System.Threading.Tasks;
 using TiendaDeMujica.Classes.Core;
 using TiendaDeMujica.Models;
+using TiendaDeMujica.Models.ViewModels;
 
 namespace TiendaDeMujica.Controllers
 {
@@ -31,7 +32,7 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -45,7 +46,7 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -61,7 +62,23 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ShoppingCartToOrder([FromBody] UserAndAddressModel userAndAddress)
+        {
+            try
+            {
+                ShoppingCartCore shoppingCartCore = new ShoppingCartCore(dbContext);
+
+                shoppingCartCore.ShoppingCartToOrder(userAndAddress.IdUser, userAndAddress.IdAddress);
+                return Ok("ShoppingCart successfully passed to order!");
+            }
+            catch (Exception e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -77,7 +94,7 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -93,7 +110,7 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
     }
