@@ -48,7 +48,7 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
-    width: 'auto',
+    width: '100%',
     position: 'relative',
     minHeight: 200,
   },
@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FloatingActionButtonZoom() {
+export default function Footer() {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);

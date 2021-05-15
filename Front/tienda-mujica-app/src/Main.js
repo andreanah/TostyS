@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import Header from './components/Header';
 import reportWebVitals from './reportWebVitals';
-import Grid from './components/Grid'
 import Footer from './components/Footer'
 import Login from './components/Login'
 

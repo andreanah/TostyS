@@ -5,15 +5,14 @@ import './index.css';
 
 import Header from './components/Header';
 import reportWebVitals from './reportWebVitals';
-import Grid from './components/Grid';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Typography from '@material-ui/core/Typography';
-import MediaCard from './components/List';
-import MediaControlCard from './components/SongDisplay';
-import FloatingActionButtonZoom from './components/BottomNav';
-import ComplexGrid from './components/ProductPage'
-import Pricing from './components/MyOrders'
+import Footer from './components/BottomNav';
+import ProductShowcase from './components/ProductPage'
+import OrderElements from './components/MyOrders'
+import ProductsDisplay from './components/Products'
+import MainPageElements from './components/Main'
 
 import {
   BrowserRouter as Router,
@@ -32,38 +31,34 @@ function App() {
     <BrowserRouter>
     <div className = 'container'>
       <Switch>
-      <Router path='/Checkout/Checkout'component={Checkout}>
+
+        <Route path='/Checkout/Checkout'component={Checkout}>
           <Checkout/>
-        </Router> 
-        <Router path='/Header'component={Login}>
+        </Route> 
+
+        <Route path='/Header'component={Login}>
           <Header/>
-        </Router> 
-        <Router path='/MainPage'>
-          <Header/>
-           <img alt="HeaderImage" src="./HEADER.png" width='100%'/>
-           <img alt="Image" src="./title.png" width='100%'/>
-          <MediaCard/>
-          <img alt="Image2" src="./title2.png" width='100%'/>
-          <MediaControlCard/>
-          <img alt="HotSale" src="./HOTSALE.png" width='100%'/>
-          <MediaCard/>
-          <FloatingActionButtonZoom/>
-        </Router> 
-        <Router path='/ProductPage' >
-          <Header/>
-          <ComplexGrid/>
-          <img alt="SummerSale" src="./recommended.png" width='100%' />
-          <MediaCard/>
-          <FloatingActionButtonZoom/>
-        </Router>
-        <Router path='/MyOrders'>
-          <Header/>
-          <Pricing/>
-          <FloatingActionButtonZoom/>
-        </Router>
-        <Router path='/'>
+        </Route> 
+
+        <Route path='/MainPage'>
+          <MainPageElements/>
+        </Route> 
+
+        <Route path='/ProductPage'>
+          <ProductShowcase/>
+        </Route>
+
+        <Route path='/Products'>
+          <ProductsDisplay/>
+        </Route>
+
+        <Route path='/MyOrders'>
+          <OrderElements/>
+        </Route>
+
+        <Route path='/'>
           <Login/>
-        </Router>
+        </Route>
       </Switch>
 
     </div>

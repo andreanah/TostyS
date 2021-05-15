@@ -54,18 +54,25 @@ export default function MenuAppBar() {
       
       <AppBar position="static" color= 'transparent'>
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.link} >
-           LINK
+          
+        <Typography variant="h6" className={classes.title}>
+            <Link href="/MainPage"  color="inherit">
+              Principal
+            </Link>
           </Typography>
           <Typography variant="h6" className={classes.title}>
-           LINK2
+            <Link href="Products"  color="inherit">
+              Productos
+            </Link>
           </Typography>
           <Typography variant="h6" className={classes.title}>
-            <Link href="#" onClick={preventDefault} color="inherit">
-              Link3
+            <Link href="#"  color="inherit">
+              Cart
+            </Link>
+          </Typography>
+          <Typography variant="h6" className={classes.title}>
+            <Link href="MyOrders"  color="inherit">
+              Mis Ordenes
             </Link>
           </Typography>
           {auth && (
@@ -94,8 +101,8 @@ export default function MenuAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClose}>Mi Cuenta</MenuItem>
+                <MenuItem onClick={handleClose}>Log Out</MenuItem>
               </Menu>
             </div>
           )}

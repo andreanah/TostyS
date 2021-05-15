@@ -4,9 +4,7 @@ import './index.css';
 import App from './App';
 import Header from './components/Header';
 import reportWebVitals from './reportWebVitals';
-import Grid from './components/Grid'
 import Login from './components/Login'
-import List from './components/List'
 import styled from '@emotion/styled'
 
 ReactDOM.render(
