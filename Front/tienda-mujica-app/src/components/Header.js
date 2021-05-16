@@ -55,6 +55,8 @@ export default function MenuAppBar() {
       <AppBar position="static" style={{ background: '#000000' }} >
         <Toolbar>
           
+      
+
         <Typography variant="h6" className={classes.title}>
             <Link href="/MainPage"  color="inherit">
               Principal
@@ -65,6 +67,9 @@ export default function MenuAppBar() {
               Productos
             </Link>
           </Typography>
+
+          
+
           <Typography variant="h6" className={classes.title}>
             <Link href="#"  color="inherit">
               Cart

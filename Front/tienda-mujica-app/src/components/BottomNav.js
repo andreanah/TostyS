@@ -88,7 +88,7 @@ export default function Footer() {
   
 
   return (
-    <div className={classes.root} style={{ background: '#1f1f1f' }}>
+    <div className={classes.root} >
       <AppBar position="static" color="default">
         <Tabs
           value={value}
@@ -111,13 +111,13 @@ export default function Footer() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          Item One
+          Tienda de Mujica es una tienda online que se encarga de distribuir contenido digital y físico a todo México.
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          Item Two
+          Dudas y aclaraciones, servicioalcliente@tiendademujica.com
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          Item Three
+        Contacto: 811547854, contacto@tiendademujica.com
         </TabPanel>
       </SwipeableViews>
       

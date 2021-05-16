@@ -105,12 +105,9 @@ export default function ProductShowcase() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary">
-                Share
-              </Button>
-              <Button size="small" color="primary">
-                Learn More
-              </Button>
+            <Button size="small" color="primary">
+                            Agregar al carrito
+                        </Button>
             </CardActions>
           
         </Card>
@@ -135,12 +132,9 @@ export default function ProductShowcase() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary">
-                Share
-              </Button>
-              <Button size="small" color="primary">
-                Learn More
-              </Button>
+            <Button size="small" color="primary">
+                            Agregar al carrito
+                        </Button>
             </CardActions>
           
         </Card>
@@ -165,12 +159,9 @@ export default function ProductShowcase() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary">
-                Share
-              </Button>
-              <Button size="small" color="primary">
-                Learn More
-              </Button>
+            <Button size="small" color="primary">
+                            Agregar al carrito
+                        </Button>
             </CardActions>
           
         </Card>
@@ -195,12 +186,9 @@ export default function ProductShowcase() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary">
-                Share
-              </Button>
-              <Button size="small" color="primary">
-                Learn More
-              </Button>
+            <Button size="small" color="primary">
+                            Agregar al carrito
+                        </Button>
             </CardActions>
           
         </Card>
@@ -225,12 +213,9 @@ export default function ProductShowcase() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary">
-                Share
-              </Button>
-              <Button size="small" color="primary">
-                Learn More
-              </Button>
+            <Button size="small" color="primary">
+                            Agregar al carrito
+                        </Button>
             </CardActions>
           
         </Card>
