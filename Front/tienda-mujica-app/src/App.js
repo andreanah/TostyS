@@ -13,6 +13,8 @@ import ProductShowcase from './components/ProductPage'
 import OrderElements from './components/MyOrders'
 import ProductsDisplay from './components/Products'
 import MainPageElements from './components/Main'
+import Profile from './components/Profile';
+import ShoppingCar from './components/ShoppingCar';
 
 import {
   BrowserRouter as Router,
@@ -39,6 +41,14 @@ function App() {
         <Route path='/Header'component={Login}>
           <Header/>
         </Route> 
+
+        <Route path='/ShoppingCar'component={ShoppingCar}>
+          <ShoppingCar/>
+        </Route> 
+
+        < Route path='/Profile' component ={Profile}>
+         <Profile/>
+        </Route>
 
         <Route path='/MainPage'>
           <MainPageElements/>

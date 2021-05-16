@@ -12,7 +12,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Link from '@material-ui/core/Link';
-
+import Profile from '../components/Profile';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -101,7 +101,7 @@ export default function MenuAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Mi Cuenta</MenuItem>
+                <MenuItem onClick={handleClose}><Link href="/Profile">Mi perfil</Link></MenuItem>
                 <MenuItem onClick={handleClose}>Log Out</MenuItem>
               </Menu>
             </div>
