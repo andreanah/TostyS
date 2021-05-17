@@ -53,6 +53,10 @@ namespace TiendaDeMujica.Classes.Core
                     dBContext.Add(shoppingCart);
                     dBContext.SaveChanges();
                 }
+                else
+                {
+                    throw new Exception("Enter the data correctly");
+                }
             }
             catch (Exception e)
             {
@@ -64,56 +68,67 @@ namespace TiendaDeMujica.Classes.Core
         {
             try
             {
-                List<ShoppingCartProductsModel> shoppingCartProducts = (
-                    from sc in dBContext.ShoppingCart
-                    join p in dBContext.Product on sc.IdProduct equals p.Id
-                    where sc.IdUser == idUser
-                    select new ShoppingCartProductsModel
+                bool existingUser = dBContext.User.Any(user => user.Id == idUser);
+                bool existingAddress = dBContext.Address.Any(user => user.Id == idAddress);
+
+                if (existingAddress && existingAddress)
+                {
+
+                    List<ShoppingCartProductsModel> shoppingCartProducts = (
+                        from sc in dBContext.ShoppingCart
+                        join p in dBContext.Product on sc.IdProduct equals p.Id
+                        where sc.IdUser == idUser
+                        select new ShoppingCartProductsModel
+                        {
+                            IdShoppingCart = sc.Id,
+                            IdProduct = p.Id,
+                            Price = p.Price,
+                            Quantity = sc.Quantity,
+                        }
+                        ).ToList();
+
+                    float total = 0;
+
+                    foreach (var scp in shoppingCartProducts)
                     {
-                        IdShoppingCart = sc.Id,
-                        IdProduct = p.Id,
-                        Price = p.Price,
-                        Quantity = sc.Quantity,
+                        total += scp.Price * scp.Quantity;
                     }
-                    ).ToList();
 
-                float total = 0;
-
-                foreach (var scp in shoppingCartProducts)
-                {
-                    total += scp.Price * scp.Quantity;
-                }
-
-                Order order = new Order
-                {
-                    IdAddress = idAddress,
-                    IdUser = idUser,
-                    Total = total,
-                    Active = true,
-                    Status = "Finalizado"
-                };
-
-                dBContext.Add(order);
-                dBContext.SaveChanges();
-
-                foreach (var scp in shoppingCartProducts)
-                {
-                    OrderProduct orderProduct = new OrderProduct
+                    Order order = new Order
                     {
-                        IdProduct = scp.IdProduct,
-                        IdOrder = order.Id,
-                        Quantity = scp.Quantity,
-                        TotalPrice = scp.Quantity * scp.Price,
-                        UnitPrice = scp.Price
+                        IdAddress = idAddress,
+                        IdUser = idUser,
+                        Total = total,
+                        Active = true,
+                        Status = "Finalizado"
                     };
 
-                    ShoppingCart shoppingCartAux = dBContext.ShoppingCart.FirstOrDefault(x => x.Id == scp.IdShoppingCart);
+                    dBContext.Add(order);
+                    dBContext.SaveChanges();
 
-                    dBContext.ShoppingCart.Remove(shoppingCartAux);
-                    dBContext.Add(orderProduct);
+                    foreach (var scp in shoppingCartProducts)
+                    {
+                        OrderProduct orderProduct = new OrderProduct
+                        {
+                            IdProduct = scp.IdProduct,
+                            IdOrder = order.Id,
+                            Quantity = scp.Quantity,
+                            TotalPrice = scp.Quantity * scp.Price,
+                            UnitPrice = scp.Price
+                        };
+
+                        ShoppingCart shoppingCartAux = dBContext.ShoppingCart.FirstOrDefault(x => x.Id == scp.IdShoppingCart);
+
+                        dBContext.ShoppingCart.Remove(shoppingCartAux);
+                        dBContext.Add(orderProduct);
+                    }
+
+                    dBContext.SaveChanges();
                 }
-
-                dBContext.SaveChanges();
+                else
+                {
+                    throw new Exception("Enter a valid id");
+                }
 
             }
             catch (Exception e)
@@ -139,9 +154,14 @@ namespace TiendaDeMujica.Classes.Core
 
                         dBContext.SaveChanges();
                     }
-                }else
+                    else
+                    {
+                        throw new Exception("Enter a valid id");
+                    }
+                }
+                else
                 {
-                    throw 
+                    throw new Exception("Enter the data correctly");
                 }
 
             }
@@ -160,6 +180,10 @@ namespace TiendaDeMujica.Classes.Core
                 {
                     dBContext.ShoppingCart.Remove(shoppingCart);
                     dBContext.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Enter a valid id");
                 }
 
             }

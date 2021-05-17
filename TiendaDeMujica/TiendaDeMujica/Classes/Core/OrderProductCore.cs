@@ -55,6 +55,10 @@ namespace TiendaDeMujica.Classes.Core
                     dBContext.Add(orderProduct);
                     dBContext.SaveChanges();
                 }
+                else
+                {
+                    throw new Exception("Enter the data correctly");
+                }
             }
             catch (Exception e)
             {
@@ -86,6 +90,14 @@ namespace TiendaDeMujica.Classes.Core
 
                         dBContext.SaveChanges();
                     }
+                    else
+                    {
+                        throw new Exception("Enter a valid id");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Enter the data correctly");
                 }
 
             }
@@ -104,6 +116,10 @@ namespace TiendaDeMujica.Classes.Core
                 {
                     dBContext.OrderProduct.Remove(orderProduct);
                     dBContext.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Enter a valid id");
                 }
 
             }
