@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Redirect } from 'react-router'
 import ReactDOM from 'react-dom';
 import './index.css';
 import MainAdmin from './components/MainAdmin'
@@ -7,20 +7,26 @@ import Header from './components/Header';
 import reportWebVitals from './reportWebVitals';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
+
 import EditProduct from './components/EditProduct';
 import EditArtist from './components/EditArtist';
+import EditFormat from './components/EditFormat';
+import EditGenre from './components/EditGenre';
+import CreateProduct from './components/CreateProduct';
+import CreateArtist from './components/CreateArtist';
+import CreateFormat from './components/CreateFormat';
+import CreateGenre from './components/CreateGenre';
 import ProductShowcase from './components/ProductPage';
 import OrderElements from './components/MyOrders';
 import ProductsDisplay from './components/Products';
 import MainPageElements from './components/Main';
 import Profile from './components/Profile';
-import ShoppingCar from './components/ShoppingCar';
-import CreateProduct from './components/CreateProduct'; 
-import CreateArtist from './components/CreateArtist'; 
-import CreateFormat from './components/CreateFormat'; 
-import EditFormat from './components/EditFormat';
-import EditGenre from './components/EditGenre';
-import CreateGenre from './components/CreateGenre';
+import ProductCreate from './components/product/Create';
+import ShoppingCart from './components/ShoppingCart';
+import ViewProducts from './components/ViewProducts';
+import Typography from '@material-ui/core/Typography';
+import Footer from './components/BottomNav';
+
 
 import {
   BrowserRouter as Router,
@@ -37,80 +43,80 @@ function App() {
   return (
 
     <BrowserRouter>
-    <div className = 'container'>
-      <Switch>
+      <div className='container'>
+        <Switch>
 
-        <Route path='/Checkout/Checkout'component={Checkout}>
-          <Checkout/>
-        </Route> 
-        <Route path='/MainAdmin'component={MainAdmin}>
-          <MainAdmin/>
-        </Route> 
-        <Route path='/CreateProduct'component={CreateProduct}>
-          <CreateProduct/>
-        </Route> 
-        <Route path='/CreateArtist'component={CreateArtist}>
-          <CreateArtist/>
-        </Route> 
+          <Route path='/Checkout/Checkout' component={Checkout} />
 
-        <Route path='/CreateGenre'component={CreateGenre}>
-          <CreateGenre/>
-        </Route> 
+          <Route
+            path="/admin"
+            render={({ match: { url } }) => (
+              <>
+              <Switch>
+                <Route path={`${url}/`} component={MainAdmin} exact />
 
-        <Route path='/EditGenre'component={EditGenre}>
-          <EditGenre/>
-        </Route> 
+                <Route
+                  path={`${url}/create`}
+                  render={({ match: { url } }) => (
+                    <>
+                      <Switch>
+                        <Route path={`${url}/`} exact>{<Redirect to="/admin" />}</Route>
+                        <Route path={`${url}/product`} component={CreateProduct} />
+                        <Route path={`${url}/artist`} component={CreateArtist} />
+                        <Route path={`${url}/genre`} component={CreateGenre} />
+                        <Route path={`${url}/format`} component={CreateFormat} />
+                        <Redirect to="/admin" />
+                      </Switch>
+                    </>
+                  )}
+                />
+                <Route
+                  path={`${url}/edit`}
+                  render={({ match: { url } }) => (
+                    <>
+                      <Switch>
+                        <Route path={`${url}/`} exact>{<Redirect to="/admin" />}</Route>
+                        <Route path={`${url}/product`} component={EditProduct} />
+                        <Route path={`${url}/artist`} component={EditArtist} />
+                        <Route path={`${url}/genre`} component={EditGenre} />
+                        <Route path={`${url}/format`} component={EditFormat} />
+                        <Redirect to="/admin" />
+                      </Switch>
+                    </>
+                  )}
+                />
+                <Redirect to="/admin"/>
+              </Switch>
+              </>
+            )}
+          />
 
-        <Route path='/EditFormat'component={EditFormat}>
-          <EditFormat/>
-        </Route> 
+          <Route path='/product/view' component={ViewProducts} />
 
-        <Route path='/CreateFormat'component={CreateFormat}>
-          <CreateFormat/>
-        </Route> 
+          <Route path='/product/create' component={ProductCreate} />
 
-        <Route path='/Header'component={Login}>
-          <Header/>
-        </Route> 
-        <Route path='/EditProduct'component={EditProduct}>
-          <EditProduct/>
-        </Route> 
+          <Route path='/Header' component={Login} />
 
-        <Route path='/EditArtist'component={EditArtist}>
-          <EditArtist/>
-        </Route> 
+          <Route path='/ShoppingCart' component={ShoppingCart} />
 
+          <Route path='/Profile' component={Profile} />
 
-        <Route path='/ShoppingCar'component={ShoppingCar}>
-          <ShoppingCar/>
-        </Route> 
+          <Route path='/MainPage' component={MainPageElements} />
 
-        < Route path='/Profile' component ={Profile}>
-         <Profile/>
-        </Route>
+          <Route path='/ProductPage' component={ProductShowcase} />
 
-        <Route path='/MainPage'>
-          <MainPageElements/>
-        </Route> 
+          <Route path='/Products/:id' component={ProductsDisplay} />
 
-        <Route path='/ProductPage'>
-          <ProductShowcase/>
-        </Route>
+          <Route path='/Products' component={ProductsDisplay} />
 
-        <Route path='/Products'>
-          <ProductsDisplay/>
-        </Route>
+          <Route path='/MyOrders' component={OrderElements} />
 
-        <Route path='/MyOrders'>
-          <OrderElements/>
-        </Route>
+          <Route path='/' component={Login} />
 
-        <Route path='/'>
-          <Login/>
-        </Route>
-      </Switch>
+          <Route path='/Login/' component={Login} />
+        </Switch>
 
-    </div>
+      </div>
     </BrowserRouter>
   );
 }
