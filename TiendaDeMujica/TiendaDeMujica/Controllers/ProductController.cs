@@ -50,6 +50,20 @@ namespace TiendaDeMujica.Controllers
         }
 
         [HttpGet("{id}")]
+        public IActionResult GetProductsByGenre([FromRoute] int id)
+        {
+            try
+            {
+                ProductCore productCore = new ProductCore(dbContext);
+                return Ok(productCore.GetProductsByGenre(id));
+            }
+            catch (Exception e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
         public IActionResult GetProduct([FromRoute] int id)
         {
             try

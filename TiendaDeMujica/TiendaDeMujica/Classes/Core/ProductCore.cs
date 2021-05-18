@@ -97,17 +97,19 @@ namespace TiendaDeMujica.Classes.Core
                                  Description = p.Description,
                                  Price = p.Price,
                                  ProductName = p.Name,
+                                 URLImage = p.URLImage,
                                  Format = f != null ? f : null,
                                  Artist = a != null ? a : null,
                                  GenreName = g.GenreName,
                              }).ToList();
 
-                List<ProductModel> productModel = query.GroupBy(x => (x.IdProduct, x.ProductName,x.Price,x.GenreName)).Select(x => new ProductModel
+                List<ProductModel> productModel = query.GroupBy(x => (x.IdProduct, x.ProductName,x.Price,x.GenreName, x.URLImage)).Select(x => new ProductModel
                 {
                     IdProduct = x.Key.IdProduct,
                     ProductName = x.Key.ProductName,
                     Price = x.Key.Price,
                     Genre = x.Key.GenreName,
+                    URLImage = x.Key.URLImage,
                     Formats = x.GroupBy(y => (y.Format?.Id, y.Format?.Type)).Select(z => z.Key.Type).ToList(),
                     ArtistName = x.GroupBy(y => (y.Artist?.Id,y.Artist?.StageName)).Select(z=>z.Key.StageName).ToList()
                 }).ToList();
@@ -140,17 +142,64 @@ namespace TiendaDeMujica.Classes.Core
                                  Description = p.Description,
                                  Price = p.Price,
                                  ProductName = p.Name,
+                                 URLImage = p.URLImage,
                                  Format = f != null ? f : null,
                                  Artist = a != null ? a : null,
                                  GenreName = g.GenreName,
                              }).ToList();
 
-                List<ProductModel> productModel = query.GroupBy(x => (x.IdProduct, x.ProductName, x.Price, x.GenreName)).Select(x => new ProductModel
+                List<ProductModel> productModel = query.GroupBy(x => (x.IdProduct, x.ProductName, x.Price, x.GenreName, x.URLImage)).Select(x => new ProductModel
                 {
                     IdProduct = x.Key.IdProduct,
                     ProductName = x.Key.ProductName,
                     Price = x.Key.Price,
                     Genre = x.Key.GenreName,
+                    URLImage = x.Key.URLImage,
+                    Formats = x.GroupBy(y => (y.Format?.Id, y.Format?.Type)).Select(z => z.Key.Type).ToList(),
+                    ArtistName = x.GroupBy(y => (y.Artist?.Id, y.Artist?.StageName)).Select(z => z.Key.StageName).ToList()
+                }).ToList();
+                return productModel;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public List<ProductModel> GetProductsByGenre(int idGenre)
+        {
+            try
+            {
+                var query = (from p in dBContext.Product
+                             join ap in dBContext.ArtistProduct on p.Id equals ap.IdProduct into apD
+                             from ap in apD.DefaultIfEmpty()
+                             join a in dBContext.Artist on ap.IdArtist equals a.Id into aD
+                             from a in aD.DefaultIfEmpty()
+                             join pf in dBContext.ProductFormat on p.Id equals pf.IdProduct into pfD
+                             from pf in pfD.DefaultIfEmpty()
+                             join f in dBContext.Format on pf.IdFormat equals f.Id into fD
+                             from f in fD.DefaultIfEmpty()
+                             join g in dBContext.Genre on p.IdGenre equals g.Id
+                             where p.Active == true && g.Id == idGenre
+                             select new
+                             {
+                                 IdProduct = p.Id,
+                                 Description = p.Description,
+                                 Price = p.Price,
+                                 ProductName = p.Name,
+                                 URLImage = p.URLImage,
+                                 Format = f != null ? f : null,
+                                 Artist = a != null ? a : null,
+                                 GenreName = g.GenreName,
+                             }).ToList();
+
+                List<ProductModel> productModel = query.GroupBy(x => (x.IdProduct, x.ProductName, x.Price, x.GenreName, x.URLImage)).Select(x => new ProductModel
+                {
+                    IdProduct = x.Key.IdProduct,
+                    ProductName = x.Key.ProductName,
+                    Price = x.Key.Price,
+                    Genre = x.Key.GenreName,
+                    URLImage = x.Key.URLImage,
                     Formats = x.GroupBy(y => (y.Format?.Id, y.Format?.Type)).Select(z => z.Key.Type).ToList(),
                     ArtistName = x.GroupBy(y => (y.Artist?.Id, y.Artist?.StageName)).Select(z => z.Key.StageName).ToList()
                 }).ToList();
