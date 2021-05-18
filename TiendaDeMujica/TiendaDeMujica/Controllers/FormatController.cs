@@ -27,7 +27,7 @@ namespace TiendaDeMujica.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult Get()
         {
             try
             {
