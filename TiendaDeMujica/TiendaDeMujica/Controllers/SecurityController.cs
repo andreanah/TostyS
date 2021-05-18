@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace TiendaDeMujica.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserModel createUserModel)
+        public async Task<IActionResult> SignUp([FromBody] CreateUserModel createUserModel)
         {
             try
             {
@@ -80,8 +81,8 @@ namespace TiendaDeMujica.Controllers
 
                         var claims = new[]
                         {
-                            new Claim(ClaimTypes.NameIdentifier, user.Id),
-                            new Claim(ClaimTypes.Name, user.UserName)
+                            new Claim("IDUser", user.Id),
+                            new Claim("Username", user.UserName)
                         };
                         var identityClaim = new ClaimsIdentity(claims);
 
@@ -143,7 +144,5 @@ namespace TiendaDeMujica.Controllers
 
             return "Ok";
         }
-
-        
     }
 }
