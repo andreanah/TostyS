@@ -12,6 +12,7 @@ namespace TiendaDeMujica.Models
         public string Name { get; set; }
         public float Price { get; set; }
         public string? Description { get; set; }
+        public string URLImage { get; set; }
         public bool Active { get; set; }
 
         public int IdGenre { get; set; }
@@ -24,8 +25,6 @@ namespace TiendaDeMujica.Models
         public virtual ICollection<ArtistProduct> ArtistProduct { get; set; }
         [JsonIgnore]
         public virtual ICollection<ProductFormat> ProductFormat { get; set; }
-        [JsonIgnore]
-        public virtual ICollection<Photos> Photos { get; set; }
 
         [JsonIgnore]
         public virtual Genre Genre { get; set; }

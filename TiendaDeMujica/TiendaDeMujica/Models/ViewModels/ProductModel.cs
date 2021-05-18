@@ -10,6 +10,7 @@ namespace TiendaDeMujica.Models.ViewModels
         public int IdProduct { get; set; }
         public string ProductName { get; set; }
         public float Price { get; set; }
+        public string URLImage { get; set; }
         public string Description { get; set; }
         public string Genre { get; set; }
         public List<string> ArtistName { get; set; }
