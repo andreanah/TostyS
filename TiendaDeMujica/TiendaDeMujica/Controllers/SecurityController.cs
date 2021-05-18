@@ -4,10 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
+using NLog;
+using NLog.Web;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,12 +27,14 @@ namespace TiendaDeMujica.Controllers
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
         private readonly IConfiguration _configuration;
+        Logger logger;
 
         public SecurityController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
         }
 
         [HttpPost]
@@ -57,9 +62,10 @@ namespace TiendaDeMujica.Controllers
 
                 return Ok("Usuario creado exitosamente");
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return StatusCode(500);
+                logger.Error(e);
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -111,9 +117,10 @@ namespace TiendaDeMujica.Controllers
 
                 return StatusCode(404, "El usuario no existe");
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return StatusCode(500);
+                logger.Error(e);
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
