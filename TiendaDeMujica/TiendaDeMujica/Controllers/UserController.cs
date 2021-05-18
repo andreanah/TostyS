@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
+using NLog.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +19,12 @@ namespace TiendaDeMujica.Controllers
     public class UserController : ControllerBase
     {
         private TiendaDeMujicaDBContext dbContext;
+        Logger logger;
 
         public UserController(TiendaDeMujicaDBContext dbContext)
         {
             this.dbContext = dbContext;
+            logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
         }
 
         [HttpGet]
@@ -31,6 +37,7 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
+                logger.Error(e); 
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
@@ -45,9 +52,36 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
+                logger.Error(e); 
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet]
+        public IActionResult Identity()
+        {
+            try
+            {
+                var currentUser = HttpContext.User;
+
+                string id = "";
+
+                if (currentUser.HasClaim(c => c.Type == "IDUser"))
+                {
+                    id = currentUser.Claims.FirstOrDefault(c => c.Type == "IDUser").Value;
+                }
+
+                UserCore userCore = new UserCore(dbContext);
+                return Ok(userCore.Get(id));
+            }
+            catch (Exception e)
+            {
+                logger.Error(e); 
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
 
         [HttpGet("{id}")]
         public IActionResult GetShoppingCartUser([FromRoute] string id)
@@ -59,6 +93,7 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
+                logger.Error(e); 
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
@@ -75,6 +110,7 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
+                logger.Error(e); 
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
@@ -91,6 +127,7 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
+                logger.Error(e); 
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }

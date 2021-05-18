@@ -52,6 +52,10 @@ namespace TiendaDeMujica.Classes.Core
                     dBContext.Add(genre);
                     dBContext.SaveChanges();
                 }
+                else
+                {
+                    throw new Exception("Enter the data correctly");
+                }
             }
             catch (Exception e)
             {
@@ -94,6 +98,14 @@ namespace TiendaDeMujica.Classes.Core
                         dBContext.Update(genre);
                         dBContext.SaveChanges();
                     }
+                    else
+                    {
+                        throw new Exception("Enter a valid id");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Enter the data correctly");
                 }
 
             }
@@ -114,6 +126,10 @@ namespace TiendaDeMujica.Classes.Core
                     genre.Active = false;
                     dBContext.Update(genre);
                     dBContext.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Enter a valid id");
                 }
 
             }

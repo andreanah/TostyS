@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NLog;
+using NLog.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +18,12 @@ namespace TiendaDeMujica.Controllers
     public class FormatController : ControllerBase
     {
         private TiendaDeMujicaDBContext dbContext;
+        Logger logger;
 
         public FormatController(TiendaDeMujicaDBContext dbContext)
         {
             this.dbContext = dbContext;
+            logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
         }
 
         [HttpGet]
@@ -32,6 +36,7 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
+                logger.Error(e); 
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
@@ -46,6 +51,7 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
+                logger.Error(e); 
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
@@ -66,6 +72,7 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
+                logger.Error(e); 
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
@@ -82,6 +89,7 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
+                logger.Error(e); 
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
@@ -98,6 +106,7 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
+                logger.Error(e); 
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }

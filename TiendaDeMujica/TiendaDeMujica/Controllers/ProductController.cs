@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
+using NLog.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +17,12 @@ namespace TiendaDeMujica.Controllers
     public class ProductController : ControllerBase
     {
         private TiendaDeMujicaDBContext dbContext;
+        Logger logger;
 
         public ProductController(TiendaDeMujicaDBContext dbContext)
         {
             this.dbContext = dbContext;
+            logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
         }
 
         [HttpGet]
@@ -31,7 +35,8 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+                logger.Error(e); 
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -45,7 +50,53 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+                logger.Error(e); 
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetProductsByGenre([FromRoute] int id)
+        {
+            try
+            {
+                ProductCore productCore = new ProductCore(dbContext);
+                return Ok(productCore.GetProductsByGenre(id));
+            }
+            catch (Exception e)
+            {
+                logger.Error(e); 
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetProduct([FromRoute] int id)
+        {
+            try
+            {
+                ProductCore productCore = new ProductCore(dbContext);
+                return Ok(productCore.GetProduct(id));
+            }
+            catch (Exception e)
+            {
+                logger.Error(e); 
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetProduct()
+        {
+            try
+            {
+                ProductCore productCore = new ProductCore(dbContext);
+                return Ok(productCore.GetProduct());
+            }
+            catch (Exception e)
+            {
+                logger.Error(e); 
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -59,7 +110,8 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+                logger.Error(e); 
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -75,7 +127,8 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+                logger.Error(e); 
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -91,7 +144,8 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+                logger.Error(e); 
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -107,7 +161,8 @@ namespace TiendaDeMujica.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e);
+                logger.Error(e); 
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
     }

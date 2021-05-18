@@ -19,7 +19,6 @@ namespace TiendaDeMujica.Models
         public DbSet<Genre> Genre { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderProduct> OrderProduct { get; set; }
-        public DbSet<Photos> Photos { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<ProductFormat> ProductFormat { get; set; }
         public DbSet<ShoppingCart> ShoppingCart { get; set; }
@@ -224,22 +223,6 @@ namespace TiendaDeMujica.Models
                 .HasForeignKey(p => p.IdOrder)
                 .HasConstraintName("FK_OrderProductOrder");
             });
-            modelBuilder.Entity<Photos>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-
-                entity.Property(e => e.Image)
-                    .HasColumnType("image")
-                    .IsRequired();
-
-                entity.Property(e => e.IdProduct)
-                    .IsRequired();
-
-                entity.HasOne(e => e.Product)
-                    .WithMany(y => y.Photos)
-                    .HasForeignKey(p => p.IdProduct)
-                    .HasConstraintName("FK_PhotosProduct");
-            });
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -253,6 +236,10 @@ namespace TiendaDeMujica.Models
                     .IsRequired();
                 entity.Property(e => e.Description)
                     .IsRequired(false);
+                entity.Property(e => e.URLImage)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .IsRequired();
                 entity.Property(e => e.Active)
                     .HasColumnType("bit")
                     .IsRequired()

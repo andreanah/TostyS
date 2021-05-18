@@ -117,6 +117,14 @@ namespace TiendaDeMujica.Classes.Core
 
                         dBContext.SaveChanges();
                     }
+                    else
+                    {
+                        throw new Exception("Enter a valid id");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Enter the data correctly");
                 }
 
             }
@@ -136,6 +144,10 @@ namespace TiendaDeMujica.Classes.Core
                     user.Active = false;
                     dBContext.Update(user);
                     dBContext.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Enter a valid id");
                 }
 
             }

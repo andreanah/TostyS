@@ -51,6 +51,10 @@ namespace TiendaDeMujica.Classes.Core
                     dBContext.Add(format);
                     dBContext.SaveChanges();
                 }
+                else
+                {
+                    throw new Exception("Enter the data correctly");
+                }
             }
             catch (Exception e)
             {
@@ -91,6 +95,14 @@ namespace TiendaDeMujica.Classes.Core
                         dBContext.Update(format);
                         dBContext.SaveChanges();
                     }
+                    else
+                    {
+                        throw new Exception("Enter a valid id");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Enter the data correctly");
                 }
 
             }
@@ -110,6 +122,10 @@ namespace TiendaDeMujica.Classes.Core
                     format.Active = false;
                     dBContext.Update(format);
                     dBContext.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Enter a valid id");
                 }
 
             }

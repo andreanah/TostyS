@@ -51,6 +51,10 @@ namespace TiendaDeMujica.Classes.Core
                     dBContext.Add(artistProduct);
                     dBContext.SaveChanges();
                 }
+                else
+                {
+                    throw new Exception("Enter the data correctly");
+                }
             }
             catch (Exception e)
             {
@@ -89,6 +93,14 @@ namespace TiendaDeMujica.Classes.Core
                         dBContext.Update(artistProduct);
                         dBContext.SaveChanges();
                     }
+                    else
+                    {
+                        throw new Exception("Enter a valid id");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Enter the data correctly");
                 }
 
             }
@@ -107,6 +119,10 @@ namespace TiendaDeMujica.Classes.Core
                 {
                     dBContext.ArtistProduct.Remove(artistProduct);
                     dBContext.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Enter a valid id");
                 }
             }
             catch (Exception e)
