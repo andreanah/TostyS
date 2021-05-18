@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -48,6 +50,31 @@ namespace TiendaDeMujica.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet]
+        public IActionResult Identity()
+        {
+            try
+            {
+                var currentUser = HttpContext.User;
+
+                string id = "";
+
+                if (currentUser.HasClaim(c => c.Type == "IDUser"))
+                {
+                    id = currentUser.Claims.FirstOrDefault(c => c.Type == "IDUser").Value;
+                }
+
+                UserCore userCore = new UserCore(dbContext);
+                return Ok(userCore.Get(id));
+            }
+            catch (Exception e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
 
         [HttpGet("{id}")]
         public IActionResult GetShoppingCartUser([FromRoute] string id)
