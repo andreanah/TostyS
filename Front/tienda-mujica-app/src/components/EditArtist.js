@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,6 +10,10 @@ import Paper from '@material-ui/core/Paper';
 import HeaderAdmin from '../components/HeaderAdmin'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+
+import ArtistRow from './rows/ArtistRow';
+
+import {GetAll} from '../api/ArtistAPI'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -28,18 +32,6 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
@@ -49,6 +41,18 @@ const useStyles = makeStyles({
 export default function EditArtist() {
   const classes = useStyles();
   
+  const [artists, setArtists] = useState([]);
+
+  useEffect(() => {
+
+    async function fetchData() {
+      const artistRes = await GetAll();
+      setArtists(artistRes)
+    }
+
+    fetchData();
+  }, []);
+
   return (
       <React.Fragment>
   <HeaderAdmin/>
@@ -60,31 +64,18 @@ export default function EditArtist() {
       <Table className={classes.table} aria-label="customized table">
         <TableHead style={{color:"white"}}>
           <TableRow>
-            <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-            <StyledTableCell align="right">Calories</StyledTableCell>
-            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+            <StyledTableCell>ID</StyledTableCell>
+            <StyledTableCell align="right">Nombre</StyledTableCell>
+            <StyledTableCell align="right">Nombre real</StyledTableCell>
+            <StyledTableCell align="right">Descripción</StyledTableCell>
             <StyledTableCell align="right">Editar</StyledTableCell>
             <StyledTableCell align="right">Eliminar</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell component="th" scope="row">
-                {row.name}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell>
-              <StyledTableCell align="right"> <Button variant="contained" color="secondary" >
-                   Editar
-                  </Button></StyledTableCell>
-              <StyledTableCell align="right"> <Button variant="contained" color="secondary">
-                   Eliminar
-                  </Button></StyledTableCell>
+          {artists.map((artist, index) => (
+            <StyledTableRow key={index}>
+              <ArtistRow artist={artist}></ArtistRow>
             </StyledTableRow>
           ))}
         </TableBody>
