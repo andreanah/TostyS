@@ -1,36 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Header from './Header';
-import Footer from './BottomNav';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import InputBase from '@material-ui/core/InputBase';
+import {
+  Card,
+  Container,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+  AppBar,
+  Toolbar,
+  IconButton,
+  InputBase,
+  Grid,
+  Box,
+} from '@material-ui/core/';
+
+import ProductCard from "../components/Cards/ProductCard"
+
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import Link from '@material-ui/core/Link';
+
+import Header from './Header';
+import Footer from './BottomNav';
+
+import { GetAll } from './../api/GenreAPI'
+import { GetProductsByGenre, GetProducts } from './../api/ProductAPI'
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams
+} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    width: '20vw',
     flexGrow: 1,
-    
+
   },
-  root3:{
+  root3: {
     flexGrow: 1,
   },
   root2: {
     maxWidth: 'flex',
   },
   media: {
-    height: 140,
+    height: 250,
   },
   title: {
     flexGrow: 1,
@@ -83,82 +102,87 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductsDisplay() {
   const classes = useStyles();
+
   const preventDefault = (event) => event.preventDefault();
+
+  let { id } = useParams();
+
+  const [genres, setGenres] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  const GetProductsHandle = async (i) => {
+    const productRes = await GetProductsByGenre(i);
+    await setProducts(productRes)
+  }
+
+  useEffect(() => {
+
+    async function fetchData() {
+      const genreRes = await GetAll();
+      setGenres(genreRes)
+      if (id) {
+        const productRes = await GetProductsByGenre(id);
+        await setProducts(productRes)
+      } else {
+        const productRes = await GetProducts();
+        await setProducts(productRes)
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
-    
+
     <div className={classes.root2} >
-      <Header/>
-      <img alt="HeaderImage" src="./banner.png" width='100%'/>
+      <Header />
+      <img alt="HeaderImage" src="/banner.png" width='100%' />
       <div className={classes.root3}>
-      <AppBar position="static" color= 'transparent'>
-        <Toolbar>
-          
-        <Typography variant="h6" className={classes.title}>
-            <Link href="#" color="inherit">
-              Rock
-            </Link>
-          </Typography>
-          <Typography variant="h6" className={classes.title}>
-            <Link href="#"  color="inherit">
-              Pop
-            </Link>
-          </Typography>
-          <Typography variant="h6" className={classes.title}>
-            <Link href="#"  color="inherit">
-              Hip Hop
-            </Link>
-          </Typography>
-          <Typography variant="h6" className={classes.title}>
-            <Link href="#" color="inherit">
-              Instrumental
-            </Link>
-          </Typography>
-          <Typography variant="h6" className={classes.title}>
-            <Link href="#"  color="inherit">
-              Jazz
-            </Link>
-          </Typography>
-          <div className={classes.search}>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+        <AppBar position="static" color='transparent'>
+          <Toolbar>
+            {genres.map((genre, index) => (
+              <Container key={index}>
+                <Typography variant="h6" className={classes.title}>
+                  <Link to={`/Products/${genre.id}`} color="inherit" onClick={() => GetProductsHandle(genre.id)}>
+                    {genre.genreName}
+                  </Link>
+                </Typography>
+              </Container>
+            ))}
+            <div className={classes.search}>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </div>
 
-        </Toolbar>
-      </AppBar>
+          </Toolbar>
+        </AppBar>
+      </div>
+
+      <Box mt={3}>
+        <Child products={products} />
+      </Box>
+
+      <Footer />
     </div>
 
+  );
+}
 
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Lizard
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-      <Button size="small" color="primary">
-                            Agregar al carrito
-                        </Button>
-      </CardActions>
-    </Card>
-    <Footer/>
-    </div>
-    
+const Child = ({ products }) => {
+  const classes = useStyles();
+  return (
+    <Grid ml={0} container spacing={3} >
+      {products?.map((product, index) => (
+        <Grid item xs={3} key={index}>
+          <ProductCard product={product}/>
+        </Grid>
+      ))}
+    </Grid>
   );
 }
