@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Grid,
   TextField,
@@ -14,12 +14,15 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
+import {LoginAPI} from '../api/SecurityAPI'
+
 import SignUp from '../components/SignUp';
 import CustomizedDialogs from '../components/dialogSignUp';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
 } from "react-router-dom";
 
 
@@ -56,7 +59,36 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = (props) => {
 
-  
+  console.log(props)
+
+  const [login, setLogin] = useState({
+    UserName: "",
+    Password: "",
+});
+
+const loginSubmit = async (e) => {
+  e.preventDefault();
+  var token = await LoginAPI(login);
+
+  alert(token);
+
+  localStorage.setItem("token", token)
+
+  window.location.href = "MainPage"
+
+  // alert.success("Login succesfully");
+  // <Redirect to ={"/MainPage"}/>
+}
+
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setLogin({
+      ...login,
+      [name]: value
+  })
+  console.log(name, value);
+}
+
   const classes = useStyles();
 
   return (
@@ -74,17 +106,18 @@ const Login = (props) => {
             <strong >Inicia Sesión</strong>
           </Typography>
 
-          <form className={classes.form} noValidate>
+          <form onSubmit={loginSubmit} className={classes.form} noValidate>
             <TextField
               variant='outlined'
               margin='normal'
               required
               fullWidth
-              id='email'
-              label='Correo electrónico'
-              name='email'
-              autoComplete='email'
+              id='UserName'
+              label='Nombre de usuario'
+              name='UserName'
+              autoComplete='UserName'
               autoFocus
+              onChange={handleChange}
             />
 
             <TextField
@@ -92,11 +125,12 @@ const Login = (props) => {
               margin='normal'
               required
               fullWidth
-              name='password'
+              name='Password'
               label='Contraseña'
               type='password'
-              id='password'
+              id='Password'
               autoComplete='current-password'
+              onChange={handleChange}
             />
 
             <FormControlLabel
@@ -110,7 +144,7 @@ const Login = (props) => {
               variant='contained'
               color='secondary'
               className={classes.submit}
-             href='/Header'
+            //  href='/Header'
             >
               Ingresar
              
