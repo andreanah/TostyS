@@ -46,8 +46,13 @@ export default function EditArtist() {
   useEffect(() => {
 
     async function fetchData() {
-      const genreRes = await GetAll();
-      setGenres(genreRes)
+      
+      var res = await GetAll();
+      if(!res?.isAxiosError)
+      {
+        var genreRes = res;
+        setGenres(genreRes)
+      }
     }
 
     fetchData();
@@ -71,7 +76,8 @@ export default function EditArtist() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {genres.map((genre,index) => (
+          {genres.length > 0 &&
+            genres.map((genre,index) => (
             <StyledTableRow key={index}>
               <GenreRow genre={genre}></GenreRow>
             </StyledTableRow>

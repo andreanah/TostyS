@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+  Button
+} from '@material-ui/core/';
+
 import HeaderAdmin from '../components/HeaderAdmin'
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 
 import { GetAll } from '../api/FormatAPI'
 
@@ -32,11 +35,19 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 700,
   },
-});
+  paper: {
+    position: 'absolute',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
 
 export default function EditFormat() {
   const classes = useStyles();
@@ -45,12 +56,25 @@ export default function EditFormat() {
   useEffect(() => {
 
     async function fetchData() {
-      const formatRes = await GetAll();
-      setFormats(formatRes)
+      var res = await GetAll();
+      if(!res.isAxiosError)
+      {
+        var formatRes = res;
+        setFormats(formatRes)
+      }
     }
 
     fetchData();
   }, []);
+
+  const Modal = (
+    <div className={classes.paper}>
+      <h2 id="simple-modal-title">Text in a modal</h2>
+      <p id="simple-modal-description">
+        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+      </p>
+    </div>
+  )
 
   return (
     <React.Fragment>
@@ -71,7 +95,7 @@ export default function EditFormat() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {formats.map((format, index) => (
+            {formats?.map((format, index) => (
               <StyledTableRow key={index}>
                 <FormatRow format={format}></FormatRow>
               </StyledTableRow>

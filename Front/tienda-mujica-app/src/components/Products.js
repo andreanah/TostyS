@@ -111,21 +111,42 @@ export default function ProductsDisplay() {
   const [products, setProducts] = useState([]);
 
   const GetProductsHandle = async (i) => {
-    const productRes = await GetProductsByGenre(i);
-    await setProducts(productRes)
+
+    var res = await GetProductsByGenre(i);
+
+    if (!res.isAxiosError) {
+      const productRes = res;
+      setProducts(productRes)
+    }
+
+
   }
 
   useEffect(() => {
 
     async function fetchData() {
-      const genreRes = await GetAll();
-      setGenres(genreRes)
+      var resGen = await GetAll(id);
+
+      if (!resGen.isAxiosError) {
+        const genreRes = resGen;
+        setGenres(genreRes)
+      }
+
       if (id) {
-        const productRes = await GetProductsByGenre(id);
-        await setProducts(productRes)
-      } else {
-        const productRes = await GetProducts();
-        await setProducts(productRes)
+        var res = await GetProductsByGenre(id);
+
+        if (!res.isAxiosError) {
+          const productRes = res;
+          setProducts(productRes)
+        }
+      }
+      else {
+        var res = await GetProducts();
+
+        if (!res.isAxiosError) {
+          const productRes = res;
+          setProducts(productRes)
+        }
       }
     }
 
@@ -180,7 +201,7 @@ const Child = ({ products }) => {
     <Grid ml={0} container spacing={3} >
       {products?.map((product, index) => (
         <Grid item xs={3} key={index}>
-          <ProductCard product={product}/>
+          <ProductCard product={product} />
         </Grid>
       ))}
     </Grid>

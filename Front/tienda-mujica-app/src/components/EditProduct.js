@@ -46,8 +46,12 @@ export default function EditProduct() {
   useEffect(() => {
 
     async function fetchData() {
-      const productRes = await GetWithGenre();
-      setProducts(productRes)
+      var res = await GetWithGenre();
+      if(!res?.isAxiosError)
+      {
+        var productRes = res;
+        setProducts(productRes)
+      }
     }
 
     fetchData();

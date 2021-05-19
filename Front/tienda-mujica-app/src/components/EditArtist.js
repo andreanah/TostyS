@@ -46,8 +46,12 @@ export default function EditArtist() {
   useEffect(() => {
 
     async function fetchData() {
-      const artistRes = await GetAll();
-      setArtists(artistRes)
+      var res = await GetAll();
+      if(!res?.isAxiosError)
+      {
+        var artistRes = res;
+        setArtists(artistRes)
+      }
     }
 
     fetchData();
