@@ -100,6 +100,21 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult GetWithGenre()
+        {
+            try
+            {
+                ProductCore productCore = new ProductCore(dbContext);
+                return Ok(productCore.GetWithGenre());
+            }
+            catch (Exception e)
+            {
+                logger.Error(e);
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetProductFormats([FromRoute] int id)
         {

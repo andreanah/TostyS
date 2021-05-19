@@ -14,7 +14,7 @@ namespace TiendaDeMujica.Models
         public string? Description { get; set; }
         public string URLImage { get; set; }
         public bool Active { get; set; }
-
+        
         public int IdGenre { get; set; }
 
         [JsonIgnore]
