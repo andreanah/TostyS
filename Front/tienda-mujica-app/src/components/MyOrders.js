@@ -126,7 +126,7 @@ export default function OrderElements() {
       <CssBaseline />
    
       <Header/>
-      <img alt="HeaderImage" src="./banner.png" width='100%'/>
+      <img alt="HeaderImage" src="/banner.png" width='100%'/>
       {/* End hero unit */}
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
@@ -169,7 +169,7 @@ export default function OrderElements() {
           ))}
         </Grid>
       </Container>
-      <img alt="HeaderImage" src="./recommendedforyou.png" width='100%'/>
+      <img alt="HeaderImage" src="/recommendedforyou.png" width='100%'/>
                
       
       <Grid container spacing={0.5} >

@@ -63,7 +63,7 @@ export default function MenuAppBar() {
             </Link>
           </Typography>
           <Typography variant="h6" className={classes.title}>
-            <Link href="Products"  color="inherit">
+            <Link href="/Products"  color="inherit">
               Productos
             </Link>
           </Typography>
@@ -76,7 +76,7 @@ export default function MenuAppBar() {
             </Link>
           </Typography>
           <Typography variant="h6" className={classes.title}>
-            <Link href="MyOrders"  color="inherit">
+            <Link href="/MyOrders"  color="inherit">
               Mis Ordenes
             </Link>
           </Typography>

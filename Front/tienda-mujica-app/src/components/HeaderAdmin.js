@@ -58,7 +58,7 @@ export default function HeaderAdmin() {
       
 
         <Typography variant="h6" className={classes.title}>
-            <Link href="/MainAdmin"  color="inherit">
+            <Link href="/admin"  color="inherit">
               INICIO
             </Link>
           </Typography>

@@ -93,10 +93,10 @@ export default function MainAdmin() {
                   className={classes.cardHeader}
                 />
                 <CardActions>
-                <Link href="/CreateProduct"  color="inherit">
+                <Link href="/admin/create/product/"  color="inherit">
                     CREAR
                     </Link>
-                    <Link href="/EditProduct"  color="inherit">
+                    <Link href="/admin/edit/product/"  color="inherit">
                     EDITAR
                     </Link>
                 </CardActions>
@@ -111,10 +111,10 @@ export default function MainAdmin() {
                   className={classes.cardHeader}
                 />
                 <CardActions>
-                <Link href="/CreateArtist"  color="inherit">
+                <Link href="/admin/create/artist/"  color="inherit">
                     CREAR
                     </Link>
-                    <Link href="/EditArtist"  color="inherit">
+                    <Link href="/admin/edit/artist/"  color="inherit">
                     EDITAR
                     </Link>
                 </CardActions>
@@ -129,10 +129,10 @@ export default function MainAdmin() {
                   className={classes.cardHeader}
                 />
                 <CardActions>
-                <Link href="/CreateFormat"  color="inherit">
+                <Link href="/admin/create/format/"  color="inherit">
                     CREAR
                     </Link>
-                    <Link href="/EditFormat"  color="inherit">
+                    <Link href="/admin/edit/format/"  color="inherit">
                     EDITAR
                     </Link>
                 </CardActions>
@@ -147,10 +147,10 @@ export default function MainAdmin() {
                   className={classes.cardHeader}
                 />
                 <CardActions>
-                <Link href="/CreateGenre"  color="inherit">
+                <Link href="/admin/create/genre/"  color="inherit">
                     CREAR
                     </Link>
-                    <Link href="/EditGenre"  color="inherit">
+                    <Link href="/admin/edit/genre/"  color="inherit">
                     EDITAR
                     </Link>
                 </CardActions>

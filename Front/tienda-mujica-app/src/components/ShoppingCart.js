@@ -8,9 +8,9 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Header from '../components/Header';
+import Header from './Header';
 import Link from '@material-ui/core/Link';
-import CarProduct from '../components/CarProduct'
+import CarProduct from './CarProduct'
 import Button from '@material-ui/core/Button';
 
 function Copyright() {
