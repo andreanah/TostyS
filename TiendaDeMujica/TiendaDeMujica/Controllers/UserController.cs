@@ -57,7 +57,30 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
+        [HttpGet]
+        public IActionResult GetRole()
+        {
+            try
+            {
+                var currentUser = HttpContext.User;
+                string id = "";
+                UserCore userCore = new UserCore(dbContext);
+                if (currentUser.HasClaim(c => c.Type == "IDUser"))
+                {
+                    id = currentUser.Claims.FirstOrDefault(c => c.Type == "IDUser").Value;
+                }
+
+                return Ok(userCore.GetRole(id));
+            }
+            catch (Exception e)
+            {
+                logger.Error(e);
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+       [Authorize]
         [HttpGet]
         public IActionResult Identity()
         {

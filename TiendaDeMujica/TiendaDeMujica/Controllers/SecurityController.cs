@@ -14,6 +14,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using TiendaDeMujica.Classes.Core;
 using TiendaDeMujica.Lib;
 using TiendaDeMujica.Models;
 using TiendaDeMujica.Models.ViewModels;
@@ -26,11 +27,15 @@ namespace TiendaDeMujica.Controllers
     {
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
+        private TiendaDeMujicaDBContext dbContext;
+
         private readonly IConfiguration _configuration;
         Logger logger;
 
-        public SecurityController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
+        public SecurityController(UserManager<User> userManager, SignInManager<User> signInManager, TiendaDeMujicaDBContext dBContext, IConfiguration configuration)
         {
+
+            this.dbContext = dBContext;
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
@@ -85,10 +90,15 @@ namespace TiendaDeMujica.Controllers
                         // 3. Generar un token de identificación para ese usuario
                         var key = Encoding.ASCII.GetBytes(_configuration.GetValue<string>("SecretKey"));
 
+                        UserCore userCore = new UserCore(dbContext);
+                        string userRole = userCore.GetRole(user.Id);
+
+                        //_userManager.getrol
                         var claims = new[]
                         {
                             new Claim("IDUser", user.Id),
-                            new Claim("Username", user.UserName)
+                            new Claim("Username", user.UserName),
+                            new Claim(ClaimsIdentity.DefaultRoleClaimType, userRole),
                         };
                         var identityClaim = new ClaimsIdentity(claims);
 

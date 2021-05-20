@@ -45,6 +45,26 @@ namespace TiendaDeMujica.Classes.Core
             }
         }
 
+        public string GetRole(string id)
+        {
+            try
+            {
+                string query = (from u in dBContext.User
+                        join iur in dBContext.IdentityUserRole on u.Id equals iur.UserId
+                        join r in dBContext.IdentityRole on iur.RoleId equals r.Id
+                        where u.Id == id && u.Active == true
+                        select r.Name).FirstOrDefault();
+
+                string role = (!string.IsNullOrEmpty(query)) ? query : "User";
+
+                return role;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public GetShoppingCartModel GetShoppingCartUser(string id)
         {
             try
