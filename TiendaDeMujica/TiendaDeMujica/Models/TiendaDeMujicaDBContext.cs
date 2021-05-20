@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TiendaDeMujica.Models
 {
-    public class TiendaDeMujicaDBContext : IdentityDbContext<User>
+    public class TiendaDeMujicaDBContext : IdentityDbContext<User,IdentityRole,string>
     {
         //public DbSet<> { get; set; }
         public DbSet<Address> Address { get; set; }
@@ -23,6 +23,9 @@ namespace TiendaDeMujica.Models
         public DbSet<ProductFormat> ProductFormat { get; set; }
         public DbSet<ShoppingCart> ShoppingCart { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<IdentityRole<string>> IdentityRole { get; set; }
+        public DbSet<IdentityUserRole<string>> IdentityUserRole { get; set; }
+
 
         public TiendaDeMujicaDBContext()
         {
@@ -32,6 +35,7 @@ namespace TiendaDeMujica.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Ignore<IdentityUser>();
             modelBuilder.Entity<Address>(entity =>
             {
                 entity.HasKey(e => e.Id);
