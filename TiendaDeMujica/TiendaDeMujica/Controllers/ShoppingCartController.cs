@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
 using NLog.Web;
@@ -13,6 +14,7 @@ using TiendaDeMujica.Models.ViewModels;
 
 namespace TiendaDeMujica.Controllers
 {
+    [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class ShoppingCartController : ControllerBase

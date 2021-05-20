@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
 using NLog.Web;
@@ -26,6 +27,7 @@ namespace TiendaDeMujica.Controllers
             logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Get()
         {
@@ -41,6 +43,7 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult Get([FromRoute] int id)
         {
@@ -56,6 +59,7 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetProductsByGenre([FromRoute] int id)
         {
@@ -70,6 +74,8 @@ namespace TiendaDeMujica.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
+
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetProductArtistsFormats([FromRoute] int id)
         {
@@ -84,7 +90,8 @@ namespace TiendaDeMujica.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
-        
+
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetProduct([FromRoute] int id)
         {
@@ -100,6 +107,7 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult GetProduct()
         {
@@ -115,6 +123,7 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult GetWithGenre()
         {
@@ -130,6 +139,7 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetProductFormats([FromRoute] int id)
         {
@@ -145,6 +155,7 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Create([FromBody] Product product)
         {
@@ -161,6 +172,8 @@ namespace TiendaDeMujica.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult CreateWithArtistFormat([FromBody] CreateWithArtistFormatModel product)
         {
@@ -178,6 +191,7 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public IActionResult Update([FromBody] Product product, [FromRoute] int id)
         {
@@ -195,6 +209,7 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public IActionResult UpdateWithArtistFormat([FromBody] CreateWithArtistFormatModel product, [FromRoute] int id)
         {
@@ -212,6 +227,7 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult Disable([FromRoute] int id)
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NLog;
 using NLog.Web;
 using System;
@@ -13,6 +14,7 @@ using TiendaDeMujica.Models;
 
 namespace TiendaDeMujica.Controllers
 {
+    [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class CreditCardController : ControllerBase

@@ -14,6 +14,7 @@ using TiendaDeMujica.Models;
 
 namespace TiendaDeMujica.Controllers
 {
+    [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -57,7 +58,6 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
-        [Authorize]
         [HttpGet]
         public IActionResult GetRole()
         {
@@ -80,7 +80,6 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
-       [Authorize]
         [HttpGet]
         public IActionResult Identity()
         {

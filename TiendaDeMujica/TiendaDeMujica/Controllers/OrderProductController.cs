@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
 using NLog.Web;
@@ -25,6 +26,7 @@ namespace TiendaDeMujica.Controllers
             logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Get()
         {
@@ -40,6 +42,7 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult Get([FromRoute] int id)
         {
@@ -55,6 +58,7 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Create([FromBody] OrderProduct orderProduct)
         {
@@ -72,6 +76,7 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [Authorize(Roles="Admin")]
         [HttpPut("{id}")]
         public IActionResult Update([FromBody] OrderProduct orderProduct, [FromRoute] int id)
         {
@@ -89,6 +94,7 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult Delete([FromRoute] int id)
         {
