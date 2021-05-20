@@ -15,7 +15,7 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-export default function ArtistRow({ artist }) {
+export default function ArtistRow({ artist, handleOpenUpdate}) {
   const alert = useAlert();
   const DeleteArtist = async () => {
     if (window.confirm("¿Quieres eliminar el artista?")) {
@@ -35,7 +35,7 @@ export default function ArtistRow({ artist }) {
       <StyledTableCell align="right">{artist.stageName}</StyledTableCell>
       <StyledTableCell align="right">{artist.realName}</StyledTableCell>
       <StyledTableCell align="right">{artist.description}</StyledTableCell>
-      <StyledTableCell align="right"> <Button variant="contained" color="secondary">Editar</Button></StyledTableCell>
+      <StyledTableCell align="right"> <Button variant="contained" color="secondary" onClick={()=> handleOpenUpdate(artist)}>Editar</Button></StyledTableCell>
       <StyledTableCell align="right"> <Button variant="contained" color="secondary" onClick={DeleteArtist}>Eliminar</Button></StyledTableCell>
     </Fragment>)
 }

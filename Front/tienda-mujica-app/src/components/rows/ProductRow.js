@@ -15,7 +15,7 @@ const StyledTableCell = withStyles((theme) => ({
     },
   }))(TableCell);
 
-export default function ProductRow({ product }) {
+export default function ProductRow({ product, handleOpenUpdate }) {
     const alert = useAlert();
     const DeleteProduct = async () => {
       if (window.confirm("¿Quieres eliminar el producto?")) {
@@ -38,7 +38,7 @@ export default function ProductRow({ product }) {
                 <StyledTableCell align="right"><div><img style={{maxWidth:"3vw"}} src={product.urlImage}/></div></StyledTableCell>
                 <StyledTableCell align="right">{product.genreName}</StyledTableCell>
                 <StyledTableCell align="right">{product.idGenre}</StyledTableCell>
-                <StyledTableCell align="right"> <Button variant="contained" color="secondary" >Editar</Button></StyledTableCell>
+                <StyledTableCell align="right"> <Button variant="contained" color="secondary" onClick={()=> handleOpenUpdate(product)}>Editar</Button></StyledTableCell>
                 <StyledTableCell align="right"> <Button variant="contained" color="secondary" onClick={DeleteProduct}>Eliminar</Button></StyledTableCell>
       </Fragment>)
   }

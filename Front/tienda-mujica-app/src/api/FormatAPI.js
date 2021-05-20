@@ -22,6 +22,33 @@ export const Get = async (i) => {
     }
 }
 
+
+export const Create = async (format) => {
+    try {
+        var newFormat = {
+            ...format,
+            Id: 0,
+        }
+        const response = await axios.post("/format/create", newFormat)
+        console.log("Create", response)
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+}
+
+export const Update = async (format) => {
+    try {
+        const response = await axios.put(`/format/update/${format.Id}`, format)
+        console.log("Update", response)
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+}
+
 export const Disable = async (i) => {
     try {
         const response = await axios.delete(`/format/disable/${i}`)

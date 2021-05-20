@@ -65,11 +65,21 @@ export const GetProductsByGenre = async (i) => {
         return error;
     }
 }
-
+export const GetProductArtistsFormats = async (i) => {
+    try {
+        const response = await axios.get(`/product/GetProductArtistsFormats/${i}`)
+        console.log("GetProductArtistsFormats", response.data)
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+}
 export const Create = async (product) => {
     try {
         const newProduct = {
             ...product,
+            Id:0,
             // Age: student.Age.length > 0 ? parseInt(student.Age) : null
         }
         const response = await axios.post("/product/create", newProduct)
@@ -77,6 +87,51 @@ export const Create = async (product) => {
         return response;
     } catch (error) {
         console.error(error.response);
+        return error;
+    }
+}
+
+export const CreateWithArtistFormat = async (product, formats, artists) => {
+    try {
+        const newProduct = {
+            Product: product,
+            IdFormats: formats,
+            IdArtists: artists,
+            // Age: student.Age.length > 0 ? parseInt(student.Age) : null
+        }
+        const response = await axios.post("/product/CreateWithArtistFormat", newProduct)
+        console.log("CreateWithArtistFormatModel", response)
+        return response;
+    } catch (error) {
+        console.error(error.response);
+        return error;
+    }
+}
+
+export const Update = async (product) => {
+    try {
+        const response = await axios.put(`/product/update/${product.Id}`, product)
+        console.log("Update", response)
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+}
+
+export const UpdateWithArtistFormat = async (product, formats, artists) => {
+    try {
+        const newProduct = {
+            Product: product,
+            IdFormats: formats,
+            IdArtists: artists,
+            // Age: student.Age.length > 0 ? parseInt(student.Age) : null
+        }
+        const response = await axios.put(`/product/UpdateWithArtistFormat/${product.Id}`, newProduct)
+        console.log("Update", response)
+        return response.data;
+    } catch (error) {
+        console.error(error);
         return error;
     }
 }

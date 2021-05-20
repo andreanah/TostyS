@@ -22,14 +22,25 @@ export const Get = async (i) => {
     }
 }
 
-export const Create = async (student) => {
+export const Create = async (genre) => {
     try {
         const newGenre = {
-            ...student,
-            Age: student.Age.length > 0 ? parseInt(student.Age) : null
+            ...genre,
+            Id: 0
         }
         const response = await axios.post("/genre/create", newGenre)
-        console.log("GetAll", response)
+        console.log("Create", response)
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+}
+
+export const Update = async (genre) => {
+    try {
+        const response = await axios.put(`/genre/update/${genre.Id}`, genre)
+        console.log("Update", response)
         return response.data;
     } catch (error) {
         console.error(error);

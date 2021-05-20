@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Fragment} from 'react';
 
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -17,21 +17,8 @@ import HeaderAdmin from '../components/HeaderAdmin'
 
 
 const useStyles = makeStyles((theme) => ({
-  '@global': {
-    ul: {
-      margin: 0,
-      padding: 0,
-      listStyle: 'none',
-    },
-  },
-  appBar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
-  },
-  toolbar: {
-    flexWrap: 'wrap',
-  },
-  toolbarTitle: {
-    flexGrow: 1,
+  root: {
+    flexGrow: 5,
   },
   link: {
     margin: theme.spacing(1, 1.5),
@@ -42,12 +29,6 @@ const useStyles = makeStyles((theme) => ({
   cardHeader: {
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[700],
-  },
-  cardPricing: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'baseline',
-    marginBottom: theme.spacing(2),
   },
   footer: {
     borderTop: `1px solid ${theme.palette.divider}`,
@@ -66,100 +47,97 @@ export default function MainAdmin() {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
-        <HeaderAdmin/>
+    <Fragment>
+      <HeaderAdmin />
       <CssBaseline />
-      
-     
+
+
       <Container maxWidth="sm" component="main" className={classes.heroContent}>
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
           BIENVENIDO ADMINISTRADOR
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" component="p">
-         PUEDES ESCOGER ENTRE ESTAS OPCIONES PARA CREAR UNA MEJOR APLICACIÓN PARA LOS USUARIOS
+          PUEDES ESCOGER ENTRE ESTAS OPCIONES PARA CREAR UNA MEJOR APLICACIÓN PARA LOS USUARIOS
         </Typography>
       </Container>
       {/* End hero unit */}
 
-      <Container maxWidth="md" component="main">
-        <Grid container spacing={8} alignItems="flex-end" style={{marginTop:"3%"}}>
-        <Card>
+      {/* <Container maxWidth="md" component="main"> */}
+
+      <Grid container className={classes.root} spacing={2}>
+        <Grid item xs={12}>
+          <Grid container px={3} spacing={7}>
+            <Grid item item xs={12} sm={3}>
+              <Card>
                 <CardHeader
                   title={"Productos"}
-                  
                   titleTypographyProps={{ align: 'center' }}
                   subheaderTypographyProps={{ align: 'center' }}
-                  
                   className={classes.cardHeader}
                 />
                 <CardActions>
-                <Link href="/admin/create/product/"  color="inherit">
-                    CREAR
-                    </Link>
-                    <Link href="/admin/edit/product/"  color="inherit">
-                    EDITAR
-                    </Link>
+                  <Link href="/admin/product/" color="inherit">
+                    <Typography variant="h6">Administrar</Typography>
+                  </Link>
                 </CardActions>
               </Card>
-              <Card style={{marginLeft:"2%"}}>
+            </Grid>
+            <Grid item item xs={12} sm={3}>
+              <Card>
                 <CardHeader
                   title={"Artistas"}
-                  
+
                   titleTypographyProps={{ align: 'center' }}
                   subheaderTypographyProps={{ align: 'center' }}
-                  
+
                   className={classes.cardHeader}
                 />
                 <CardActions>
-                <Link href="/admin/create/artist/"  color="inherit">
-                    CREAR
-                    </Link>
-                    <Link href="/admin/edit/artist/"  color="inherit">
-                    EDITAR
-                    </Link>
+                  <Link href="/admin/artist/" color="inherit">
+                    <Typography variant="h6">Administrar</Typography>
+              </Link>
                 </CardActions>
               </Card>
-              <Card style={{marginLeft:"2%"}}>
+            </Grid>
+            <Grid item item xs={12} sm={3}>
+              <Card>
                 <CardHeader
                   title={"Formato"}
-                  
+
                   titleTypographyProps={{ align: 'center' }}
                   subheaderTypographyProps={{ align: 'center' }}
-                  
+
                   className={classes.cardHeader}
                 />
                 <CardActions>
-                <Link href="/admin/create/format/"  color="inherit">
-                    CREAR
-                    </Link>
-                    <Link href="/admin/edit/format/"  color="inherit">
-                    EDITAR
-                    </Link>
+                  <Link href="/admin/format/" color="inherit">
+                    <Typography variant="h6">Administrar</Typography>
+              </Link>
                 </CardActions>
               </Card>
-              <Card style={{marginLeft:"2%"}}>
+            </Grid>
+            <Grid item item xs={12} sm={3}>
+              <Card>
                 <CardHeader
                   title={"Género"}
-                  
                   titleTypographyProps={{ align: 'center' }}
                   subheaderTypographyProps={{ align: 'center' }}
-                  
                   className={classes.cardHeader}
                 />
                 <CardActions>
-                <Link href="/admin/create/genre/"  color="inherit">
-                    CREAR
-                    </Link>
-                    <Link href="/admin/edit/genre/"  color="inherit">
-                    EDITAR
-                    </Link>
+                  <Link href="/admin/genre/" color="inherit">
+                    <Typography variant="h6">Administrar</Typography>
+              </Link>
                 </CardActions>
               </Card>
+            </Grid>
+          </Grid>
         </Grid>
-        
-      </Container>
-      
+      </Grid>
+
+      {/* </Container> */}
+
       {/* End footer */}
-    </React.Fragment>
+    </Fragment >
   );
 }

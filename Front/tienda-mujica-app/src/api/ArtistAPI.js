@@ -22,10 +22,14 @@ export const Get = async (i) => {
     }
 }
 
-export const Disable = async (i) => {
+export const Create = async (artist) => {
     try {
-        const response = await axios.delete(`/artist/disable/${i}`)
-        console.log("Disable", response.data)
+        var newArtist = {
+            ...artist,
+            Id: 0,
+        }
+        const response = await axios.post("/artist/create", newArtist)
+        console.log("Create", response)
         return response.data;
     } catch (error) {
         console.error(error);
@@ -33,14 +37,21 @@ export const Disable = async (i) => {
     }
 }
 
-export const Create = async (student) => {
+export const Update = async (artist) => {
     try {
-        const newGenre = {
-            ...student,
-            Age: student.Age.length > 0 ? parseInt(student.Age) : null
-        }
-        const response = await axios.post("/artist/create", newGenre)
-        console.log("GetAll", response)
+        const response = await axios.put(`/artist/update/${artist.Id}`, artist)
+        console.log("Update", response)
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+}
+
+export const Disable = async (i) => {
+    try {
+        const response = await axios.delete(`/artist/disable/${i}`)
+        console.log("Disable", response.data)
         return response.data;
     } catch (error) {
         console.error(error);

@@ -5,16 +5,19 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  TextField,
   TableHead,
   TableRow,
   Paper,
   Typography,
-  Button
+  Button,
+  Modal
 } from '@material-ui/core/';
+import { useAlert } from 'react-alert'
 
 import HeaderAdmin from '../components/HeaderAdmin'
 
-import { GetAll } from '../api/FormatAPI'
+import { GetAll, Create, Update } from '../api/FormatAPI'
 
 import FormatRow from './rows/FormatRow';
 
@@ -35,6 +38,17 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
+function getModalStyle() {
+  const top = 50
+  const left = 50
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
+
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 700,
@@ -51,14 +65,87 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EditFormat() {
   const classes = useStyles();
+  const [modalStyle] = useState(getModalStyle);
+  var alert = useAlert();
+
   const [formats, setFormats] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [format, setFormat] = useState([{
+    Id: 0,
+    Type: "",
+    TypeCode: "",
+    Active: true,
+  }]);
+
+  const handleOpenUpdate = (format) => {
+    var auxFormat = {
+      Id: format.id,
+      Type: format.type,
+      TypeCode: format.typeCode,
+      Active: format.active,
+    }
+    setFormat(auxFormat)
+    setIsUpdate(true);
+    setOpen(true);
+  };
+
+  const handleOpenCreate = (format) => {
+    var auxFormat = {
+      Id: 0,
+      Type: "",
+      TypeCode: "",
+      Active: true,
+    }
+    setFormat(auxFormat)
+    setIsUpdate(false);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormat({
+      ...format,
+      [name]: value
+    })
+    console.log(name, value);
+  }
+
+  const formatSubmit = async (e) => {
+    e.preventDefault();
+    if (isUpdate) {
+      var response = await Update(format);
+      if (!response.isAxiosError) {
+        alert.success("Se editó correctamente");
+        window.location.reload(false);
+      }
+      else {
+        let resAlert = "No se pudo editar";
+        alert.error(resAlert)
+      }
+    } else {
+      var response = await Create(format);
+      if (!response.isAxiosError) {
+        alert.success("Se creo correctamente");
+        window.location.reload(false);
+      }
+      else {
+        let resAlert = "No se pudo crear";
+        alert.error(resAlert)
+      }
+    }
+
+  }
 
   useEffect(() => {
 
     async function fetchData() {
       var res = await GetAll();
-      if(!res.isAxiosError)
-      {
+      if (!res.isAxiosError) {
         var formatRes = res;
         setFormats(formatRes)
       }
@@ -67,12 +154,35 @@ export default function EditFormat() {
     fetchData();
   }, []);
 
-  const Modal = (
-    <div className={classes.paper}>
-      <h2 id="simple-modal-title">Text in a modal</h2>
-      <p id="simple-modal-description">
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </p>
+  const bodyModal = (
+    <div style={modalStyle} className={classes.paper}>
+      <Typography variant="h6">{isUpdate ? "Editar" : "Crear"}</Typography>
+      <form onSubmit={formatSubmit}>
+        <TextField
+          name="Type"
+          label="Tipo"
+          variant="outlined"
+          fullWidth
+          className={classes.marginForm}
+          required
+          inputProps={{ maxLength: 15 }}
+          value={format.Type}
+          onChange={handleChange}
+        />
+        <TextField
+          name="TypeCode"
+          label="Codigo"
+          variant="outlined"
+          fullWidth
+          className={classes.marginForm}
+          required
+          inputProps={{ maxLength: 3 }}
+          value={format.TypeCode}
+          onChange={handleChange}
+        />
+        <br />
+        <Button type="submit" color="primary" variant="contained" className={classes.marginForm}>Submit</Button>
+      </form>
     </div>
   )
 
@@ -81,8 +191,8 @@ export default function EditFormat() {
       <HeaderAdmin />
       <br />
       <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-        EDITAR FORMATO
-        </Typography>
+        ADMINISTAR FORMATOS
+      </Typography>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead style={{ color: "white" }}>
@@ -97,12 +207,21 @@ export default function EditFormat() {
           <TableBody>
             {formats?.map((format, index) => (
               <StyledTableRow key={index}>
-                <FormatRow format={format}></FormatRow>
+                <FormatRow format={format} handleOpenUpdate={handleOpenUpdate}></FormatRow>
               </StyledTableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      <Button variant="contained" color="primary" onClick={handleOpenCreate}>Crear</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        {bodyModal}
+      </Modal>
     </React.Fragment>
   );
 }

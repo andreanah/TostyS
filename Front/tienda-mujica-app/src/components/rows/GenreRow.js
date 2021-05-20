@@ -15,7 +15,7 @@ const StyledTableCell = withStyles((theme) => ({
     },
 }))(TableCell);
 
-export default function GenreRow({ genre }) {
+export default function GenreRow({ genre, handleOpenUpdate }) {
     const alert = useAlert();
     const DeleteGenre = async () => {
         if (window.confirm("¿Quieres eliminar el genero?")) {
@@ -33,7 +33,7 @@ export default function GenreRow({ genre }) {
         <Fragment>
             <StyledTableCell component="th" scope="row">{genre.id}</StyledTableCell>
               <StyledTableCell component="th" scope="row">{genre.genreName}</StyledTableCell>
-              <StyledTableCell align="center"> <Button variant="contained" color="secondary">Editar</Button></StyledTableCell>
+              <StyledTableCell align="center"> <Button variant="contained" color="secondary" onClick={()=> handleOpenUpdate(genre)}>Editar</Button></StyledTableCell>
               <StyledTableCell align="center"> <Button variant="contained" color="secondary" onClick={DeleteGenre}>Eliminar</Button></StyledTableCell>
         </Fragment>)
 }

@@ -15,7 +15,7 @@ const StyledTableCell = withStyles((theme) => ({
     },
 }))(TableCell);
 
-export default function FormatRow({ format }) {
+export default function FormatRow({ format, handleOpenUpdate}) {
     const alert = useAlert();
     const DeleteFormat = async () => {
         if (window.confirm("¿Quieres eliminar el formato?")) {
@@ -34,7 +34,7 @@ export default function FormatRow({ format }) {
             <StyledTableCell component="th" scope="row">{format.id}</StyledTableCell>
             <StyledTableCell align="center">{format.type}</StyledTableCell>
             <StyledTableCell align="center">{format.typeCode}</StyledTableCell>
-            <StyledTableCell align="center"> <Button variant="contained" color="secondary">Editar</Button></StyledTableCell>
+            <StyledTableCell align="center"> <Button variant="contained" color="secondary" onClick={()=> handleOpenUpdate(format)}>Editar</Button></StyledTableCell>
             <StyledTableCell align="center"> <Button variant="contained" color="secondary" onClick={DeleteFormat}>Eliminar</Button></StyledTableCell>
         </Fragment>)
 }
