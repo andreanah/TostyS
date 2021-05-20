@@ -42,8 +42,8 @@ import Checkout from './components/Checkout/Checkout';
 function App() {
   return (
 
-    <BrowserRouter>
-      <div className='container'>
+    <div className='container'>
+      <BrowserRouter>
         <Switch>
 
           <Route path='/Checkout/Checkout' component={Checkout} />
@@ -52,41 +52,15 @@ function App() {
             path="/admin"
             render={({ match: { url } }) => (
               <>
-              <Switch>
-                <Route path={`${url}/`} component={MainAdmin} exact />
+                <Switch>
+                  <Route path={`${url}/`} component={MainAdmin} exact />
 
-                <Route
-                  path={`${url}/create`}
-                  render={({ match: { url } }) => (
-                    <>
-                      <Switch>
-                        <Route path={`${url}/`} exact>{<Redirect to="/admin" />}</Route>
-                        <Route path={`${url}/product`} component={CreateProduct} />
-                        <Route path={`${url}/artist`} component={CreateArtist} />
-                        <Route path={`${url}/genre`} component={CreateGenre} />
-                        <Route path={`${url}/format`} component={CreateFormat} />
-                        <Redirect to="/admin" />
-                      </Switch>
-                    </>
-                  )}
-                />
-                <Route
-                  path={`${url}/edit`}
-                  render={({ match: { url } }) => (
-                    <>
-                      <Switch>
-                        <Route path={`${url}/`} exact>{<Redirect to="/admin" />}</Route>
-                        <Route path={`${url}/product`} component={EditProduct} />
-                        <Route path={`${url}/artist`} component={EditArtist} />
-                        <Route path={`${url}/genre`} component={EditGenre} />
-                        <Route path={`${url}/format`} component={EditFormat} />
-                        <Redirect to="/admin" />
-                      </Switch>
-                    </>
-                  )}
-                />
-                <Redirect to="/admin"/>
-              </Switch>
+                  <Route path={`${url}/product`} component={EditProduct} />
+                  <Route path={`${url}/artist`} component={EditArtist} />
+                  <Route path={`${url}/genre`} component={EditGenre} />
+                  <Route path={`${url}/format`} component={EditFormat} />
+                  <Redirect to="/admin" />
+                </Switch>
               </>
             )}
           />
@@ -116,8 +90,8 @@ function App() {
           <Route path='/Login/' component={Login} />
         </Switch>
 
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </div>
   );
 }
 
