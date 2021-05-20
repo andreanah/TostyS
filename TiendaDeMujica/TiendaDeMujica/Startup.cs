@@ -55,8 +55,7 @@ namespace TiendaDeMujica
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
                 options.SignIn.RequireConfirmedAccount = false;
-            })
-                .AddUserManager<UserManager<User>>()
+            }).AddUserManager<UserManager<User>>()
                 .AddSignInManager<SignInManager<User>>()
                 .AddEntityFrameworkStores<TiendaDeMujicaDBContext>();
 
@@ -66,6 +65,7 @@ namespace TiendaDeMujica
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(x =>
             {
@@ -97,8 +97,8 @@ namespace TiendaDeMujica
 
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

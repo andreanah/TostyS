@@ -15,7 +15,7 @@ export const LoginAPI = async (userPassword) => {
     }
 }
 
-export const SignUp = async (user) => {
+export const SignUpAPI = async (user) => {
     try {
         const newUser = {
             ...user,
