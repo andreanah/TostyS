@@ -29,7 +29,7 @@ Fecha de actualización: 2021-04-21
 
 
 ### **Instrucciones** : 
-Descargue el script de la base de datos, después importe el script dentro del programa SQL Managment. Una vez dentro de SQL Management, con el script abierto, proceda a correr el código para generar la base de datos y las tablas requeridas para el correcto funcionamiento de la aplicación. Primero tendra que correr el script con nombre TiendaDeMujicaDB TABLAS y después correr el script que tiene de nombre TiendaDeMujicaDB Actualizacion.
+Descargue el script de la base de datos, después importe el script dentro del programa SQL Managment. Una vez dentro de SQL Management, con el script abierto, proceda a correr el código para generar la base de datos y las tablas requeridas para el correcto funcionamiento de la aplicación. Primero tendra que correr el script con nombre TiendaDeMujicaDB TABLAS, después correr el script que tiene de nombre TiendaDeMujicaDB Actualizacion 1 y por último correr el script con el nombre TiendaDeMujicaDB Actualización 2. Al finalizar, proceda a abrir la aplicación web y todo debería de funcionar eficazmente. 
 
 
 
