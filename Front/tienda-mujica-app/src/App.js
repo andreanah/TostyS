@@ -27,6 +27,7 @@ import ViewProducts from './components/ViewProducts';
 import Typography from '@material-ui/core/Typography';
 import Footer from './components/BottomNav';
 
+import PrivateRoute from './PrivateRouter';
 
 import {
   BrowserRouter as Router,
@@ -46,48 +47,41 @@ function App() {
       <BrowserRouter>
         <Switch>
 
-          <Route path='/Checkout/Checkout' component={Checkout} />
-
           <Route
             path="/admin"
             render={({ match: { url } }) => (
               <>
                 <Switch>
-                  <Route path={`${url}/`} component={MainAdmin} exact />
+                  <PrivateRoute requiredAdmin={true} path={`${url}/`} component={MainAdmin} exact />
 
-                  <Route path={`${url}/product`} component={EditProduct} />
-                  <Route path={`${url}/artist`} component={EditArtist} />
-                  <Route path={`${url}/genre`} component={EditGenre} />
-                  <Route path={`${url}/format`} component={EditFormat} />
+                  <PrivateRoute requiredAdmin={true} path={`${url}/product`} component={EditProduct} />
+                  <PrivateRoute requiredAdmin={true} path={`${url}/artist`} component={EditArtist} />
+                  <PrivateRoute requiredAdmin={true} path={`${url}/genre`} component={EditGenre} />
+                  <PrivateRoute requiredAdmin={true} path={`${url}/format`} component={EditFormat} />
                   <Redirect to="/admin" />
                 </Switch>
               </>
             )}
           />
 
-          <Route path='/product/view' component={ViewProducts} />
+          <PrivateRoute path='/Checkout/Checkout' component={Checkout} />
+          <PrivateRoute path='/product/view' component={ViewProducts} />
+          <PrivateRoute path='/product/create' component={ProductCreate} />
+          <PrivateRoute path='/Header' component={Login} />
+          <PrivateRoute path='/ShoppingCart' component={ShoppingCart} />
+          <PrivateRoute path='/Profile' component={Profile} />
+          <PrivateRoute path='/MainPage' component={MainPageElements} />
+          <PrivateRoute path='/ProductPage' component={ProductShowcase} />
+          <PrivateRoute path='/Products/:id' component={ProductsDisplay} />
+          <PrivateRoute path='/Products' component={ProductsDisplay} />
 
-          <Route path='/product/create' component={ProductCreate} />
+          <PrivateRoute path='/MyOrders' component={OrderElements} />
 
-          <Route path='/Header' component={Login} />
-
-          <Route path='/ShoppingCart' component={ShoppingCart} />
-
-          <Route path='/Profile' component={Profile} />
-
-          <Route path='/MainPage' component={MainPageElements} />
-
-          <Route path='/ProductPage' component={ProductShowcase} />
-
-          <Route path='/Products/:id' component={ProductsDisplay} />
-
-          <Route path='/Products' component={ProductsDisplay} />
-
-          <Route path='/MyOrders' component={OrderElements} />
-
-          <Route path='/' component={Login} />
+          <Route exact path='/' component={Login} />
 
           <Route path='/Login/' component={Login} />
+
+          <Redirect to="/" />
         </Switch>
 
       </BrowserRouter>
