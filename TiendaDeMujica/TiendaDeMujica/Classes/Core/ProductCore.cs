@@ -101,6 +101,42 @@ namespace TiendaDeMujica.Classes.Core
             }
         }
 
+        public ProductWithFormatsArtistsModel GetProductArtistsFormats(int id)
+        {
+            try
+            {
+                var query = (from p in dBContext.Product
+                             join ap in dBContext.ArtistProduct on p.Id equals ap.IdProduct into apD
+                             from ap in apD.DefaultIfEmpty()
+                             join a in dBContext.Artist on ap.IdArtist equals a.Id into aD
+                             from a in aD.DefaultIfEmpty()
+                             join pf in dBContext.ProductFormat on p.Id equals pf.IdProduct into pfD
+                             from pf in pfD.DefaultIfEmpty()
+                             join f in dBContext.Format on pf.IdFormat equals f.Id into fD
+                             from f in fD.DefaultIfEmpty()
+                             where p.Active == true && p.Id == id
+                             select new
+                             {
+                                 IdProduct = p.Id,
+                                 Name = p.Name,
+                                 Format = f != null ? f : null,
+                                 Artist = a != null ? a : null,
+                             }).ToList();
+
+                ProductWithFormatsArtistsModel productWithFormatsArtistsModel = (query.GroupBy(x => (x.IdProduct,x.Name)).Select(x => new ProductWithFormatsArtistsModel
+                {
+                    IdProduct = x.Key.IdProduct,
+                    IdFormats = x.GroupBy(y => (y.Format?.Id, y.Format?.Type)).Select(z => z.Key.Id).ToList(),
+                    IdArtists = x.GroupBy(y => (y.Artist?.Id, y.Artist?.StageName)).Select(z => z.Key.Id).ToList()
+                }).ToList()).First();
+                return productWithFormatsArtistsModel;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public List<ProductModel> GetProduct(int id)
         {
             try
@@ -250,6 +286,125 @@ namespace TiendaDeMujica.Classes.Core
                 {
                     throw new Exception("Enter the data correctly");
                 }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void CreateWithArtistFormat(CreateWithArtistFormatModel product)
+        {
+            try
+            {
+                bool validProduct = Validate(product.Product);
+                if (validProduct)
+                {
+                    dBContext.Add(product.Product);
+                    dBContext.SaveChanges();
+
+                    foreach (int idArtist in product.IdArtists)
+                    {
+                        ArtistProductCore artistProductCore = new ArtistProductCore(dBContext);
+                        ArtistProduct artistProduct = new ArtistProduct {
+                            Id = 0,
+                            IdProduct = product.Product.Id,
+                            IdArtist = idArtist,
+                        };
+                        artistProductCore.Create(artistProduct);
+                    }
+                    foreach (int idFormat in product.IdFormats)
+                    {
+                        ProductFormatCore productFormatCore = new ProductFormatCore(dBContext);
+                        ProductFormat productFormat = new ProductFormat
+                        {
+                            Id = 0,
+                            IdProduct = product.Product.Id,
+                            IdFormat = idFormat,
+                        };
+                        productFormatCore.Create(productFormat);
+                    }
+                    dBContext.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Enter the data correctly");
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void UpdateWithArtistFormat(CreateWithArtistFormatModel product, int id)
+        {
+            try
+            {
+                bool validProduct = Validate(product.Product);
+
+                if (validProduct)
+                {
+                    bool existingProduct = dBContext.Product.Any(product => product.Id == id);
+                    if (existingProduct)
+                    {
+                        product.Product.Id = id;
+
+                        dBContext.Attach(product.Product);
+
+                        dBContext.Entry(product.Product).Property("Name").IsModified = true;
+                        dBContext.Entry(product.Product).Property("Price").IsModified = true;
+                        dBContext.Entry(product.Product).Property("Description").IsModified = true;
+
+                        if(product.Product.URLImage != "")
+                        {
+                            dBContext.Entry(product.Product).Property("URLImage").IsModified = true;
+                        }
+
+                        if (product.Product.IdGenre != 0)
+                            dBContext.Entry(product.Product).Property("IdGenre").IsModified = true;
+
+                        dBContext.SaveChanges();
+
+                        dBContext.ArtistProduct.RemoveRange(dBContext.ArtistProduct.Where(x => x.IdProduct == id));
+
+                        foreach (int idArtist in product.IdArtists)
+                        {
+                            ArtistProductCore artistProductCore = new ArtistProductCore(dBContext);
+                            ArtistProduct artistProduct = new ArtistProduct
+                            {
+                                Id = 0,
+                                IdProduct = product.Product.Id,
+                                IdArtist = idArtist,
+                            };
+                            artistProductCore.Create(artistProduct);
+                        }
+
+                        dBContext.ProductFormat.RemoveRange(dBContext.ProductFormat.Where(x => x.IdProduct == id));
+
+                        foreach (int idFormat in product.IdFormats)
+                        {
+                            ProductFormatCore productFormatCore = new ProductFormatCore(dBContext);
+                            ProductFormat productFormat = new ProductFormat
+                            {
+                                Id = 0,
+                                IdProduct = product.Product.Id,
+                                IdFormat = idFormat,
+                            };
+                            productFormatCore.Create(productFormat);
+                        }
+                        dBContext.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new Exception("Enter a valid id");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Enter the data correctly");
+                }
+
             }
             catch (Exception e)
             {

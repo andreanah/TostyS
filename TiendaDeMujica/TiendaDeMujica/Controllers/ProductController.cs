@@ -9,6 +9,7 @@ using System.Net;
 using System.Threading.Tasks;
 using TiendaDeMujica.Classes.Core;
 using TiendaDeMujica.Models;
+using TiendaDeMujica.Models.ViewModels;
 
 namespace TiendaDeMujica.Controllers
 {
@@ -69,7 +70,21 @@ namespace TiendaDeMujica.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
-
+        [HttpGet("{id}")]
+        public IActionResult GetProductArtistsFormats([FromRoute] int id)
+        {
+            try
+            {
+                ProductCore productCore = new ProductCore(dbContext);
+                return Ok(productCore.GetProductArtistsFormats(id));
+            }
+            catch (Exception e)
+            {
+                logger.Error(e);
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+        
         [HttpGet("{id}")]
         public IActionResult GetProduct([FromRoute] int id)
         {
@@ -146,6 +161,22 @@ namespace TiendaDeMujica.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
+        [HttpPost]
+        public IActionResult CreateWithArtistFormat([FromBody] CreateWithArtistFormatModel product)
+        {
+            try
+            {
+                ProductCore productCore = new ProductCore(dbContext);
+
+                productCore.CreateWithArtistFormat(product);
+                return Ok("Added new product successfully!");
+            }
+            catch (Exception e)
+            {
+                logger.Error(e);
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
 
         [HttpPut("{id}")]
         public IActionResult Update([FromBody] Product product, [FromRoute] int id)
@@ -160,6 +191,23 @@ namespace TiendaDeMujica.Controllers
             catch (Exception e)
             {
                 logger.Error(e); 
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateWithArtistFormat([FromBody] CreateWithArtistFormatModel product, [FromRoute] int id)
+        {
+            try
+            {
+                ProductCore productCore = new ProductCore(dbContext);
+
+                productCore.UpdateWithArtistFormat(product, id);
+                return Ok("Product successfully edited!");
+            }
+            catch (Exception e)
+            {
+                logger.Error(e);
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
