@@ -48,6 +48,12 @@ export default function MenuAppBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const LogOut = () => {
+    localStorage.removeItem("token")
+    window.location.href = "/"
+  };
+
   const preventDefault = (event) => event.preventDefault();
   return (
     <div className={classes.root}>
@@ -71,7 +77,7 @@ export default function MenuAppBar() {
           
 
           <Typography variant="h6" className={classes.title}>
-            <Link href="#"  color="inherit">
+            <Link href="/ShoppingCart"  color="inherit">
               Cart
             </Link>
           </Typography>
@@ -107,7 +113,7 @@ export default function MenuAppBar() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}><Link href="/Profile">Mi perfil</Link></MenuItem>
-                <MenuItem onClick={handleClose}>Log Out</MenuItem>
+                <MenuItem onClick={LogOut}>Log Out</MenuItem>
               </Menu>
             </div>
           )}
