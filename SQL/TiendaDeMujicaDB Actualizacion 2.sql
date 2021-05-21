@@ -21,6 +21,7 @@ Descripción:
 
 - Se creo un Admin default
 
+- Se agrego active en address
 Fecha de actualización: 2021-05-20
 */
 
@@ -35,6 +36,9 @@ DROP TABLE Photos
 
 ALTER TABLE Product
 ADD URLImage VARCHAR(MAX) NOT NULL DEFAULT('')
+
+ALTER TABLE Address
+ADD Active BIT NOT NULL DEFAULT(1)
 
 INSERT INTO [dbo].[AspNetRoles]([Id],[Name],[NormalizedName],[ConcurrencyStamp])
 VALUES(N'743d57e6-4d3b-4744-ae66-c35194f3da65',N'Admin',N'ADMIN',

@@ -60,6 +60,10 @@ namespace TiendaDeMujica.Models
                     .HasMaxLength(20)
                     .IsRequired()
                     .IsUnicode(false);
+                entity.Property(e => e.Active)
+                    .HasColumnType("bit")
+                    .IsRequired()
+                    .HasDefaultValue(1);
 
                 entity.Property(e => e.IdUser)
                     .HasMaxLength(450)
