@@ -75,6 +75,17 @@ export const GetProductArtistsFormats = async (i) => {
         return error;
     }
 }
+
+export const GetProductFormats = async (i) => {
+    try {
+        const response = await axios.get(`/product/GetProductFormats/${i}`)
+        console.log("GetProductFormats", response.data)
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+}
 export const Create = async (product) => {
     try {
         const newProduct = {
