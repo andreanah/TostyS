@@ -50,8 +50,23 @@ namespace TiendaDeMujica.Classes.Core
                 bool validShoppingCart = Validate(shoppingCart);
                 if (validShoppingCart || shoppingCart.IdProduct != 0 || shoppingCart.IdUser != null)
                 {
-                    dBContext.Add(shoppingCart);
-                    dBContext.SaveChanges();
+                    ShoppingCart shoppingCartGet = dBContext.ShoppingCart.FirstOrDefault(x => x.IdProduct == shoppingCart.IdProduct);
+                    if (shoppingCartGet == null)
+                    {
+                        dBContext.Add(shoppingCart);
+                        dBContext.SaveChanges();
+                    }
+                    else
+                    {
+                        shoppingCartGet.Quantity = shoppingCartGet.Quantity + shoppingCart.Quantity;
+
+                        dBContext.Attach(shoppingCartGet);
+
+                        dBContext.Entry(shoppingCartGet).Property("Quantity").IsModified = true;
+
+                        dBContext.SaveChanges();
+                    }
+                       
                 }
                 else
                 {
@@ -149,6 +164,8 @@ namespace TiendaDeMujica.Classes.Core
                     if (existingShoppingCart)
                     {
                         shoppingCart.Id = id;
+
+                        dBContext.Attach(shoppingCart);
 
                         dBContext.Entry(shoppingCart).Property("Quantity").IsModified = true;
 
