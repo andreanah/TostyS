@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -14,6 +14,12 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import { shadows } from '@material-ui/system';
 
+import { GetProduct } from '../api/ProductAPI'
+
+import {
+  useParams
+} from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -21,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     margin: 'auto',
-    width:'80%',
-   height:'80%',
-   overflow:'auto',
+    width: '80%',
+    height: '80%',
+    overflow: 'auto',
   },
   image: {
     width: '100%',
@@ -43,51 +49,83 @@ const useStyles = makeStyles((theme) => ({
 export default function ProductShowcase() {
   const classes = useStyles();
 
+  let { id } = useParams();
+
+  const [product, setProduct] = useState([]);
+
+  useEffect(() => {
+
+    async function fetchData() {
+
+      if (id) {
+        var res = await GetProduct(id);
+
+        if (!res.isAxiosError) {
+          const productRes = res;
+          setProduct(productRes[0])
+        }
+      } else {
+        window.location.href = "/MainPage";
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <div className={classes.root}  >
-       <Header />
-       <img alt="HeaderImage" src="./banner.png" width='100%'/>
-            <Paper className={classes.paper}>
-              <Grid container spacing={2}>
-            
-                <Grid item >
-                  <ButtonBase className={classes.image}>
-                    <img className={classes.img} alt="complex" src="./showcase.png" />
-                  </ButtonBase>
-                </Grid>
-                <Grid item xs={12} sm container>
-                  <Grid item xs container direction="column" spacing={2}>
-                    <Grid item xs>
-                      <Typography gutterBottom variant="subtitle1">
-                        The Final Cut
-                      </Typography>
-                      <Typography variant="body2" gutterBottom>
-                        Pink Floyd 1920x1080 • CD
-                      </Typography>
-                      <Typography variant="body2" color="textSecondary">
-                        ID: 1030114
-                      </Typography>
-                    </Grid>
-                    <Grid item>
-                    <ButtonBase >
-                      <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                        Agregar al carrito
-                      </Typography>
-                      </ButtonBase>
-                    </Grid>
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="subtitle1">$19.00</Typography>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Paper>
-        <img alt="SummerSale" src="./recommended.png" width='100%' />
+      <Header />
+      <img alt="HeaderImage" src="/banner.png" width='100%' />
+      <Paper className={classes.paper}>
+        <Grid container spacing={2}>
 
-        <Grid container spacing={0.5} >
-      <Grid item xs>
-        <Card className={classes.root}>
-          
+          <Grid item xs={12} md={6} >
+            <ButtonBase className={classes.image}>
+              <img className={classes.img} alt="complex" src={product.urlImage} />
+            </ButtonBase>
+          </Grid>
+          <Grid item xs={12} md={6} container>
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1">
+                  {product.productName}
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  {product.description}
+                </Typography>
+
+                {product?.artistName?.map(artist => (
+                  <Typography key={artist} variant="body2" color="textSecondary">
+                    {artist}
+                  </Typography>
+                ))}
+
+                {product?.formats?.map(format => (
+                  <Typography key={format} variant="body2" color="textSecondary">
+                    {format}
+                  </Typography>
+                ))}
+              </Grid>
+              <Grid item>
+                <ButtonBase >
+                  <Typography variant="body2" style={{ cursor: 'pointer' }}>
+                    Agregar al carrito
+                      </Typography>
+                </ButtonBase>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Typography variant="subtitle1">${product.price} MXN</Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Paper>
+      <img alt="SummerSale" src="/recommended.png" width='100%' />
+
+      <Grid container spacing={0.5} >
+        <Grid item xs>
+          <Card className={classes.root}>
+
             <CardActionArea>
               <CardMedia
                 className={classes.media}
@@ -105,16 +143,16 @@ export default function ProductShowcase() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-            <Button size="small" color="primary">
-                            Agregar al carrito
+              <Button size="small" color="primary">
+                Agregar al carrito
                         </Button>
             </CardActions>
-          
-        </Card>
-     </Grid>   
-     <Grid item xs>
-        <Card className={classes.root}>
-          
+
+          </Card>
+        </Grid>
+        <Grid item xs>
+          <Card className={classes.root}>
+
             <CardActionArea>
               <CardMedia
                 className={classes.media}
@@ -132,16 +170,16 @@ export default function ProductShowcase() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-            <Button size="small" color="primary">
-                            Agregar al carrito
+              <Button size="small" color="primary">
+                Agregar al carrito
                         </Button>
             </CardActions>
-          
-        </Card>
-     </Grid>   
-     <Grid item xs>
-        <Card className={classes.root}>
-          
+
+          </Card>
+        </Grid>
+        <Grid item xs>
+          <Card className={classes.root}>
+
             <CardActionArea>
               <CardMedia
                 className={classes.media}
@@ -159,16 +197,16 @@ export default function ProductShowcase() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-            <Button size="small" color="primary">
-                            Agregar al carrito
+              <Button size="small" color="primary">
+                Agregar al carrito
                         </Button>
             </CardActions>
-          
-        </Card>
-     </Grid>   
-     <Grid item xs>
-        <Card className={classes.root}>
-          
+
+          </Card>
+        </Grid>
+        <Grid item xs>
+          <Card className={classes.root}>
+
             <CardActionArea>
               <CardMedia
                 className={classes.media}
@@ -186,16 +224,16 @@ export default function ProductShowcase() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-            <Button size="small" color="primary">
-                            Agregar al carrito
+              <Button size="small" color="primary">
+                Agregar al carrito
                         </Button>
             </CardActions>
-          
-        </Card>
-     </Grid> 
-     <Grid item xs>
-        <Card className={classes.root}>
-          
+
+          </Card>
+        </Grid>
+        <Grid item xs>
+          <Card className={classes.root}>
+
             <CardActionArea>
               <CardMedia
                 className={classes.media}
@@ -213,16 +251,16 @@ export default function ProductShowcase() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-            <Button size="small" color="primary">
-                            Agregar al carrito
+              <Button size="small" color="primary">
+                Agregar al carrito
                         </Button>
             </CardActions>
-          
-        </Card>
-     </Grid>     
-    </Grid>
-      
-    <Footer/>
+
+          </Card>
+        </Grid>
+      </Grid>
+
+      <Footer />
     </div>
   );
 }
