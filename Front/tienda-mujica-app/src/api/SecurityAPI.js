@@ -19,12 +19,9 @@ export const SignUpAPI = async (user) => {
     try {
         const newUser = {
             ...user,
-            // Age: student.Age.length > 0 ? parseInt(student.Age) : null
+            Id:"",
+            Active:1,
         }
-
-        // , { 
-        //     headers: { "Authorization": `Bearer ${token}` } })
-
         const response = await axios.post("/security/SignUp", newUser)
         console.log("SignUp", response)
         return response.data;

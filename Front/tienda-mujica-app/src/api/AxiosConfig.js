@@ -4,7 +4,7 @@ const axiosBase = axios.create({
     baseURL: 'https://localhost:5001/api'
 });
 
-var token = localStorage.getItem("token")
+var token = localStorage.getItem("token") || "null"
 axiosBase.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
 export {axiosBase}
