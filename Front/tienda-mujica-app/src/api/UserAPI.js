@@ -22,6 +22,17 @@ export const Get = async (i) => {
     }
 }
 
+export const Identity = async (i) => {
+    try {
+        const response = await axios.get(`/user/identity`)
+        console.log("identity", response.data)
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+}
+
 export const GetRole = async () => {
     try {
         const response = await axios.get(`/user/GetRole`)
