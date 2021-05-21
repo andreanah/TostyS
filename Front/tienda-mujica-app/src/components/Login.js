@@ -77,7 +77,8 @@ const loginSubmit = async (e) => {
     localStorage.setItem("token", token);
     window.location.href = "MainPage";
   }else{
-    alert.error(res.response.data);
+    var errorMsg = res?.response?.data || "Hubo un error al intentar ingresar"
+    alert.error(errorMsg);
   }
 
   

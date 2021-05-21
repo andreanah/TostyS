@@ -26,9 +26,9 @@ import ShoppingCart from './components/ShoppingCart';
 import ViewProducts from './components/ViewProducts';
 import Typography from '@material-ui/core/Typography';
 import Footer from './components/BottomNav';
-
+import Dialog from './components/Dialogs/DialogCreditCard'
 import PrivateRoute from './PrivateRouter';
-
+import DialogCreditCard from './components/Dialogs/DialogCreditCard'
 import {
   BrowserRouter as Router,
   Switch,
@@ -63,17 +63,16 @@ function App() {
               </>
             )}
           />
-
           <PrivateRoute path='/Checkout/Checkout' component={Checkout} />
           <PrivateRoute path='/product/view' component={ViewProducts} />
           <PrivateRoute path='/product/create' component={ProductCreate} />
           <PrivateRoute path='/Header' component={Login} />
           <PrivateRoute path='/ShoppingCart' component={ShoppingCart} />
           <PrivateRoute path='/Profile' component={Profile} />
-          <PrivateRoute path='/MainPage' component={MainPageElements} />
-          <PrivateRoute path='/ProductPage' component={ProductShowcase} />
+          <PrivateRoute path='/ProductPage/:id' component={ProductShowcase} />
           <PrivateRoute path='/Products/:id' component={ProductsDisplay} />
           <PrivateRoute path='/Products' component={ProductsDisplay} />
+          <PrivateRoute path='/MainPage' component={MainPageElements} />
 
           <PrivateRoute path='/MyOrders' component={OrderElements} />
 

@@ -81,17 +81,17 @@ export default function ProductShowcase() {
 
           <Grid item xs={12} md={6} >
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src={product.urlImage} />
+              <img className={classes.img} alt="complex" src={product?.urlImage} />
             </ButtonBase>
           </Grid>
           <Grid item xs={12} md={6} container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  {product.productName}
+                  {product?.productName}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  {product.description}
+                  {product?.description}
                 </Typography>
 
                 {product?.artistName?.map(artist => (
@@ -115,7 +115,7 @@ export default function ProductShowcase() {
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1">${product.price} MXN</Typography>
+              <Typography variant="subtitle1">${product?.price} MXN</Typography>
             </Grid>
           </Grid>
         </Grid>
