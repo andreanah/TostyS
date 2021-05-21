@@ -205,7 +205,7 @@ export default function EditArtist() {
       <HeaderAdmin />
       <br />
       <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-        ADMINISTAR ARTISTAS
+        ADMINISTRAR ARTISTAS
         </Typography>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">

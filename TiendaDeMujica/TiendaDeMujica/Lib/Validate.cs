@@ -65,7 +65,7 @@ namespace TiendaDeMujica.Lib
 
         public bool IsValidLength(string str, int number)
         {
-            if(str.Length>number)
+            if(str.Length>=number)
             {
                 return true;
             }
