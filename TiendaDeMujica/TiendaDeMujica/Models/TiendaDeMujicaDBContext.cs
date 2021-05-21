@@ -230,6 +230,11 @@ namespace TiendaDeMujica.Models
                 .WithMany(y => y.OrderProduct)
                 .HasForeignKey(p => p.IdOrder)
                 .HasConstraintName("FK_OrderProductOrder");
+
+                entity.HasOne(e => e.Format)
+                .WithMany(y => y.OrderProduct)
+                .HasForeignKey(p => p.IdFormat)
+                .HasConstraintName("FK_OrderProductFormat");
             });
             modelBuilder.Entity<Product>(entity =>
             {
@@ -302,6 +307,11 @@ namespace TiendaDeMujica.Models
                     .WithMany(y => y.ShoppingCart)
                     .HasForeignKey(p => p.IdUser)
                     .HasConstraintName("FK_ShoppingCartUser");
+
+                entity.HasOne(e => e.Format)
+                .WithMany(y => y.ShoppingCart)
+                .HasForeignKey(p => p.IdFormat)
+                .HasConstraintName("FK_ShoppingCartFormat");
             });
 
             modelBuilder.Entity<User>(user =>

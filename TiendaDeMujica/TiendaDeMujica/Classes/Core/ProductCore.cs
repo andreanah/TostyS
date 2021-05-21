@@ -80,6 +80,7 @@ namespace TiendaDeMujica.Classes.Core
                              {
                                  Id = p.Id,
                                  Name = p.Name,
+                                 IdFormat = f.Id,
                                  FormatCode = f.TypeCode,
                                  FormatType = f.Type
                              }).ToList();
@@ -89,6 +90,7 @@ namespace TiendaDeMujica.Classes.Core
                     ProductName = x.Key.Name,
                     Formats = x.Select(y => new FormatsViewModel
                     {
+                        IdFormat = y.IdFormat,
                         Type = y.FormatType,
                         TypeCode = y.FormatCode
                     }).ToList()

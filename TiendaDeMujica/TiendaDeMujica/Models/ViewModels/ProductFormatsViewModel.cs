@@ -15,6 +15,7 @@ namespace TiendaDeMujica.Models.ViewModels
 
     public class FormatsViewModel
     {
+        public int IdFormat { get; set; }
         public string TypeCode { get; set; }
         public string Type { get; set; }
     }

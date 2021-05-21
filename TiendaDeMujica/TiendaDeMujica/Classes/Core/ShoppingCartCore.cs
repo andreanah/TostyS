@@ -50,7 +50,7 @@ namespace TiendaDeMujica.Classes.Core
                 bool validShoppingCart = Validate(shoppingCart);
                 if (validShoppingCart || shoppingCart.IdProduct != 0 || shoppingCart.IdUser != null)
                 {
-                    ShoppingCart shoppingCartGet = dBContext.ShoppingCart.FirstOrDefault(x => x.IdProduct == shoppingCart.IdProduct);
+                    ShoppingCart shoppingCartGet = dBContext.ShoppingCart.FirstOrDefault(x => x.IdProduct == shoppingCart.IdProduct && x.IdFormat == shoppingCart.IdFormat);
                     if (shoppingCartGet == null)
                     {
                         dBContext.Add(shoppingCart);
@@ -97,6 +97,7 @@ namespace TiendaDeMujica.Classes.Core
                         {
                             IdShoppingCart = sc.Id,
                             IdProduct = p.Id,
+                            IdFormat = sc.IdFormat,
                             Price = p.Price,
                             Quantity = sc.Quantity,
                         }
@@ -127,6 +128,7 @@ namespace TiendaDeMujica.Classes.Core
                         {
                             IdProduct = scp.IdProduct,
                             IdOrder = order.Id,
+                            IdFormat = scp.IdFormat,
                             Quantity = scp.Quantity,
                             TotalPrice = scp.Quantity * scp.Price,
                             UnitPrice = scp.Price

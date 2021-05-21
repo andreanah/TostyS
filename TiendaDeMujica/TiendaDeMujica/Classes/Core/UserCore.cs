@@ -72,6 +72,7 @@ namespace TiendaDeMujica.Classes.Core
                 var query = (from u in dBContext.User
                              join sc in dBContext.ShoppingCart on u.Id equals sc.IdUser
                              join p in dBContext.Product on sc.IdProduct equals p.Id
+                             join f in dBContext.Format on sc.IdFormat equals f.Id
                              where u.Id == id && u.Active == true
                              select new
                              {
@@ -80,6 +81,7 @@ namespace TiendaDeMujica.Classes.Core
                                  IdShoppingCart = sc.Id,
                                  Quantity = sc.Quantity,
                                  Product = p,
+                                 Format = f,
                              }).ToList();
 
                 GetShoppingCartModel shoppingCartModel = query.GroupBy(x => (x.IdUser,x.UserName)).Select(x => new GetShoppingCartModel
@@ -90,7 +92,8 @@ namespace TiendaDeMujica.Classes.Core
                     {
                         IdShoppingCart = y.IdShoppingCart,
                         Quantity = y.Quantity,
-                        Product = y.Product
+                        Product = y.Product,
+                        Format = y.Format,
                     }).ToList()
                 }).First();
                 return shoppingCartModel;

@@ -11,6 +11,7 @@ namespace TiendaDeMujica.Models.ViewModels
     {
         public int IdShoppingCart { get; set; }
         public int IdProduct { get; set; }
+        public int IdFormat { get; set; }
         public int Quantity { get; set; }
         public float Price { get; set; }
     }

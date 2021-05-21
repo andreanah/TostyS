@@ -22,6 +22,10 @@ Descripción:
 - Se creo un Admin default
 
 - Se agrego active en address
+
+- Se agrego una relación de ShoppingCart a Format
+
+- Se agrego una relación de OrdeProduct a Format
 Fecha de actualización: 2021-05-20
 */
 
@@ -32,12 +36,28 @@ ALTER TABLE Photos
 DROP CONSTRAINT FK_PhotosProduct;   
 GO
 
+ALTER TABLE ShoppingCart
+ADD IdFormat INT NOT NULL
+
+ALTER TABLE ShoppingCart
+ADD CONSTRAINT FK_ShoppingCartFormat
+	FOREIGN KEY (IdFormat) REFERENCES [Format](Id);   
+GO
+
+ALTER TABLE OrderProduct
+ADD IdFormat INT NOT NULL
+
+ALTER TABLE OrderProduct
+ADD CONSTRAINT FK_OrderProductFormat
+	FOREIGN KEY (IdFormat) REFERENCES [Format](Id);   
+GO
+
 DROP TABLE Photos
 
 ALTER TABLE Product
 ADD URLImage VARCHAR(MAX) NOT NULL DEFAULT('')
 
-ALTER TABLE Address
+ALTER TABLE [Address]
 ADD Active BIT NOT NULL DEFAULT(1)
 
 INSERT INTO [dbo].[AspNetRoles]([Id],[Name],[NormalizedName],[ConcurrencyStamp])

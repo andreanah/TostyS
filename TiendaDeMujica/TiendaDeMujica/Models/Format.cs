@@ -15,5 +15,9 @@ namespace TiendaDeMujica.Models
 
         [JsonIgnore]
         public virtual ICollection<ProductFormat> ProductFormat { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<ShoppingCart> ShoppingCart { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<OrderProduct> OrderProduct { get; set; }
     }
 }

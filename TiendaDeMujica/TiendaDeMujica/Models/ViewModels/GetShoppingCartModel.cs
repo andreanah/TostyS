@@ -20,6 +20,7 @@ namespace TiendaDeMujica.Models.ViewModels
     {
         public int IdShoppingCart { get; set; }
         public int Quantity{ get; set; }
+        public Format Format { get; set; }
         public Product Product { get; set; }
     }
 }
