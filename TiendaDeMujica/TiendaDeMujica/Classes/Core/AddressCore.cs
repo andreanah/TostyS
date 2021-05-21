@@ -19,6 +19,7 @@ namespace TiendaDeMujica.Classes.Core
             try
             {
                 return (from a in dBContext.Address
+                        where a.Active
                         select a).ToList();
             }
             catch (Exception e)
@@ -32,7 +33,21 @@ namespace TiendaDeMujica.Classes.Core
             try
             {
                 return (from a in dBContext.Address
-                        where a.Id == id
+                        where a.Id == id && a.Active
+                        select a).ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public List<Address> GetAllOfUser(string id)
+        {
+            try
+            {
+                return (from a in dBContext.Address
+                        where a.Active && a.IdUser == id
                         select a).ToList();
             }
             catch (Exception e)
@@ -95,14 +110,15 @@ namespace TiendaDeMujica.Classes.Core
             }
         }
 
-        public void Delete(int id)
+        public void Disable(int id)
         {
             try
             {
                 Address address = dBContext.Address.FirstOrDefault(x => x.Id == id);
                 if (address != null)
                 {
-                    dBContext.Address.Remove(address);
+                    address.Active = false;
+                    dBContext.Update(address);
                     dBContext.SaveChanges();
                 }
                 else

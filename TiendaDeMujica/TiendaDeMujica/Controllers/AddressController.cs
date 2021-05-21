@@ -56,6 +56,21 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetAllOfUser([FromRoute] string id)
+        {
+            try
+            {
+                AddressCore addressCore = new AddressCore(dbContext);
+                return Ok(addressCore.GetAllOfUser(id));
+            }
+            catch (Exception e)
+            {
+                logger.Error(e);
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
         [HttpPost]
         public IActionResult Create([FromBody] Address address)
         {
@@ -91,13 +106,13 @@ namespace TiendaDeMujica.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete([FromRoute] int id)
+        public IActionResult Disable([FromRoute] int id)
         {
             try
             {
                 AddressCore addressCore= new AddressCore(dbContext);
 
-                addressCore.Delete(id);
+                addressCore.Disable(id);
                 return Ok("Address successfully deleted!");
             }
             catch (Exception e)

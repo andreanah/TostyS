@@ -58,6 +58,21 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetAllOfUser([FromRoute] string id)
+        {
+            try
+            {
+                CreditCardCore crediCardCore = new CreditCardCore(dbContext);
+                return Ok(crediCardCore.GetAllOfUser(id));
+            }
+            catch (Exception e)
+            {
+                logger.Error(e);
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
         [HttpPost]
         public IActionResult Create([FromBody] CreditCard creditCard)
         {

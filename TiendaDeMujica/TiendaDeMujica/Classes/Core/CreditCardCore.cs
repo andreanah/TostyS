@@ -41,6 +41,20 @@ namespace TiendaDeMujica.Classes.Core
             }
         }
 
+        public List<CreditCard> GetAllOfUser(string id)
+        {
+            try
+            {
+                return (from c in dBContext.CreditCard
+                        where c.IdUser == id
+                        select c).ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public void Create(CreditCard creditCard)
         {
             try
