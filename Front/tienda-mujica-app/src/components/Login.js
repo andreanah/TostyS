@@ -25,6 +25,7 @@ import {
   Redirect,
 } from "react-router-dom";
 
+import { useAlert } from 'react-alert'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = (props) => {
-
+  const alert = useAlert();
   console.log(props)
 
   const [login, setLogin] = useState({
@@ -68,13 +69,19 @@ const Login = (props) => {
 
 const loginSubmit = async (e) => {
   e.preventDefault();
-  var token = await LoginAPI(login);
+  
+  var res = await LoginAPI(login);
+  if(!res.isAxiosError)
+  {
+    var token = res;
+    localStorage.setItem("token", token);
+    window.location.href = "MainPage";
+  }else{
+    alert.error(res.response.data);
+  }
 
-  alert(token);
+  
 
-  localStorage.setItem("token", token)
-
-  window.location.href = "MainPage"
 
   // alert.success("Login succesfully");
   // <Redirect to ={"/MainPage"}/>
@@ -132,11 +139,6 @@ const handleChange = (e) => {
               autoComplete='current-password'
               onChange={handleChange}
             />
-
-            <FormControlLabel
-              control={<Checkbox value='remember' color='primary' />}
-              label='Recordar contraseña'
-            />
             
             <Button
               type='submit'
@@ -149,21 +151,16 @@ const handleChange = (e) => {
               Ingresar
              
             </Button>
+          </form>
             
 
             <Grid container>
-              <Grid item xs>
-                <Link href='Header' variant='body2'>
-                  ¿Olvidaste tu contraseña?
-                </Link>
-              </Grid>
-              <Grid item>
+              <Grid mt={3} item justify="center">
                 <CustomizedDialogs>
                   <SignUp/>
                 </CustomizedDialogs>
               </Grid>
             </Grid>
-          </form>
         </div>
       </Grid>
     </Grid>
