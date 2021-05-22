@@ -131,11 +131,9 @@ namespace TiendaDeMujica.Classes.Core
                             dBContext.Entry(user).Property("Name").IsModified = true;
                         }
 
-                        if (user.UserName != null)
+                        if (user.PhoneNumber != null)
                         {
-                            user.NormalizedUserName = user.UserName.ToUpper();
-                            dBContext.Entry(user).Property("UserName").IsModified = true;
-                            dBContext.Entry(user).Property("NormalizedUserName").IsModified = true;
+                            dBContext.Entry(user).Property("PhoneNumber").IsModified = true;
                         }
 
                         dBContext.SaveChanges();
@@ -184,12 +182,6 @@ namespace TiendaDeMujica.Classes.Core
         {
             try
             {
-                if (!string.IsNullOrEmpty(user.UserName))
-                {
-                    if (user.UserName.Length > 20)
-                        return false;
-                }
-
                 if (!string.IsNullOrEmpty(user.Name))
                 {
                     if (user.Name.Length > 50)
@@ -203,6 +195,14 @@ namespace TiendaDeMujica.Classes.Core
 
                     Validate validator = new Validate();
                     if (!validator.IsValidEmail(user.Email))
+                    {
+                        return false;
+                    }
+                }
+                if (!string.IsNullOrEmpty(user.PhoneNumber))
+                {
+                    Validate validator = new Validate();
+                    if (!validator.IsValidPhoneNumber(user.PhoneNumber))
                     {
                         return false;
                     }
