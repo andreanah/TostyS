@@ -137,9 +137,9 @@ namespace TiendaDeMujica.Classes.Core
         {
             try
             {
-                if (string.IsNullOrEmpty(address.Street) || string.IsNullOrEmpty(address.City) || string.IsNullOrEmpty(address.CP) || string.IsNullOrEmpty(address.Country) || string.IsNullOrEmpty(address.Suburb) || string.IsNullOrEmpty(address.IdUser))
+                if (string.IsNullOrEmpty(address.Street) || string.IsNullOrEmpty(address.City) || string.IsNullOrEmpty(address.CP) || string.IsNullOrEmpty(address.Country) || string.IsNullOrEmpty(address.Suburb) || string.IsNullOrEmpty(address.State) || string.IsNullOrEmpty(address.IdUser))
                     return false;
-                if (address.Street.Length > 20 || address.City.Length > 20 || address.Country.Length > 20 || address.Suburb.Length > 20 || address.CP.Length > 10)
+                if (address.Street.Length > 20 || address.City.Length > 20 || address.Country.Length > 20 || address.Suburb.Length > 20 || address.CP.Length > 10 || address.State.Length > 20)
                     return false;
 
                 return true;

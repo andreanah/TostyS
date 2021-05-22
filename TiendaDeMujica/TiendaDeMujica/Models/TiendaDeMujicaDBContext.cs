@@ -60,6 +60,10 @@ namespace TiendaDeMujica.Models
                     .HasMaxLength(20)
                     .IsRequired()
                     .IsUnicode(false);
+                entity.Property(e => e.State)
+                    .HasMaxLength(20)
+                    .IsRequired()
+                    .IsUnicode(false);
                 entity.Property(e => e.Active)
                     .HasColumnType("bit")
                     .IsRequired()

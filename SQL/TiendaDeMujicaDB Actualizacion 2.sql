@@ -26,6 +26,9 @@ Descripción:
 - Se agrego una relación de ShoppingCart a Format
 
 - Se agrego una relación de OrdeProduct a Format
+
+- Se agrego estado a Address
+
 Fecha de actualización: 2021-05-20
 */
 
@@ -56,6 +59,9 @@ DROP TABLE Photos
 
 ALTER TABLE Product
 ADD URLImage VARCHAR(MAX) NOT NULL DEFAULT('')
+
+ALTER TABLE Address
+ADD State VARCHAR(20) NOT NULL DEFAULT('')
 
 ALTER TABLE [Address]
 ADD Active BIT NOT NULL DEFAULT(1)
