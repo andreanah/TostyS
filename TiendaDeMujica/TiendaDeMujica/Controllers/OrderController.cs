@@ -57,6 +57,21 @@ namespace TiendaDeMujica.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetOrderOrderProducts([FromRoute] string id)
+        {
+            try
+            {
+                OrderCore orderCore = new OrderCore(dbContext);
+                return Ok(orderCore.GetOrderOrderProducts(id));
+            }
+            catch (Exception e)
+            {
+                logger.Error(e);
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
         [HttpPost]
         public IActionResult Create([FromBody] Order order)
         {
@@ -87,6 +102,23 @@ namespace TiendaDeMujica.Controllers
             catch (Exception e)
             {
                 logger.Error(e); 
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult OrderConfirm([FromRoute] int id)
+        {
+            try
+            {
+                OrderCore orderCore = new OrderCore(dbContext);
+
+                orderCore.OrderConfirm(id);
+                return Ok("Order confirmed!");
+            }
+            catch (Exception e)
+            {
+                logger.Error(e);
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
