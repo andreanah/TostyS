@@ -35,6 +35,16 @@ const useStyles = makeStyles((theme) => ({
     media: {
         height: 300,
     },
+    cardHover: {
+        "&": { height: "100%" },
+        "&:hover": {
+            transform: "scale3d(1.1, 1.1, 1.1)",
+            transition: "all .3s cubic-bezier(0.075, 0.82, 0.165, 1)",
+            position: "relative",
+            zIndex: "5",
+        },
+
+    },
     paper: {
         position: 'absolute',
         width: 400,
@@ -64,7 +74,7 @@ export default function ProductCard({ product }) {
 
     const classes = useStyles();
 
-    return (<Card className={classes.root}>
+    return (<Card className={classes.root, classes.cardHover}>
         <CardActionArea>
             <CardMedia onClick={redirectLink}
                 className={classes.media}

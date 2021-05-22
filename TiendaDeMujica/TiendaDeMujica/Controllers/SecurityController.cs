@@ -135,26 +135,26 @@ namespace TiendaDeMujica.Controllers
         }
 
 
-        private string Validator(CreateUserModel User)
+        private string Validator(CreateUserModel user)
         {
             Validate validate = new Validate();
 
-            if(!validate.ValidateEmpty(User))
+            if(!validate.ValidateEmpty(user))
             {
                 return "Llena todos los campos";
             }
 
-            if (!validate.IsValidEmail(User.Email))
+            if (!validate.IsValidEmail(user.Email))
             {
                 return "Ingrese un email valido";
             }
 
-            if(!validate.IsValidLength(User.Password,4))
+            if(!validate.IsValidLength(user.Password,4))
             {
                 return "Ingrese una contraseña mayor a 4 caracteres";
             }
 
-            if (!validate.IsValidPhoneNumber(User.PhoneNumber))
+            if (!validate.IsValidPhoneNumber(user.PhoneNumber))
             {
                 return "Ingrese un número telefónico de 10 caracteres";
             }

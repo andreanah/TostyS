@@ -35,6 +35,17 @@ const styles = (theme) => ({
         margin: 0,
         padding: theme.spacing(2),
     },
+    marginForm: {
+        '& .MuiTextField-root': {
+          marginTop: theme.spacing(2),
+        },
+        '& .MuiFormControl-root':{
+          marginTop: theme.spacing(2),
+        },
+        '& .MuiButton-root':{
+          marginTop: theme.spacing(2),
+        },
+      },
     closeButton: {
         position: 'absolute',
         right: theme.spacing(1),
@@ -75,6 +86,17 @@ const useStyles = makeStyles((theme) => ({
     // table: {
     //     minWidth: 700,
     // },
+    marginForm: {
+        '& .MuiTextField-root': {
+          marginTop: theme.spacing(2),
+        },
+        '& .MuiFormControl-root':{
+          marginTop: theme.spacing(2),
+        },
+        '& .MuiButton-root':{
+          marginTop: theme.spacing(2),
+        },
+      },
     paper: {
         position: 'absolute',
         backgroundColor: theme.palette.background.paper,
@@ -112,7 +134,7 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 
-function DialogCreditCard({ children }) {
+function DialogAddress({ children }) {
     const [modalStyle] = useState(getModalStyle);
     const classes = useStyles();
     const alert = useAlert();
@@ -234,7 +256,7 @@ function DialogCreditCard({ children }) {
     const bodyModal = (
         <div style={modalStyle} className={classes.paper}>
             <Typography variant="h6">{isUpdate ? "Editar" : "Crear"}</Typography>
-            <form onSubmit={formatSubmit}>
+            <form className={classes.marginForm} onSubmit={formatSubmit}>
                 <TextField
                     name="Street"
                     label="Calle"
@@ -343,7 +365,7 @@ function DialogCreditCard({ children }) {
             <Modal
                 open={openM}
                 onClose={handleClose}
-                aria-labelledby="simple-modal-title"
+                aria-labelledby="address_modal_title"
                 aria-describedby="simple-modal-description"
             >
                 {bodyModal}
@@ -356,7 +378,7 @@ function DialogCreditCard({ children }) {
             <Button variant='contained' color='secondary' onClick={handleClickOpen}>
                 Direcciones
       </Button>
-            <Dialog maxWidth="xl" onClose={handleClickClose} aria-labelledby='customized-dialog-title' open={open}>
+            <Dialog maxWidth="xl" onClose={handleClickClose} aria-labelledby='address_modal_title' open={open}>
                 <DialogContent dividers>
                     {dialogContent}
                 </DialogContent>
@@ -366,4 +388,4 @@ function DialogCreditCard({ children }) {
     );
 }
 
-export default DialogCreditCard;
+export default DialogAddress;

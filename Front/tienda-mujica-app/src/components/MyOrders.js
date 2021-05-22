@@ -229,8 +229,8 @@ export default function OrderElements() {
       <Header />
       <img alt="HeaderImage" src="/banner.png" width='100%' />
       {/* End hero unit */}
-      <Container maxWidth="md" component="main">
-        <Typography variant="h2" my={3}>
+      <Container maxWidth="md" my={5} component="main">
+        <Typography variant="h2" my={5}>
           Mis ordenes
         </Typography>
         <Grid container spacing={5} alignItems="flex-end">

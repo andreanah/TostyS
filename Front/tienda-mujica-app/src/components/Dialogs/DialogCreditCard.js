@@ -34,7 +34,17 @@ const styles = (theme) => ({
     root: {
         margin: 0,
         padding: theme.spacing(2),
-    },
+    },marginForm: {
+        '& .MuiTextField-root': {
+          marginTop: theme.spacing(2),
+        },
+        '& .MuiFormControl-root':{
+          marginTop: theme.spacing(2),
+        },
+        '& .MuiButton-root':{
+          marginTop: theme.spacing(2),
+        },
+      },
     closeButton: {
         position: 'absolute',
         right: theme.spacing(1),
@@ -72,9 +82,20 @@ function getModalStyle() {
 }
 
 const useStyles = makeStyles((theme) => ({
-    // table: {
-    //     minWidth: 700,
-    // },
+    table: {
+        minWidth: 700,
+    },
+    marginForm: {
+        '& .MuiTextField-root': {
+          marginTop: theme.spacing(2),
+        },
+        '& .MuiFormControl-root':{
+          marginTop: theme.spacing(2),
+        },
+        '& .MuiButton-root':{
+          marginTop: theme.spacing(2),
+        },
+      },
     paper: {
         position: 'absolute',
         backgroundColor: theme.palette.background.paper,
@@ -227,9 +248,9 @@ function DialogCreditCard({ children }) {
     };
 
     const bodyModal = (
-        <div>
+        <div style={modalStyle} className={classes.paper}>
             <Typography variant="h6">{isUpdate ? "Editar" : "Crear"}</Typography>
-            <form onSubmit={formatSubmit}>
+            <form className={classes.marginForm} onSubmit={formatSubmit}>
                 <TextField
                     name="CreditCardNumber"
                     label="Tarjeta de Crédito"

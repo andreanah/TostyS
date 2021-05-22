@@ -73,6 +73,17 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
   },
+  marginForm: {
+    '& .MuiTextField-root': {
+      marginTop: theme.spacing(2),
+    },
+    '& .MuiFormControl-root':{
+      marginTop: theme.spacing(2),
+    },
+    '& .MuiButton-root':{
+      marginTop: theme.spacing(2),
+    },
+  },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
   },
@@ -174,13 +185,12 @@ export default function Profile() {
   const bodyModal = (
     <div style={modalStyle} className={classes.paper}>
       <Typography variant="h6">Editar usuario</Typography>
-      <form onSubmit={submitUser}>
+      <form className ={classes.marginForm} onSubmit={submitUser}>
         <TextField
           name="Name"
           label="Nombre"
           variant="outlined"
           fullWidth
-          className={classes.marginForm}
           required
           inputProps={{ maxLength: 50 }}
           value={user.Name}
@@ -190,7 +200,6 @@ export default function Profile() {
           label="Teléfono"
           variant="outlined"
           fullWidth
-          className={classes.marginForm}
           required
           inputProps={{ maxLength: 10, minLength: 10 }}
           value={user.PhoneNumber}
@@ -200,7 +209,6 @@ export default function Profile() {
           label="Email"
           variant="outlined"
           fullWidth
-          className={classes.marginForm}
           required
           type="email"
           inputProps={{ maxLength: 64 }}

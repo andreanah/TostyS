@@ -34,7 +34,17 @@ const styles = (theme) => ({
     root: {
         margin: 0,
         padding: theme.spacing(2),
-    },
+    },marginForm: {
+        '& .MuiTextField-root': {
+          marginTop: theme.spacing(2),
+        },
+        '& .MuiFormControl-root':{
+          marginTop: theme.spacing(2),
+        },
+        '& .MuiButton-root':{
+          marginTop: theme.spacing(2),
+        },
+      },
     closeButton: {
         position: 'absolute',
         right: theme.spacing(1),
@@ -144,14 +154,13 @@ function DialogShoppingCart({idProduct}) {
         <Fragment>
             <div>
                 <Typography variant="h6">Agregar al carrito</Typography>
-                <form onSubmit={formatSubmit}>
+                <form className={classes.marginForm} onSubmit={formatSubmit}>
                     <TextField
                         name="Quantity"
                         label="Cantidad"
                         variant="outlined"
                         fullWidth
                         type="text"
-                        className={classes.marginForm}
                         required
                         inputProps={{ maxLength: 5, minLength: 1 }}
                         value={shoppingCart?.Quantity}
