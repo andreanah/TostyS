@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import {
   Table,
   TableBody,
@@ -53,6 +53,17 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 700,
   },
+  marginForm: {
+    '& .MuiTextField-root': {
+      marginTop: theme.spacing(2),
+    },
+    '& .MuiFormControl-root':{
+      marginTop: theme.spacing(2),
+    },
+    '& .MuiButton-root':{
+      marginTop: theme.spacing(2),
+    },
+  },
   paper: {
     position: 'absolute',
     width: 400,
@@ -65,6 +76,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EditArtist() {
   const classes = useStyles();
+  const theme = useTheme();
+
   const [modalStyle] = useState(getModalStyle);
   var alert = useAlert();
 
@@ -160,15 +173,15 @@ export default function EditArtist() {
   const bodyModal = (
     <div style={modalStyle} className={classes.paper}>
       <Typography variant="h6">{isUpdate ? "Editar" : "Crear"}</Typography>
-      <form onSubmit={formatSubmit}>
+      <form className={classes.marginForm} onSubmit={formatSubmit}>
         <TextField
           name="StageName"
           label="Nombre artístico"
           variant="outlined"
           fullWidth
-          className={classes.marginForm}
           required
-          inputProps={{ maxLength: 50 }}
+          inputProps={{ maxLength: 50 ,          
+          }}
           value={artist.StageName}
           onChange={handleChange}
         />
@@ -177,9 +190,8 @@ export default function EditArtist() {
           label="Nombre real"
           variant="outlined"
           fullWidth
-          className={classes.marginForm}
           required
-          inputProps={{ maxLength: 50 }}
+          inputProps={{ maxLength: 50}}
           value={artist.RealName}
           onChange={handleChange}
         />
@@ -188,7 +200,6 @@ export default function EditArtist() {
           label="Descripción"
           variant="outlined"
           fullWidth
-          className={classes.marginForm}
           inputProps={{ maxLength: 50 }}
           required
           value={artist.Description}

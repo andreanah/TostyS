@@ -82,6 +82,17 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 700,
   },
+  marginForm: {
+    '& .MuiTextField-root': {
+      marginTop: theme.spacing(2),
+    },
+    '& .MuiFormControl-root':{
+      marginTop: theme.spacing(2),
+    },
+    '& .MuiButton-root':{
+      marginTop: theme.spacing(2),
+    },
+  },
   paper: {
     position: 'absolute',
     width: 400,
@@ -300,13 +311,12 @@ export default function EditProduct() {
   const bodyModal = (
     <div style={modalStyle} className={classes.paper}>
       <Typography variant="h6">{isUpdate ? "Editar" : "Crear"}</Typography>
-      <form onSubmit={formatSubmit}>
+      <form className={classes.marginForm} onSubmit={formatSubmit}>
         <TextField
           name="Name"
           label="Nombre"
           variant="outlined"
           fullWidth
-          className={classes.marginForm}
           required
           inputProps={{ maxLength: 50 }}
           value={product.Name}
@@ -318,7 +328,6 @@ export default function EditProduct() {
           label="Precio"
           variant="outlined"
           fullWidth
-          className={classes.marginForm}
           required
           inputProps={{ maxLength: 6 }}
           value={product.Price}
@@ -329,7 +338,6 @@ export default function EditProduct() {
           label="Descripción"
           variant="outlined"
           fullWidth
-          className={classes.marginForm}
           inputProps={{ maxLength: 128 }}
           required
           value={product.Description}
@@ -397,6 +405,8 @@ export default function EditProduct() {
         <br />
 
         <input id="image" type="file" onChange={handleChangeImage}></input>
+
+        <br/>
 
         <Button type="submit" color="primary" variant="contained" className={classes.marginForm}>Submit</Button>
       </form>

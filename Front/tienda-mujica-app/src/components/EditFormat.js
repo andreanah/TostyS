@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import {
   Table,
   TableBody,
@@ -53,6 +53,17 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 700,
   },
+  marginForm: {
+    '& .MuiTextField-root': {
+      marginTop: theme.spacing(2),
+    },
+    '& .MuiFormControl-root':{
+      marginTop: theme.spacing(2),
+    },
+    '& .MuiButton-root':{
+      marginTop: theme.spacing(2),
+    },
+  },
   paper: {
     position: 'absolute',
     width: 400,
@@ -65,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EditFormat() {
   const classes = useStyles();
+  const theme = useTheme();
   const [modalStyle] = useState(getModalStyle);
   var alert = useAlert();
 
@@ -157,13 +169,12 @@ export default function EditFormat() {
   const bodyModal = (
     <div style={modalStyle} className={classes.paper}>
       <Typography variant="h6">{isUpdate ? "Editar" : "Crear"}</Typography>
-      <form onSubmit={formatSubmit}>
+      <form className={classes.marginForm} onSubmit={formatSubmit}>
         <TextField
           name="Type"
           label="Tipo"
           variant="outlined"
           fullWidth
-          className={classes.marginForm}
           required
           inputProps={{ maxLength: 15 }}
           value={format.Type}
@@ -174,14 +185,13 @@ export default function EditFormat() {
           label="Codigo"
           variant="outlined"
           fullWidth
-          className={classes.marginForm}
           required
           inputProps={{ maxLength: 3 }}
           value={format.TypeCode}
           onChange={handleChange}
         />
         <br />
-        <Button type="submit" color="primary" variant="contained" className={classes.marginForm}>Submit</Button>
+        <Button type="submit" color="primary" variant="contained">Submit</Button>
       </form>
     </div>
   )

@@ -1,26 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  Card,
   Container,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Button,
   Typography,
   AppBar,
   Toolbar,
-  IconButton,
-  InputBase,
   Grid,
   Box,
 } from '@material-ui/core/';
 
 import ProductCard from "../components/Cards/ProductCard"
-
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 
 import Header from './Header';
 import Footer from './BottomNav';
@@ -170,22 +159,14 @@ export default function ProductsDisplay() {
                 </Typography>
               </Container>
             ))}
-            <div className={classes.search}>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </div>
-
           </Toolbar>
         </AppBar>
+        <Typography my={3} variant="h2">
+            {(genres?.find(x => x.id == id)?.genreName)||"Todos los productos"}
+          </Typography>
       </div>
 
-      <Box mt={3}>
+      <Box mt={3} >
         <Child products={products} />
       </Box>
 
@@ -198,9 +179,9 @@ export default function ProductsDisplay() {
 const Child = ({ products }) => {
   const classes = useStyles();
   return (
-    <Grid ml={0} container spacing={3} >
+    <Grid ml={0} style={{width:"100%"}} container spacing={3} >
       {products?.map((product, index) => (
-        <Grid item xs={3} key={index}>
+        <Grid item xs={12} md={3} key={index}>
           <ProductCard product={product} />
         </Grid>
       ))}

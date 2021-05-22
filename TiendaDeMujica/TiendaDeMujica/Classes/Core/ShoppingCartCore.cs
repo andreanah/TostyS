@@ -58,7 +58,7 @@ namespace TiendaDeMujica.Classes.Core
                     }
                     else
                     {
-                        shoppingCartGet.Quantity = shoppingCartGet.Quantity + shoppingCart.Quantity;
+                        shoppingCartGet.Quantity = shoppingCart.Quantity;
 
                         dBContext.Attach(shoppingCartGet);
 
@@ -86,7 +86,7 @@ namespace TiendaDeMujica.Classes.Core
                 bool existingUser = dBContext.User.Any(user => user.Id == idUser);
                 bool existingAddress = dBContext.Address.Any(user => user.Id == idAddress);
 
-                if (existingAddress && existingAddress)
+                if (existingAddress && existingUser)
                 {
 
                     List<ShoppingCartProductsModel> shoppingCartProducts = (
@@ -116,7 +116,7 @@ namespace TiendaDeMujica.Classes.Core
                         IdUser = idUser,
                         Total = total,
                         Active = true,
-                        Status = "Finalizado"
+                        Status = "Confirmar entregar"
                     };
 
                     dBContext.Add(order);
@@ -170,6 +170,7 @@ namespace TiendaDeMujica.Classes.Core
                         dBContext.Attach(shoppingCart);
 
                         dBContext.Entry(shoppingCart).Property("Quantity").IsModified = true;
+                        dBContext.Entry(shoppingCart).Property("IdFormat").IsModified = true;
 
                         dBContext.SaveChanges();
                     }

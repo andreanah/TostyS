@@ -227,7 +227,7 @@ function DialogCreditCard({ children }) {
     };
 
     const bodyModal = (
-        <div style={modalStyle} className={classes.paper}>
+        <div>
             <Typography variant="h6">{isUpdate ? "Editar" : "Crear"}</Typography>
             <form onSubmit={formatSubmit}>
                 <TextField

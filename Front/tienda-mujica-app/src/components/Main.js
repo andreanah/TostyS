@@ -1,20 +1,7 @@
 import Header from './Header';
 import React, { useState, useEffect, Fragment } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { shadows } from '@material-ui/system';
-import IconButton from '@material-ui/core/IconButton';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
 import Footer from './BottomNav';
 
 import ProductCard from '../components/Cards/ProductCard'
@@ -63,7 +50,7 @@ export default function MainPageElements() {
             var res = await GetProducts();
 
             if (!res.isAxiosError) {
-                const productRes = res;
+                var productRes = res;
 
                 if (productRes.length > numberCards) {
                     productRes = productRes.slice(0, numberCards)
@@ -101,8 +88,8 @@ export default function MainPageElements() {
                 </Fragment>
             ))}
 
-            <img alt="Image2" src="./title2.png" width='100%' />
-            <img alt="Albums" src="./albums.png" width='100%' />
+            <img alt="Image2" src="/title2.png" width='100%' />
+            <img alt="Albums" src="/albums.png" width='100%' />
 
             {products.map((product, index) => (
                 <Fragment key={index}>
@@ -111,7 +98,7 @@ export default function MainPageElements() {
                     </Grid>
                 </Fragment>
             ))}
-            <img alt="HotSale" src="./HOTSALE.png" width='100%' />
+            <img alt="HotSale" src="/HOTSALE.png" width='100%' />
 
             {products.map((product, index) => (
                 <Fragment key={index}>
@@ -120,7 +107,7 @@ export default function MainPageElements() {
                     </Grid>
                 </Fragment>
             ))}
-            <img alt="HotSale" src="./aaa.png" width='100%' />
+            <img alt="HotSale" src="/aaa.png" width='100%' />
             <Footer />
 
         </Grid>

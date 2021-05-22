@@ -19,6 +19,7 @@ import { GetProduct } from '../api/ProductAPI'
 import {
   useParams
 } from "react-router-dom";
+import DialogShoppingCart from './Dialogs/DialogShoppingCart';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -107,11 +108,7 @@ export default function ProductShowcase() {
                 ))}
               </Grid>
               <Grid item>
-                <ButtonBase >
-                  <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                    Agregar al carrito
-                      </Typography>
-                </ButtonBase>
+                <DialogShoppingCart idProduct={product.idProduct}></DialogShoppingCart>
               </Grid>
             </Grid>
             <Grid item>

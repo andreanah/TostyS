@@ -81,7 +81,7 @@ namespace TiendaDeMujica.Controllers
             {
                 // 1. Revisar que  el username / email exista en la base de datos
                 User user = await _userManager.FindByNameAsync(loginModel.UserName);
-                if (user != null)
+                if (user != null && user.Active)
                 {
                     // 2. Verificar que la contraseña corresponde a la del usuario
                     var passwordCheck = await _signInManager.CheckPasswordSignInAsync(user, loginModel.Password, false);

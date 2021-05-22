@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(3, 2, 2),
   },
 }));
 
@@ -92,7 +92,7 @@ export default function SignUp() {
                 autoComplete="fname"
                 name="Name"
                 variant="outlined"
-                value = {user?.Name}
+                value={user?.Name}
                 required
                 fullWidth
                 inputProps={{ maxLength: 50 }}
@@ -107,7 +107,7 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                value = {user?.UserName}
+                value={user?.UserName}
                 id="UserName"
                 inputProps={{ maxLength: 15 }}
                 label="Username"
@@ -122,7 +122,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="email"
-                value = {user?.Email}
+                value={user?.Email}
                 label="Email"
                 name="Email"
                 autoComplete="email"
@@ -135,7 +135,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 name="PhoneNumber"
-                value = {user?.PhoneNumber}
+                value={user?.PhoneNumber}
                 label="Número telefónico"
                 inputProps={{ maxLength: 10, minlength: 10 }}
                 type="text"
@@ -150,7 +150,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 name="Password"
-                value = {user?.Password}
+                value={user?.Password}
                 label="Contraseña"
                 inputProps={{ maxLength: 15, minlength: 4 }}
                 type="password"
@@ -159,14 +159,10 @@ export default function SignUp() {
                 onChange={handleChange}
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
           </Grid>
+          <br/>
           <Button
+            py={1}
             type="submit"
             fullWidth
             variant="contained"
@@ -177,7 +173,7 @@ export default function SignUp() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
