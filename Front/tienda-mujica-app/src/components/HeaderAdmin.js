@@ -14,6 +14,7 @@ import Menu from '@material-ui/core/Menu';
 import Link from '@material-ui/core/Link';
 import Profile from '../components/Profile';
 
+import { useLocation } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HeaderAdmin() {
   const classes = useStyles();
+  const location = useLocation();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -55,13 +57,27 @@ export default function HeaderAdmin() {
       <AppBar position="static" style={{ background: '#000000' }} >
         <Toolbar>
           
-      
-
         <Typography variant="h6" className={classes.title}>
-            <Link href="/admin"  color="inherit">
-              INICIO
+            <Link href="/MainPage"  color="inherit">
+              Pagina Principal
             </Link>
           </Typography>
+
+          <Typography variant="h6" className={classes.title}>
+            <Link href="/admin/Reports"  color="inherit">
+              Reportes
+            </Link>
+          </Typography>
+
+
+          {(location.pathname!="/admin")?
+          <Typography variant="h6" className={classes.title}>
+            <Link href="/admin"  color="inherit">
+              Administrador
+            </Link>
+          </Typography>:""
+          }
+          
          
         </Toolbar>
       </AppBar>
