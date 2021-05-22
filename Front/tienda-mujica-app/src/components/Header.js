@@ -1,19 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Link from '@material-ui/core/Link';
-import Profile from '../components/Profile';
 
+import { GetRole } from './../api/UserAPI'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,13 +21,27 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
-  AppBar:{
+  AppBar: {
     padding: 5,
   },
- 
+
 }));
 
 export default function MenuAppBar() {
+  const [role, setRole] = useState("User")
+
+  useEffect(() => {
+
+    async function fetchData() {
+      var res = await GetRole();
+      if (!res.isAxiosError) {
+        setRole(res)
+      }
+    }
+
+    fetchData();
+  }, []);
+
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -57,32 +67,40 @@ export default function MenuAppBar() {
   const preventDefault = (event) => event.preventDefault();
   return (
     <div className={classes.root}>
-      
+
       <AppBar position="static" style={{ background: '#000000' }} >
         <Toolbar>
-          
-      
 
-        <Typography variant="h6" className={classes.title}>
-            <Link href="/MainPage"  color="inherit">
+          {
+            (role=="Admin")?(<Typography variant="h6" className={classes.title}>
+            <Link href="/admin" color="inherit">
+              Admin
+            </Link>
+          </Typography>):""
+          }
+
+          <Typography variant="h6" className={classes.title}>
+            <Link href="/MainPage" color="inherit">
               Principal
             </Link>
           </Typography>
+          
+          
           <Typography variant="h6" className={classes.title}>
-            <Link href="/Products"  color="inherit">
+            <Link href="/Products" color="inherit">
               Productos
             </Link>
           </Typography>
 
-          
+
 
           <Typography variant="h6" className={classes.title}>
-            <Link href="/ShoppingCart"  color="inherit">
+            <Link href="/ShoppingCart" color="inherit">
               Cart
             </Link>
           </Typography>
           <Typography variant="h6" className={classes.title}>
-            <Link href="/MyOrders"  color="inherit">
+            <Link href="/MyOrders" color="inherit">
               Mis Ordenes
             </Link>
           </Typography>
