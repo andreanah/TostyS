@@ -23,7 +23,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Tienda de Mujica
+        Tosty Shop
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -101,7 +101,7 @@ export default function Checkout() {
       <AppBar position="absolute" color="transparent" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h2" color="inherit"  style={{ marginLeft: "40%", color:"white"}} noWrap>
-            Tienda de Mujica
+            Tosty Shop
           </Typography>
         </Toolbar>
       </AppBar>

@@ -63,7 +63,6 @@ export default function SignUp() {
     })
     console.log(name, value);
   }
-
   const submitUser = async (e) => {
     e.preventDefault();
     var res = await SignUpUser(user);
@@ -74,6 +73,7 @@ export default function SignUp() {
       alert.error(res.response.data)
     }
   }
+  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -185,4 +185,5 @@ export default function SignUp() {
       </Box>
     </Container>
   );
+ 
 }

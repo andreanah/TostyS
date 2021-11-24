@@ -111,13 +111,13 @@ export default function Footer() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          Tienda de Mujica es una tienda online que se encarga de distribuir contenido digital y físico a todo México.
+          Tosty Shop es una tienda online que se encarga de distribuir contenido digital y físico a todo México.
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          Dudas y aclaraciones, servicioalcliente@tiendademujica.com
+          Dudas y aclaraciones, servicioalcliente@tshop.com
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-        Contacto: 811547854, contacto@tiendademujica.com
+        Contacto: 811547854, contacto@tshop.com
         </TabPanel>
       </SwipeableViews>
       

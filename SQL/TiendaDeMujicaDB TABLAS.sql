@@ -17,6 +17,8 @@ GO
 USE TiendaDeMujicaDB;
 GO
 
+
+
 IF OBJECT_ID('dbo.[User]', 'U') IS NOT NULL
 	DROP TABLE dbo.[User];
 GO

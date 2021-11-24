@@ -16,9 +16,9 @@ import OrderElements from './components/MyOrders';
 import ProductsDisplay from './components/Products';
 import MainPageElements from './components/Main';
 import Profile from './components/Profile';
-import ProductCreate from './components/product/Create';
+
 import ShoppingCart from './components/ShoppingCart';
-import ViewProducts from './components/ViewProducts';
+
 import PrivateRoute from './PrivateRouter';
 
 import {
@@ -56,8 +56,7 @@ function App() {
             )}
           />
           <PrivateRoute path='/Checkout/Checkout' component={Checkout} />
-          <PrivateRoute path='/product/view' component={ViewProducts} />
-          <PrivateRoute path='/product/create' component={ProductCreate} />
+          
           <PrivateRoute path='/Header' component={Login} />
           <PrivateRoute path='/ShoppingCart' component={ShoppingCart} />
           <PrivateRoute path='/Profile' component={Profile} />

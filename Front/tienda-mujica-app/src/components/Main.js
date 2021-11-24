@@ -76,20 +76,14 @@ export default function MainPageElements() {
 
             <Header />
 
-            <img alt="HeaderImage" src="/banner.png" width='100%' />
+            <img alt="HeaderImage" src="/4.png" width='100%' />
             <img alt="HeaderImage" src="/HEADER.png" width='100%' />
-            <img alt="Image" src="/title.png" width='100%' />
+            <img alt="Image" src="/Captura.png" width='100%' />
 
-            {products.map((product, index) => (
-                <Fragment key={index}>
-                    <Grid item xs={3} p={0}>
-                        <ProductCard product={product} />
-                    </Grid>
-                </Fragment>
-            ))}
+                       
 
-            <img alt="Image2" src="/title2.png" width='100%' />
-            <img alt="Albums" src="/albums.png" width='100%' />
+            <img alt="Image2" src="/Captura2.png" width='100%' />
+            <img alt="Albums" src="/5.png" width='100%' />
 
             {products.map((product, index) => (
                 <Fragment key={index}>

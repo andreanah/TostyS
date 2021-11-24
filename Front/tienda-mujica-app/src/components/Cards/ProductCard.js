@@ -94,7 +94,7 @@ export default function ProductCard({ product }) {
             </CardContent>
         </CardActionArea>
         <CardActions>
-            <DialogShoppingCart idProduct={product.idProduct}></DialogShoppingCart>
+            <DialogShoppingCart idProduct={product?.idProduct}></DialogShoppingCart>
         </CardActions>
     </Card>
     )
